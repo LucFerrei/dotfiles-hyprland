@@ -1,0 +1,3 @@
+[submodule "nvim/pack/vendor/start/rose-pine"]
+    path = nvim/pack/vendor/start/rose-pine
+    url = https://github.com/rose-pine/neovim.git 

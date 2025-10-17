@@ -1,0 +1,41 @@
+\ProvidesPackage{preambulo}
+\usepackage{geometry}
+\geometry{a4paper, total={6in, 8in}, footnotesep=5cm}
+\usepackage[utf8]{inputenc}
+\usepackage[brazilian]{babel}
+\usepackage{cancel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage{amsfonts}
+\usepackage{enumerate}[a.]
+\usepackage{graphicx}
+\usepackage{subcaption}     
+\DeclareMathOperator{\mdc}{mdc}
+\DeclareMathOperator{\mmc}{mmc}
+\usepackage{amsthm}
+\usepackage{verbatim} %use \begin comment para iniciar um ambiente para comentários longos
+\usepackage{indentfirst}
+\usepackage{multicol} %listas em múltiplas colunas, basta iniciar um ambiente (\begin{multicols}[numero de colunas])
+\usepackage{varwidth} %minipáginas
+\usepackage{stackrel}
+\usepackage{xcolor}
+%\newcommand\qedsymbol{$\blacksquare$}
+\theoremstyle{plain}
+\newtheorem{prop}{Proposição}
+\newtheorem{lema}{Lema}[section]
+\newtheorem{teo}{Teorema}[section]
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\?}{\stackrel{?}{\implies}}
+%\newcommand{\int_asd}{\stackrel{?}{\implies}}
+
+\theoremstyle{definition}
+\newtheorem*{def*}{Definição}
+\newtheorem{ex}{}
+\newtheorem{exemp}{Exemplo}[section]
+\newtheorem*{solucao}{Solução}
+\newtheorem{coro}{Corolário}[section]

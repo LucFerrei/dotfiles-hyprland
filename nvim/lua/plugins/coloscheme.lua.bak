@@ -1,0 +1,16 @@
+return {
+  -- 1. Adicionar o plugin Rose Pine
+  { "rose-pine/neovim", name = "rose-pine" },
+
+  -- 2. Configurar o LazyVim para usar o esquema de cores
+  {
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "rose-pine-main",
+      -- Se quiser uma variante (moon ou dawn), mude para:
+      -- colorscheme = "rose-pine-main",
+      -- ou
+      -- colorscheme = "rose-pine-main",
+    },
+  },
+}
