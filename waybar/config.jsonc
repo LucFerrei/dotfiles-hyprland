@@ -28,7 +28,8 @@
   ],
   /* === Modules Left === */
   "custom/archicon": {
-    "format": "",
+    // "format": "",
+    "format": "󱎂",
     "on-click": "wofi --show drun",
     "tooltip": false
   },
