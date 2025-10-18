@@ -48,17 +48,17 @@
   "memory": {
     "format": "{}% 󰍛",
     "tooltip": true,
-    "tooltip-format": "RAM en uso: {used} / {total} ({percentage}%)"
+    "tooltip-format": "RAM em uso: {used} / {total} ({percentage}%)"
   },
   "disk": {
     "format": "{percentage_free}% ",
     "tooltip": true,
-    "tooltip-format": "Espacio libre: {free} / {total} ({percentage_free}%)"
+    "tooltip-format": "Espaço livre: {free} / {total} ({percentage_free}%)"
   },
   "temperature": {
     "format": "{temperatureC}°C {icon}",
     "tooltip": true,
-    "tooltip-format": "Temperatura actual: {temperatureC}°C\nCrítico si > 80°C",
+    "tooltip-format": "Temperatura atual: {temperatureC}°C\nCrítico > 80°C",
     "format-icons": [
       ""
     ]
