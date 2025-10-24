@@ -23,7 +23,8 @@
     /*"idle_inhibitor",*/
     /*pulseaudio/slider",*/
     "pulseaudio",
-    /*"network",*/
+    "bluetooth",
+    "network",
     "hyprland/language"
   ],
   /* === Modules Left === */
@@ -127,5 +128,9 @@
     "on-click": "hyprctl switchxkblayout at-translated-set-2-keyboard next",
     "format-es": "ESP",
     "format-en": "ENG"
-  }
+  },
+  "bluetooth":{
+    "on-click": "blueman-manager"
+
+}
 }
