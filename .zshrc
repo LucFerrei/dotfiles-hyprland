@@ -211,3 +211,4 @@ alias nvim_noite="alterar_texto ~/dotfiles/nvim/lua/plugins/coloscheme.lua rose-
 alias hypr="nvim $HOME/dotfiles/hypr/"
 
 eval "$(starship init zsh)"
+nerdfetch
