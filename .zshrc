@@ -212,3 +212,12 @@ alias hypr="nvim $HOME/dotfiles/hypr/"
 
 eval "$(starship init zsh)"
 nerdfetch
+
+# Alias básico para substituir 'ls' e incluir ícones, detalhes e arquivos ocultos
+alias ls='eza -lha --icons --git'
+
+# Alias para lista longa (como o 'll' tradicional)
+alias ll='eza -lha --icons --git --group-directories-first'
+
+# Alias para visualização em árvore
+alias tree='eza -T --icons --git'
