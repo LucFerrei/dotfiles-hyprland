@@ -1,6 +1,6 @@
 #!/bin/bash
 
-dot_config_dir=("hypr" "nvim" "waybar" "xournalpp" "kitty")
+dot_config_dir=("hypr" "nvim" "waybar" "xournalpp" "kitty" "btop")
 dot_files_home=(".tmux.conf" ".zshrc")
 
 echo "----DOTFILES INSTALLING----"
