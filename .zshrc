@@ -214,7 +214,8 @@ eval "$(starship init zsh)"
 nerdfetch
 
 # Alias básico para substituir 'ls' e incluir ícones, detalhes e arquivos ocultos
-alias ls='eza -lha --icons --git'
+alias ls='eza --icons --git'
+alias la='eza -lha --icons --git'
 
 # Alias para lista longa (como o 'll' tradicional)
 alias ll='eza -lha --icons --git --group-directories-first'
