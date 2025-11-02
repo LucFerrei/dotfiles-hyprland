@@ -222,3 +222,4 @@ alias ll='eza -lha --icons --git --group-directories-first'
 
 # Alias para visualização em árvore
 alias tree='eza -T --icons --git'
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
