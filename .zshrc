@@ -4,6 +4,7 @@
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -70,7 +71,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git tmux python docker)
+plugins=(git tmux python docker zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -201,25 +202,22 @@ function latex_proj() {
     return 0
 }
 
-# --- Fim da Configuração de Cópia Personalizada ---
-
-alias nvim_dia="alterar_texto ~/dotfiles/nvim/lua/plugins/coloscheme.lua rose-pine-main rose-pine-dawn"
-#alias nvim_noite="alterar_texto ~/dotfiles/nvim/init.lua dawn moon"
-alias nvim_noite="alterar_texto ~/dotfiles/nvim/lua/plugins/coloscheme.lua rose-pine-dawn rose-pine-main"
-
-#hyrpland
-alias hypr="nvim $HOME/dotfiles/hypr/"
-
-eval "$(starship init zsh)"
-nerdfetch
-
 # Alias básico para substituir 'ls' e incluir ícones, detalhes e arquivos ocultos
-alias ls='eza --icons --git'
 alias la='eza -lha --icons --git'
+
+alias ls='eza -lh --icons --git'
 
 # Alias para lista longa (como o 'll' tradicional)
 alias ll='eza -lha --icons --git --group-directories-first'
 
 # Alias para visualização em árvore
 alias tree='eza -T --icons --git'
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+export FZF_DEFAULT_OPTS=" \
+--color=bg+:#313244,bg:#1E1E2E,spinner:#F5E0DC,hl:#F38BA8 \
+--color=fg:#CDD6F4,header:#F38BA8,info:#CBA6F7,pointer:#F5E0DC \
+--color=marker:#B4BEFE,fg+:#CDD6F4,prompt:#CBA6F7,hl+:#F38BA8 \
+--color=selected-bg:#45475A \
+--color=border:#6C7086,label:#CDD6F4"
+
+ eval "$(starship init zsh)"

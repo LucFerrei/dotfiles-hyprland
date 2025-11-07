@@ -13,7 +13,8 @@
     "cpu",
     "memory",
     "disk",
-    "temperature"
+    "temperature",
+    "battery"
   ],
   "modules-center": [
     "hyprland/workspaces"
@@ -36,10 +37,30 @@
   },
   "clock": {
     "timezone": "America/Sao_Paulo",
-    "format": "{:%H:%M  %d, %m}",
+    "format": " {:%H:%M}",
+    "format-alt": " {:%B %d, %Y}",
     "tooltip-format": "{calendar}",
+    // "on-click": "toggle",
+    // "calendar": {
+    //   "mode": "month"
+    // }
     "calendar": {
-      "mode": "month"
+        // Formato customizado para cada elemento do calendário
+        "format": {
+            // Estiliza o cabeçalho dos meses (Ano e Mês)
+            "months": "<span color='#ffead3'><b>{}</b></span>", 
+            
+            // Estiliza os dias do mês
+            "days": "<span color='#ecc6d9'>{}</span>", 
+            
+            // Estiliza o cabeçalho da semana (Dom, Seg, Ter...)
+            "weekdays": "<span color='#ffcc66'><b>{}</b></span>", 
+            
+            // Estiliza o dia de hoje (adiciona sublinhado e cor de destaque)
+            "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+        },
+        // Altera a posição dos números da semana (se ativado)
+        "weeks-pos": "right" 
     }
   },
   "cpu": {
@@ -56,6 +77,23 @@
     "format": "{percentage_free}% ",
     "tooltip": true,
     "tooltip-format": "Espaço livre: {free} / {total} ({percentage_free}%)"
+  },
+  "battery": {
+    // "bat": "BAT2",
+    "interval": 60,
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "events": {
+      "on-discharging-warning": "notify-send -u normal 'Low Battery'",
+      "on-discharging-critical": "notify-send -u critical 'Very Low Battery'",
+      "on-charging-100": "notify-send -u normal 'Battery Full!'"
+    },
+    "format": "{capacity}% {icon}",
+    "format-charging": " {capacity}%",
+    "format-icons": ["", "", "", "", ""],
+    "max-length": 50
   },
   "temperature": {
     "format": "{temperatureC}°C {icon}",
@@ -100,13 +138,13 @@
   },
   "pulseaudio/slider": {
     "format": "{volume}%",
-    "format-muted": " MUTE",
+    "format-muted": "MUTE",
     "step": 5,
     "tooltip": false
   },
   "pulseaudio": {
     "format": "{volume}% {icon}",
-    "format-muted": " {format_source}",
+    "format-muted": " 󰝟 ",
     "format-icons": {
       "default": [
         "",

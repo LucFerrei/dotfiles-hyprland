@@ -22,6 +22,7 @@ window#waybar.hidden {
 #cpu,
 #memory,
 #disk,
+#battery,
 #temperature,
 #idle_inhibitor,
 #pulseaudio,
@@ -61,29 +62,24 @@ window#waybar.hidden {
 /* Modules left */
 #custom-archicon {
   font-size: 20px;
-  color: #89B4FA;
-  background: #161320;
+  /* color: #89B4FA; */
+  /* background: #161320; */
   padding-right: 17px;
 }
 
 #clock {
-  background: #56949f;
 }
 
 #cpu {
-  background: #286983;
 }
 
 #memory {
-  background: #907aa9;
 }
 
 #disk {
-  background: #d7827e;
 }
 
 #temperature {
-  background: #ea9d34;
 }
 
 /* Modules center */
@@ -140,19 +136,16 @@ window#waybar.hidden {
 }
 
 #idle_inhibitor {
-  background: #B5E8E0;
   padding-right: 15px;
 }
 
 #pulseaudio {
   min-width: 55px;
-  color: #1A1826;
-  background: #f2e9e1;
+  /* color: #1A1826; */
 }
 
 #pulseaudio-slider {
-  color: #1A1826;
-  background: #b4637a;
+  /* color: #1A1826; */
   min-width: 50px;
 }
 
@@ -163,17 +156,14 @@ window#waybar.hidden {
 }
 
 #network {
-  background: #907aa9;
   padding-right: 13px;
 }
 
 #language {
-  background: #56949f;
   padding-right: 15px;
 }
 #bluetooth{
   /* color: #1A1826; */
-  background: #71A37A;
 }
 
 /* === Optional animation === */
