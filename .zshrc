@@ -3,6 +3,7 @@
 
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 
 # Set name of the theme to load --- if set to "random", it will
@@ -71,7 +72,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git tmux python docker zsh-autosuggestions)
+plugins=(git tmux python docker) 
 
 source $ZSH/oh-my-zsh.sh
 
