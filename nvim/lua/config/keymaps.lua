@@ -12,4 +12,4 @@ vim.keymap.set("i", "jk", "<Esc>", { noremap = true, silent = true, desc = "Sair
 
 vim.keymap.set("i", "kj", "<Esc>", { noremap = true, silent = true, desc = "Sair do Modo Inserção" })
 
-vim.keymap.set("n", "<leader>e", ":Neotree toggle<CR>", { desc = "Toggle Neo-tree" })
+vim.keymap.set("n", "<leader>e", ":Neotree toggle<CR>", { silent = true, desc = "Toggle Neo-tree" })

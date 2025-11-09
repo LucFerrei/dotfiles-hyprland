@@ -1,26 +1,23 @@
--- ~/.config/nvim/lua/plugins/rose_pine.lua
 return {
+  -- Add options to the rose-pine plugin
   {
     "rose-pine/neovim",
-    name = "rose-pine", -- Nome usado para o colorscheme
-    priority = 1000,    -- Garante que seja carregado cedo
+    name = "rose-pine",
     opts = {
-      -- Opções de Rosé Pine:
-      variant = "main",      -- Deixa o Rosé Pine escolher (dawn para claro, dark_variant para escuro)
-      dark_variant = "main", -- Define a variante escura como 'main'
-
-      -- O Rosé Pine usa 'dawn' automaticamente para o modo claro quando 'variant' é 'auto'
-
-      -- Exemplo de outras configurações (opcional):
+      variant = "moon",
       styles = {
-        bold = true,
-        italic = true,
+        -- Set the background to be transparent
+        -- Note: Your terminal emulator must also support transparency.
         transparency = true,
       },
     },
-    -- Carregue o colorscheme Rosé Pine no final da configuração
-    config = function()
-      vim.cmd("colorscheme rose-pine")
-    end,
+  },
+
+  -- 2. Configure LazyVim to use the colorscheme
+  {
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "rose-pine",
+    },
   },
 }
