@@ -162,7 +162,7 @@ function alterar_texto() {
 
 # Defina aqui o caminho da pasta de origem que é CONSTANTE
 # *MUDE ESTE CAMINHO* para o seu diretório real.
-PASTA_CONSTANTE_ORIGEM="/home/$USER/dotfiles/latex/" 
+PASTA_CONSTANTE_ORIGEM="$HOME/dotfiles-hyprland/latex/" 
 # Exemplo: PASTA_CONSTANTE_ORIGEM="/Users/seunome/Documentos/ProjetosAtivos"
 
 # Função: fazbackup
@@ -222,3 +222,7 @@ export FZF_DEFAULT_OPTS=" \
 --color=border:#6C7086,label:#CDD6F4"
 
  eval "$(starship init zsh)"
+
+#nvim theme config
+alias nvim_dia='nvim -c "NvimDia"'
+alias nvim_noite='nvim -c "NvimNoite"'
