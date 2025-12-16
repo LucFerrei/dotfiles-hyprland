@@ -3,7 +3,7 @@
 
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+# source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 
 # Set name of the theme to load --- if set to "random", it will
@@ -221,7 +221,7 @@ export FZF_DEFAULT_OPTS=" \
 --color=selected-bg:#45475A \
 --color=border:#6C7086,label:#CDD6F4"
 
- eval "$(starship init zsh)"
+ # eval "$(starship init zsh)"
 
 #nvim theme config
 alias nvim_dia='nvim -c "NvimDia"'
