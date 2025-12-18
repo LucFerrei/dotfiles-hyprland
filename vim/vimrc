@@ -1,0 +1,59 @@
+" Disable compatibility with vi which can cause unexpected issues.
+set nocompatible
+
+" Enable type file detection. Vim will be able to try to detect the type of file in use.
+filetype on
+
+" Enable plugins and load plugin for the detected file type.
+filetype plugin on
+
+" Load an indent file for the detected file type.
+filetype indent on
+
+" Turn syntax highlighting on.
+syntax on
+
+" Add numbers to each line on the left-hand side.
+set number
+
+" Add relative numbers to each line on the left-hand side.
+set relativenumber
+
+" Show matching words during a search.
+set showmatch
+
+" Use highlighting when doing a search.
+set hlsearch
+
+" Enable auto completion menu after pressing TAB.
+set wildmenu
+"
+" Set shift width to 4 spaces.
+set shiftwidth=4
+
+" Set tab width to 4 columns.
+set tabstop=4
+
+" MAPPINGS --------------------------------------------------------------- {{{
+
+let mapleader = " "
+
+inoremap jk <Esc>
+inoremap kj <Esc>
+
+nnoremap ; :
+
+" Toggle netrw sidebar with Ctrl+e
+nnoremap <leader>e :Lexplore<CR>
+
+nnoremap <leader>wh <C-w>h
+nnoremap <leader>wl <C-w>l
+
+nnoremap o o<esc>
+nnoremap O O<esc>
+
+" COLOR--------------------------------------------------------------- {{{
+set termguicolors
+let g:disable_bg = 1
+set background=dark
+colorscheme rosepine_moon
