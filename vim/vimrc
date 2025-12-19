@@ -43,17 +43,54 @@ inoremap kj <Esc>
 
 nnoremap ; :
 
-" Toggle netrw sidebar with Ctrl+e
-nnoremap <leader>e :Lexplore<CR>
+" NERDTree
+nnoremap <leader>e :NERDTreeToggle<CR>
+nnoremap <leader>pv :NERDTreeExplore<CR>
 
 nnoremap <leader>wh <C-w>h
 nnoremap <leader>wl <C-w>l
 
-nnoremap o o<esc>
-nnoremap O O<esc>
+" LSP
+" Ir para definição
+nmap <silent> gd <Plug>(coc-definition)
+" Ver referências (onde a variável é usada)
+nmap <silent> gr <Plug>(coc-references)
+" Renomear variável em todo o projeto
+nmap <leader>rn <Plug>(coc-rename)
+" Mostrar documentação ao passar o cursor (Hover)
+nnoremap <silent> K :call CocActionAsync('doHover')<CR>
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+"VIM PLUG --------------------------------------------------------------- {{{
+call plug#begin('~/.vim/plugged')
+
+Plug 'preservim/nerdtree'
+
+" List your plugins here
+Plug 'rose-pine/vim'
+Plug 'tpope/vim-sensible'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+"LSP
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+"autocomplete
+Plug 'tpope/vim-surround'
+Plug 'jiangmiao/auto-pairs'
+
+"Git
+Plug 'airblade/vim-gitgutter'
+
+call plug#end()
 
 " COLOR--------------------------------------------------------------- {{{
 set termguicolors
 let g:disable_bg = 1
 set background=dark
 colorscheme rosepine_moon
+
+" Start NERDTree, unless a file or session is specified, eg. vim -S session_file.vim.
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists('s:std_in') && v:this_session == '' | NERDTree | endif
