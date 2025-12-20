@@ -1,13 +1,33 @@
--- produtivity
+-- Produtivity
 vim.keymap.set("i", "jk", "<Esc>", { noremap = true, silent = true, })
+vim.keymap.set("i", "kj", "<Esc>", { noremap = true, silent = true, })
 vim.keymap.set("n", ";", ":", { noremap = true, })
+
+-- Telescope
+vim.keymap.set("n", "<leader>ff", "<Cmd>Telescope find_files<CR>", { noremap = true, silent = true, })
+vim.keymap.set("n", "<leader>fg", "<Cmd>Telescope git_files<CR>", { noremap = true, silent = true, })
+vim.keymap.set("n", "<leader>fb", "<Cmd>Telescope buffers<CR>", { noremap = true, silent = true, })
+vim.keymap.set("n", "<leader>fl", "<Cmd>Telescope live_grep<CR>", { noremap = true, silent = true, })
+
+-- LSP
+vim.keymap.set("n", "<leader>gr", vim.lsp.buf.rename, { noremap = true, silent = true, })
+vim.keymap.set("n", "<leader>F", vim.lsp.buf.format, { noremap = true, silent = true, })
 
 -- Neo-Tree & Oil
 vim.keymap.set("n", "<leader>e", ":Neotree toggle<CR>", { noremap = true, silent = true, })
 vim.keymap.set("n", "<leader>pv", ":Oil<CR>", { noremap = true, silent = true, })
 
--- window
-vim.keymap.set("n", "<leader>h", "<C-w>h", { noremap = true, silent = true, })
-vim.keymap.set("n", "<leader>j", "<C-w>j", { noremap = true, silent = true, })
-vim.keymap.set("n", "<leader>k", "<C-w>k", { noremap = true, silent = true, })
-vim.keymap.set("n", "<leader>l", "<C-w>l", { noremap = true, silent = true, })
+-- Buffers
+vim.keymap.set("n", "<leader>l", "<Cmd>bn<CR>", { noremap = true, silent = true, })
+vim.keymap.set("n", "<leader>h", "<Cmd>bp<CR>", { noremap = true, silent = true, })
+vim.keymap.set("n", "<leader>bd", "<Cmd>bd<CR>", { noremap = true, silent = true, })
+
+-- Window
+vim.keymap.set("n", "<leader>wh", "<C-w>h", { noremap = true, silent = true, })
+vim.keymap.set("n", "<leader>wj", "<C-w>j", { noremap = true, silent = true, })
+vim.keymap.set("n", "<leader>wk", "<C-w>k", { noremap = true, silent = true, })
+vim.keymap.set("n", "<leader>wl", "<C-w>l", { noremap = true, silent = true, })
+
+-- identation
+vim.keymap.set("v", ">", ">gv", { noremap = true, silent = true })
+vim.keymap.set("v", "<", "<gv", { noremap = true, silent = true })
