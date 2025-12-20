@@ -22,6 +22,18 @@ return {
     "neovim/nvim-lspconfig",
     dependencies = { "williamboman/mason-lspconfig.nvim" },
     config = function()
+	vim.lsp.config('lua_ls',{
+	    cmd = {'lua-language-server'},
+	    filetypes = {'lua'},
+	    root_markers = {'git', 'init.lua'},
+	    settings = {
+		Lua = {
+		    diagnostics = {globals = {'vim'}}
+		}
+	    },
+	})
+
+	vim.lsp.enable('lua_ls')
     end,
   },
 
