@@ -36,5 +36,10 @@ vim.keymap.set("n", "<leader>wk", "<C-w>k", { noremap = true, silent = true, })
 vim.keymap.set("n", "<leader>wl", "<C-w>l", { noremap = true, silent = true, })
 
 -- identation
+vim.keymap.set("n", ">", ">>", { noremap = true, silent = true })
+vim.keymap.set("n", "<", "<<", { noremap = true, silent = true })
 vim.keymap.set("v", ">", ">gv", { noremap = true, silent = true })
 vim.keymap.set("v", "<", "<gv", { noremap = true, silent = true })
+
+-- Render Markdown.nvim
+vim.keymap.set("n", "<leader><BS>", "<Cmd>RenderMarkdown buf_toggle<CR>", { noremap = true, silent = true })
