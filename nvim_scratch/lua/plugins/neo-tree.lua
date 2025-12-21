@@ -8,6 +8,10 @@ return {
   },
   config = function()
     require("neo-tree").setup({
+	window = {
+	    position = "left",
+	    width = 30,
+	},
       filesystem = {
         hijack_netrw_behavior = "open_default", -- Importante para não conflitar
         use_libuv_file_watcher = true,          -- Atualiza a árvore se o Oil mudar algo

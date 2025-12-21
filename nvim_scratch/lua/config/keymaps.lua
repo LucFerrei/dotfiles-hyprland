@@ -1,7 +1,14 @@
 -- Produtivity
+vim.keymap.set("n", ";", ":", { noremap = true, })
+--- moves
 vim.keymap.set("i", "jk", "<Esc>", { noremap = true, silent = true, })
 vim.keymap.set("i", "kj", "<Esc>", { noremap = true, silent = true, })
-vim.keymap.set("n", ";", ":", { noremap = true, })
+--- move lines (insert mode)
+vim.keymap.set("n", "m", "<Cmd>m+1<CR>", { noremap = true, silent = true, })
+vim.keymap.set("n", "m", "<Cmd>m+1<CR>", { noremap = true, silent = true, })
+--- move lines (visual mode)
+vim.keymap.set("v", "m", ":m '>+1<CR>gv=gv", { noremap = true, silent = true, })
+vim.keymap.set("v", "M", ":m '<-2<CR>gv=gv", { noremap = true, silent = true, })
 
 -- Telescope
 vim.keymap.set("n", "<leader>ff", "<Cmd>Telescope find_files<CR>", { noremap = true, silent = true, })
