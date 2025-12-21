@@ -25,9 +25,9 @@ vim.keymap.set("n", "<leader>e", ":Neotree toggle<CR>", { noremap = true, silent
 vim.keymap.set("n", "<leader>pv", ":Oil<CR>", { noremap = true, silent = true, })
 
 -- Buffers
-vim.keymap.set("n", "<leader>l", "<Cmd>bn<CR>", { noremap = true, silent = true, })
-vim.keymap.set("n", "<leader>h", "<Cmd>bp<CR>", { noremap = true, silent = true, })
-vim.keymap.set("n", "<leader>bd", "<Cmd>bd<CR>", { noremap = true, silent = true, })
+vim.keymap.set("n", "<leader>bl", "<Cmd>bn<CR>", { noremap = true, silent = true, })
+vim.keymap.set("n", "<leader>bh", "<Cmd>bp<CR>", { noremap = true, silent = true, })
+vim.keymap.set("n", "<leader>bd", "<Cmd>confirm bd<CR>", { noremap = true, silent = true, })
 
 -- Window
 vim.keymap.set("n", "<leader>wh", "<C-w>h", { noremap = true, silent = true, })
