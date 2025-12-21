@@ -3,6 +3,7 @@
 
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+export EDITOR=nvim
 # source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 
