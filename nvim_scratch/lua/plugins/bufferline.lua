@@ -3,8 +3,17 @@ return{
 	'akinsho/bufferline.nvim',
 	version = "*",
 	dependencies = 'nvim-tree/nvim-web-devicons',
-	opts = {
+	config = function ()
+	    require('bufferline').setup({
 	    options = {
+		offsets = {
+		    {
+			filetype = "neo-tree",
+			text = "File Explorer",
+			text_align = "left",
+			separator = true,
+		    }
+		},
 		indicator = {
 		    style = 'underline',
 		},
@@ -18,7 +27,7 @@ return{
 		show_close_icon = false,
 		diagnostics = "nvim_lsp",
 		always_show_bufferline = true,
-	    },
+		},
 	    highlights = {
 		indicator_selected = {
 		    fg = '#9ccfd8',
@@ -40,6 +49,7 @@ return{
 		    bg = '#232136',
 		},
 	    },
-	}
-    }
-}
+
+	    })
+    end
+}}
