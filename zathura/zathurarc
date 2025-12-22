@@ -1,0 +1,21 @@
+# --- Comportamento ---
+set selection-clipboard clipboard  # Copia texto selecionado para o clipboard do sistema
+set statusbar-home-tilde true      # Mostra ~ em vez de /home/usuario
+set window-title-basename true     # Mostra apenas o nome do arquivo na barra de título
+set adjust-open "width"            # Abre o livro ajustado à largura da janela
+
+set pages-per-row 1                # Uma página por vez
+set recolor                     "true"
+set recolor-keephue             "true"
+
+# Cores Gruvbox Dark
+set recolor-lightcolor          "#282828" # Fundo (bg0)
+set recolor-darkcolor           "#EBDBB2" # Texto (fg1)
+
+# Interface do Zathura acompanhando o tema
+set default-bg                  "#282828"
+set default-fg                  "#EBDBB2"
+set statusbar-bg                "#3C3836"
+set statusbar-fg                "#EBDBB2"
+set inputbar-bg                 "#282828"
+set inputbar-fg                 "#FABD2F" # Amarelo Gruvbox para destaque

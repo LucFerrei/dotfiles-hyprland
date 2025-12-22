@@ -6,6 +6,7 @@ export ZSH="$HOME/.oh-my-zsh"
 export EDITOR=nvim
 # source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+set -o vi
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time Oh My Zsh is loaded, in which case,

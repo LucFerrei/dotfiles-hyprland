@@ -22,7 +22,7 @@ vim.keymap.set("n", "<leader>F", vim.lsp.buf.format, { noremap = true, silent = 
 
 -- Neo-Tree & Oil
 vim.keymap.set("n", "<leader>e", ":Neotree toggle<CR>", { noremap = true, silent = true, })
-vim.keymap.set("n", "<leader>pv", ":Oil<CR>", { noremap = true, silent = true, })
+vim.keymap.set("n", "-", ":Oil<CR>", { noremap = true, silent = true, })
 
 -- Buffers
 vim.keymap.set("n", "<leader>bl", "<Cmd>bn<CR>", { noremap = true, silent = true, })
