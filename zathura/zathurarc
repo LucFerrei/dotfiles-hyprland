@@ -19,3 +19,6 @@ set statusbar-bg                "#3C3836"
 set statusbar-fg                "#EBDBB2"
 set inputbar-bg                 "#282828"
 set inputbar-fg                 "#FABD2F" # Amarelo Gruvbox para destaque
+
+# --- Keybinds ---
+map ; focus_inputbar
