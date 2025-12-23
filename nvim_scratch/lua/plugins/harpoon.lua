@@ -31,14 +31,14 @@ return{
       keys = function()
 	local keys = {
 	  {
-	    "<leader>a",
+	    "<leader>H",
 	    function()
 	      require("harpoon"):list():add()
 	    end,
 	    desc = "Harpoon File",
 	  },
 	  {
-	    "<C-e>",
+	    "<leader>h",
 	    function()
 	      local harpoon = require("harpoon")
 	      harpoon.ui:toggle_quick_menu(harpoon:list())
