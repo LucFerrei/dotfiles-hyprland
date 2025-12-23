@@ -43,3 +43,4 @@ vim.keymap.set("v", "<", "<gv", { noremap = true, silent = true })
 
 -- Render Markdown.nvim
 vim.keymap.set("n", "<leader><BS>", "<Cmd>RenderMarkdown buf_toggle<CR>", { noremap = true, silent = true })
+
