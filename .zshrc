@@ -9,7 +9,10 @@ export EDITOR=nvim
 # ZSH_THEME="simple"
 # ZSH_THEME="skaro"
 # ZSH_THEME="amuse"
-ZSH_THEME="jaischeema"
+# ZSH_THEME="nebirhos"
+# ZSH_THEME="quantum"
+# ZSH_THEME="kis"
+ZSH_THEME="daivasmara"
 
 zstyle ':omz:update' mode auto      # update automatically without asking
 
