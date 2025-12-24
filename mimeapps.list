@@ -1,5 +1,5 @@
 [Default Applications]
-; application/pdf=org.pwmt.zathura.desktop - i'm not sure if it's good enough to handle pdf
+application/pdf=org.pwmt.zathura.desktop
 application/pdf=org.kde.okular.desktop
 application/epub+zip=org.pwmt.zathura.desktop
 application/vnd.comicbook+zip=org.pwmt.zathura.desktop
@@ -7,4 +7,4 @@ application/x-cbz=org.pwmt.zathura.desktop
 application/x-cbr=org.pwmt.zathura.desktop
 
 [Added Associations]
-application/pdf=org.kde.okular.desktop;
+application/pdf=org.pwmt.zathura.desktop;
