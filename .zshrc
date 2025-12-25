@@ -9,6 +9,7 @@ ZSH_THEME="robbyrussell"
 # ZSH_THEME="amuse"
 
 zstyle ':omz:update' mode auto      # update automatically without asking
+setopt IGNORE_EOF
 
 plugins=(git tmux python docker vi-mode) 
 
@@ -16,7 +17,7 @@ source $ZSH/oh-my-zsh.sh
 
 # tmux-sessionizer
 export PATH="$HOME/dotfiles-hyprland/bin:$PATH"
-bindkey -s ^f "tmux-sessionizer\n"
+bindkey -s ^f '^u"tmux-sessionizer"\n'
 
 # Defina aqui o caminho da pasta de origem que é CONSTANTE
 # *MUDE ESTE CAMINHO* para o seu diretório real.

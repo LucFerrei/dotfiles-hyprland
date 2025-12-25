@@ -1,3 +1,3 @@
 #!/bin/sh
-ghostty -e btop
+kitty --hold btop
 exec /usr/bin/zsh
