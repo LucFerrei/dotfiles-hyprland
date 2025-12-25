@@ -5,14 +5,8 @@ export ZSH="$HOME/.oh-my-zsh"
 export EDITOR=nvim
 
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-# ZSH_THEME="robbyrussell"
-# ZSH_THEME="simple"
-# ZSH_THEME="skaro"
+ZSH_THEME="robbyrussell"
 # ZSH_THEME="amuse"
-# ZSH_THEME="nebirhos"
-# ZSH_THEME="quantum"
-# ZSH_THEME="kis"
-ZSH_THEME="daivasmara"
 
 zstyle ':omz:update' mode auto      # update automatically without asking
 
