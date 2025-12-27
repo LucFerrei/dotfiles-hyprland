@@ -3,7 +3,7 @@
 CONFIG_FILE="$HOME/.config/tmx/tmx.conf"
 DEFAULT_PATH=($HOME $HOME/personal/)
 WINDOWS=()
-COMANDDS=()
+COMMANDS=()
 
 have_config() {
     if [ -f "$CONFIG_FILE" ]; then
@@ -40,7 +40,7 @@ has_sessionizer() {
 get_attribute() {
     attribute=$1
     path="$2"
-    echo "path inside attribute $path"
+    # echo "path inside attribute $path"
 
     if has_sessionizer $path; then
 	raw_value=$(grep "^$attribute=" "$path/.sessionizer.conf" | cut -d'=' -f2)
@@ -52,7 +52,6 @@ get_attribute() {
 	return 1
     fi
 }
-
 
 # TODO: sanitize to remove last / if have
 # fix: it is not necessary. By default, dir in fzf does not have this list slash
@@ -91,9 +90,7 @@ create_or_attach_session() {
     session=$(get_session_name $path)
     has_session=$(tmux has-session -t "$session" 2>/dev/null)
     
-
     if in_tmux; then
-
 	if [ "$has_session" != 0 ]; then
 	    valid_path $path
 	    if [ $? != 0 ]; then
@@ -102,12 +99,9 @@ create_or_attach_session() {
 	    else
 		tmux new -s "$session" -c $path -d
 	    fi
-
 	fi
-
 	tmux switch-client -t "$session"
     else
-
 	if [ "$has_session" != 0 ]; then
 	    valid_path $path
 	    if [ $? != 0 ]; then
@@ -117,8 +111,16 @@ create_or_attach_session() {
 		tmux new-session -d -s "$session" -c "$path"
 	    fi
 	fi
-
 	tmux attach-session -t "$session"
+	if [[ $(get_attribute "windows" $path) || $(get_attribute "commands" $path) ]]; then
+	    for i in "${!WINDOWS[@]}"; do
+		echo "Window ${WINDOWS[$i]}" 
+		echo "Command ${COMMANDS[$i]}"
+		tmux neww -d -n "${WINDOWS[$i]}" "${COMMANDS[$i]}"
+	    done
+	else
+	    echo "nao executou"
+	fi
     fi
 }
 

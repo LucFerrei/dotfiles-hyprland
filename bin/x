@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 CONFIG_FILE="/home/lucas/tmx/tmx.conf"
-WINDOWS=()
-COMANDDS=()
+WINDOWS=("")
+COMMANDS=("glow")
 
 # have_config() {
 #     if [ -f "$CONFIG_FILE" ]; then
@@ -59,7 +59,7 @@ get_attribute() {
 	raw_value=$(grep "^$attribute=" "$path/.sessionizer.conf" | cut -d'=' -f2)
 	content="${raw_value:1:-1}"
 	read -r -a WINDOWS <<< "$content"
-	echo ${WINDOWS[@]}
+	# echo ${WINDOWS[@]}
     else
 	:
     fi
@@ -70,4 +70,13 @@ path="/home/lucas/personal/dotfiles-hyprland/bin"
 attribute="windows"
 
 # echo "^$attribute="
-get_attribute "windows" $path
+# get_attribute "commands" $path
+for comm in $COMMANDS; do
+    if [[ $comm == "" ]]; then
+	echo "sem comando"
+	continue
+    else
+	echo "eval"
+	eval $comm
+    fi
+done
