@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+CONFIG_FILE="/home/lucas/tmx/tmx.conf"
+
+# have_config() {
+#     if [ -f "$CONFIG_FILE" ]; then
+# 	return 0
+#     else
+# 	return 1
+#     fi
+# }
+#
+# in_tmux() {
+#     if [ -z $TMUX ]; then
+# 	return 0
+#     else
+# 	return 1
+#     fi
+# }
+# valid_path() {
+#     path=$1
+#
+#     if [[ -e  $path ]]; then
+# 	return 0
+#     else
+# 	return 1
+#     fi
+# }
+#
+# # have_config 
+# # in_tmux 
+# path=$(valid_path "/home/lucas/tmx/")
+#
+# if [[ $(have_config ) != 0 || $(is_tmux) != 0 || $(path) != 0 ]]; then
+#     echo "Algum processo falhou"
+# else 
+#     echo "deu tudo certo!"
+# fi
+#
+#read .sessionizer.conf
+has_sessionizer() {
+    path=$1
+    
+    if [ -f "$path/.sessionizer.conf" ]; then
+	echo "Tem arquivo"
+	return 0
+    else
+	echo "Não tem arquivo"
+	return 1
+    fi
+} 
+get_attribute() {
+    path=$1
+    attribute=$2
+}
+path="/home/lucas/personal/dotfiles-hyprland/bin"
+has_sessionizer "/home/lucas/personal/dotfiles-hyprland/bin"
+
+if [ $(has_sessionizer $path) ]; then
+
+
+
+
