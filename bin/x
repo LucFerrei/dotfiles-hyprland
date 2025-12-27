@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 CONFIG_FILE="/home/lucas/tmx/tmx.conf"
+WINDOWS=()
+COMANDDS=()
 
 # have_config() {
 #     if [ -f "$CONFIG_FILE" ]; then
@@ -49,14 +51,23 @@ has_sessionizer() {
     fi
 } 
 get_attribute() {
-    path=$1
-    attribute=$2
+    attribute=$1
+    path="$2"
+    echo "path inside attribute $path"
+
+    if has_sessionizer $path; then
+	raw_value=$(grep "^$attribute=" "$path/.sessionizer.conf" | cut -d'=' -f2)
+	content="${raw_value:1:-1}"
+	read -r -a WINDOWS <<< "$content"
+	echo ${WINDOWS[@]}
+    else
+	:
+    fi
 }
+#
 path="/home/lucas/personal/dotfiles-hyprland/bin"
-has_sessionizer "/home/lucas/personal/dotfiles-hyprland/bin"
+# has_sessionizer "/home/lucas/personal/dotfiles-hyprland/bin"
+attribute="windows"
 
-if [ $(has_sessionizer $path) ]; then
-
-
-
-
+# echo "^$attribute="
+get_attribute "windows" $path

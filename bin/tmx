@@ -2,6 +2,8 @@
 
 CONFIG_FILE="$HOME/.config/tmx/tmx.conf"
 DEFAULT_PATH=($HOME $HOME/personal/)
+WINDOWS=()
+COMANDDS=()
 
 have_config() {
     if [ -f "$CONFIG_FILE" ]; then
@@ -24,7 +26,36 @@ set_default_path() {
     fi
 }
 
+has_sessionizer() {
+    path=$1
+    
+    if [ -f "$path/.sessionizer.conf" ]; then
+	echo "Tem arquivo"
+	return 0
+    else
+	echo "Não tem arquivo"
+	return 1
+    fi
+} 
+get_attribute() {
+    attribute=$1
+    path="$2"
+    echo "path inside attribute $path"
+
+    if has_sessionizer $path; then
+	raw_value=$(grep "^$attribute=" "$path/.sessionizer.conf" | cut -d'=' -f2)
+	content="${raw_value:1:-1}"
+	read -r -a WINDOWS <<< "$content"
+	echo ${WINDOWS[@]}
+	return 0
+    else
+	return 1
+    fi
+}
+
+
 # TODO: sanitize to remove last / if have
+# fix: it is not necessary. By default, dir in fzf does not have this list slash
 get_session_name() {
     path=$1
     name=$(echo $1 | rev | cut -d'/' -f1,2 | rev)
@@ -59,6 +90,7 @@ create_or_attach_session() {
     path=$(fzf_dir)
     session=$(get_session_name $path)
     has_session=$(tmux has-session -t "$session" 2>/dev/null)
+    
 
     if in_tmux; then
 
