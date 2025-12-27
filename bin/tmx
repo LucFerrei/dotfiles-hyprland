@@ -1,0 +1,94 @@
+#!/usr/bin/env bash
+
+CONFIG_FILE="$HOME/.config/tmx/tmx.conf"
+DEFAULT_PATH=($HOME $HOME/personal/)
+
+have_config() {
+    if [ -f "$CONFIG_FILE" ]; then
+	return 0
+    else
+	return 1
+    fi
+}
+
+set_default_path() {
+    if have_config; then
+	# DEFAULT_PATH=$(grep "^path=" $HOME/personal/dotfiles-hyprland/tmx/tmx.conf| cut -d'=' -f2)
+	raw_value=$(grep "^path=" "$CONFIG_FILE" | cut -d'=' -f2)
+	content="${raw_value:1:-1}"
+	read -r -a DEFAULT_PATH <<< "$content"
+	echo "${DEFAULT_PATH[@]}"
+    else
+	echo "${DEFAULT_PATH[@]}"
+	return 0 
+    fi
+}
+
+# TODO: sanitize to remove last / if have
+get_session_name() {
+    path=$1
+    name=$(echo $1 | rev | cut -d'/' -f1,2 | rev)
+    echo "$name"
+}
+
+in_tmux() {
+    if [ -z $TMUX ]; then
+	return 1
+    else
+	return 0
+    fi
+}
+
+valid_path() {
+    path=$1
+
+    if [[ -e  $path ]]; then
+	return 0
+    else
+	return 1
+    fi
+}
+
+fzf_dir() {
+    find "${DEFAULT_PATH[@]}" -maxdepth 1 ! -name '.*' -type d | fzf
+}
+
+
+# TODO: create a layout file for each dir
+create_or_attach_session() {
+    path=$(fzf_dir)
+    session=$(get_session_name $path)
+    has_session=$(tmux has-session -t "$session" 2>/dev/null)
+
+    if in_tmux; then
+
+	if [ "$has_session" != 0 ]; then
+	    valid_path $path
+	    if [ $? != 0 ]; then
+		echo "Invalid path"
+		return 1
+	    else
+		tmux new -s "$session" -c $path -d
+	    fi
+
+	fi
+
+	tmux switch-client -t "$session"
+    else
+
+	if [ "$has_session" != 0 ]; then
+	    valid_path $path
+	    if [ $? != 0 ]; then
+		echo "Invalid path"
+		return 1
+	    else
+		tmux new-session -d -s "$session" -c "$path"
+	    fi
+	fi
+
+	tmux attach-session -t "$session"
+    fi
+}
+
+set_default_path 
+create_or_attach_session 

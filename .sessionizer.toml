@@ -1,0 +1,7 @@
+[[windows]]
+name = "nvim"
+command = "nvim ."
+
+[[windows]]
+name = "git"
+command = "lazygit"
