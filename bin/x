@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 CONFIG_FILE="/home/lucas/tmx/tmx.conf"
-WINDOWS=("")
-COMMANDS=("glow")
+declare -a WINDOWS
+declare -a COMMANDS
+# WINDOWS=("")
+# COMMANDS=()
 
 # have_config() {
 #     if [ -f "$CONFIG_FILE" ]; then
@@ -58,25 +60,53 @@ get_attribute() {
     if has_sessionizer $path; then
 	raw_value=$(grep "^$attribute=" "$path/.sessionizer.conf" | cut -d'=' -f2)
 	content="${raw_value:1:-1}"
-	read -r -a WINDOWS <<< "$content"
-	# echo ${WINDOWS[@]}
+	if [ $attribute == "windows" ]; then
+	    read -r -a WINDOWS <<< "$content"
+	else
+	    read -r -a COMMANDS <<< "$content"
+	fi
     else
 	:
     fi
 }
 #
-path="/home/lucas/personal/dotfiles-hyprland/bin"
 # has_sessionizer "/home/lucas/personal/dotfiles-hyprland/bin"
-attribute="windows"
+# attribute="windows"
 
 # echo "^$attribute="
 # get_attribute "commands" $path
-for comm in $COMMANDS; do
-    if [[ $comm == "" ]]; then
-	echo "sem comando"
-	continue
-    else
-	echo "eval"
-	eval $comm
-    fi
-done
+# for comm in $COMMANDS; do
+#     if [[ $comm == "" ]]; then
+# 	echo "sem comando"
+# 	continue
+#     else
+# 	echo "eval"
+# 	eval $comm
+#     fi
+# done
+path="/home/lucas/personal/dotfiles-hyprland"
+session="personal/dotfiles-hyprland"
+# get_attribute "windows" $path
+get_attribute "commands" $path
+# echo "Window ${WINDOWS[$i]}" 
+echo "Elementos ${COMMANDS[@]}"
+
+if [ ${#COMMANDS[@]} -eq 0 ]; then
+    echo "O array está vazio."
+else
+    echo "O array foi carregado com ${#WINDOWS[@]} elementos."
+fi
+
+# if [[ $(get_attribute "windows" $path) || $(get_attribute "commands" $path) ]]; then
+
+# if [[ $(get_attribute "windows" $path) || $(get_attribute "commands" $path) ]]; then
+#     for i in "${!WINDOWS[@]}"; do
+# 	echo "Window ${WINDOWS[$i]}" 
+# 	echo "Command ${COMMANDS[$i]}"
+# 	# tmux neww -d -n "${WINDOWS[$i]}" "${COMMANDS[$i]}"
+#     done
+# else
+#     echo "nao executou"
+# fi
+
+# tmux attach-session -t "$session"

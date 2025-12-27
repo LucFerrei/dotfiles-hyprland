@@ -2,8 +2,8 @@
 
 CONFIG_FILE="$HOME/.config/tmx/tmx.conf"
 DEFAULT_PATH=($HOME $HOME/personal/)
-WINDOWS=()
-COMMANDS=()
+declare -a WINDOWS
+declare -a COMMANDS
 
 have_config() {
     if [ -f "$CONFIG_FILE" ]; then
@@ -15,13 +15,12 @@ have_config() {
 
 set_default_path() {
     if have_config; then
-	# DEFAULT_PATH=$(grep "^path=" $HOME/personal/dotfiles-hyprland/tmx/tmx.conf| cut -d'=' -f2)
 	raw_value=$(grep "^path=" "$CONFIG_FILE" | cut -d'=' -f2)
 	content="${raw_value:1:-1}"
 	read -r -a DEFAULT_PATH <<< "$content"
-	echo "${DEFAULT_PATH[@]}"
+	# echo "${DEFAULT_PATH[@]}"
     else
-	echo "${DEFAULT_PATH[@]}"
+	# echo "${DEFAULT_PATH[@]}"
 	return 0 
     fi
 }
@@ -30,10 +29,10 @@ has_sessionizer() {
     path=$1
     
     if [ -f "$path/.sessionizer.conf" ]; then
-	echo "Tem arquivo"
+	# echo "Tem arquivo"
 	return 0
     else
-	echo "Não tem arquivo"
+	# echo "Não tem arquivo"
 	return 1
     fi
 } 
@@ -45,10 +44,16 @@ get_attribute() {
     if has_sessionizer $path; then
 	raw_value=$(grep "^$attribute=" "$path/.sessionizer.conf" | cut -d'=' -f2)
 	content="${raw_value:1:-1}"
-	read -r -a WINDOWS <<< "$content"
-	echo ${WINDOWS[@]}
-	return 0
+	if [ $attribute == "windows" ]; then
+	    read -r -a WINDOWS <<< "$content"
+	    # echo "${WINDOWS[@]}"
+	    # return 0
+	else
+	    read -r -a COMMANDS <<< "$content"
+	    # echo "${COMMANDS[@]}"
+	fi
     else
+	echo "There's no $attribute"
 	return 1
     fi
 }
@@ -80,6 +85,7 @@ valid_path() {
 }
 
 fzf_dir() {
+    # (tmux ls -F "[TMUX] $PWD/#{session_name}" && find "${DEFAULT_PATH[@]}" -maxdepth 1 ! -name '.*' -type d) | fzf
     find "${DEFAULT_PATH[@]}" -maxdepth 1 ! -name '.*' -type d | fzf
 }
 
@@ -91,7 +97,7 @@ create_or_attach_session() {
     has_session=$(tmux has-session -t "$session" 2>/dev/null)
     
     if in_tmux; then
-	if [ "$has_session" != 0 ]; then
+	if ! tmux has-session -t "$session" 2>/dev/null; then
 	    valid_path $path
 	    if [ $? != 0 ]; then
 		echo "Invalid path"
@@ -102,25 +108,35 @@ create_or_attach_session() {
 	fi
 	tmux switch-client -t "$session"
     else
-	if [ "$has_session" != 0 ]; then
+	if ! tmux has-session -t "$session" 2>/dev/null; then
 	    valid_path $path
 	    if [ $? != 0 ]; then
 		echo "Invalid path"
 		return 1
-	    else
+	    else #there's no session and path is valid
+		# echo "passando pelo pipe de criação"
 		tmux new-session -d -s "$session" -c "$path"
+		get_attribute "windows" $path
+		get_attribute "commands" $path
+
+		if [[ ${#WINDOWS[@]} || ${#COMMANDS[@]} ]]; then
+		    for i in "${!WINDOWS[@]}"; do
+			if [ $i == 0 ]; then
+			    tmux rename-window -t 1 "${WINDOWS[0]}"
+			    tmux send-keys -t "$session":1 "${COMMANDS[0]}" Enter
+
+			else
+			    # echo "Window ${WINDOWS[$i]}" 
+			    # echo "Command ${COMMANDS[$i]}"
+			    tmux neww -d -n "${WINDOWS[$i]}" "${COMMANDS[$i]}; zsh"
+			fi
+		    done
+		else
+		    echo "nao executou"
+		fi
 	    fi
 	fi
 	tmux attach-session -t "$session"
-	if [[ $(get_attribute "windows" $path) || $(get_attribute "commands" $path) ]]; then
-	    for i in "${!WINDOWS[@]}"; do
-		echo "Window ${WINDOWS[$i]}" 
-		echo "Command ${COMMANDS[$i]}"
-		tmux neww -d -n "${WINDOWS[$i]}" "${COMMANDS[$i]}"
-	    done
-	else
-	    echo "nao executou"
-	fi
     fi
 }
 
