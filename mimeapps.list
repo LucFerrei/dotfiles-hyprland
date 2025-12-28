@@ -5,11 +5,11 @@ application/epub+zip=org.pwmt.zathura.desktop
 application/vnd.comicbook+zip=org.pwmt.zathura.desktop
 application/x-cbz=org.pwmt.zathura.desktop
 application/x-cbr=org.pwmt.zathura.desktop
-text/html=chromium.desktop
-x-scheme-handler/http=chromium.desktop
-x-scheme-handler/https=chromium.desktop
-x-scheme-handler/about=chromium.desktop
-x-scheme-handler/unknown=chromium.desktop
+text/html=brave-browser.desktop
+x-scheme-handler/http=brave-browser.desktop
+x-scheme-handler/https=brave-browser.desktop
+x-scheme-handler/about=brave-browser.desktop
+x-scheme-handler/unknown=brave-browser.desktop
 
 [Added Associations]
 application/pdf=org.pwmt.zathura.desktop;
