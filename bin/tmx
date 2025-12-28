@@ -131,38 +131,41 @@ create_or_attach_session() {
 		return 1
 	    else
 		tmux new -s "$session" -c $path -d
+
+		get_attribute "windows" $path
+		get_attribute "commands" $path
+		tmux send-keys -t "$session":1 "tmux new-window -n temporary -t 100" Enter
+		# sleep 0.1
+		tmux send-keys -t "$session":1 "clear" Enter
+		sleep 0.01
+		if [[ ${#WINDOWS[@]} || ${#COMMANDS[@]} ]]; then
+		    for i in "${!WINDOWS[@]}"; do
+			echo "passei pelo loop"
+			local next=$((i+1))
+
+			echo "Next: $next"
+			echo "I: $i"
+			echo "Session: $session"
+
+			if [ "$i" -eq 0 ]; then
+			    tmux send-keys -t "$session":100 "tmux rename-window -t $next ${WINDOWS[$i]}" Enter
+			    tmux send-keys -t "$session":$next "${COMMANDS[$i]}" Enter
+			else
+			    sleep 0.1
+			    tmux send-keys -t "$session":100 "tmux neww -n ${WINDOWS[$i]}" Enter
+			    sleep 0.1
+			    tmux send-keys -t "$session":$next "${COMMANDS[$i]}" Enter
+			    # tmux send-keys -t "$session":$next "tmux neww -c $path -d -n ${WINDOWS[$i]} \"${COMMANDS[$i]}; zsh\"" Enter
+			fi
+		    done
+		sleep 0.01
+		tmux send-keys -t "$session":100 "tmux kill-window -t 100" Enter
+
+		fi
 	    fi
 	fi
 	tmux switch-client -t "$session"
 	#create temporary window
-	get_attribute "windows" $path
-	get_attribute "commands" $path
-	tmux send-keys -t "$session":1 "tmux new-window -n temporary -t 100" Enter
-	sleep 1
-	if [[ ${#WINDOWS[@]} || ${#COMMANDS[@]} ]]; then
-	    for i in "${!WINDOWS[@]}"; do
-		echo "passei pelo loop"
-		local next=$((i+1))
-
-		echo "Next: $next"
-		echo "I: $i"
-		echo "Session: $session"
-
-		if [ "$i" -eq 0 ]; then
-		    tmux send-keys -t "$session":100 "tmux rename-window -t $next ${WINDOWS[$i]}" Enter
-		    tmux send-keys -t "$session":$next "${COMMANDS[$i]}" Enter
-		else
-		    sleep 1
-		    tmux send-keys -t "$session":100 "tmux neww -n ${WINDOWS[$i]}" Enter
-		    sleep 1
-		    tmux send-keys -t "$session":$next "${COMMANDS[$i]}" Enter
-		    # tmux send-keys -t "$session":$next "tmux neww -c $path -d -n ${WINDOWS[$i]} \"${COMMANDS[$i]}; zsh\"" Enter
-		fi
-	    done
-	sleep 1
-	tmux send-keys -t "$session":100 "tmux kill-window -t 100" Enter
-
-	fi
 	# tmux new-window -d -n temporary -t 100
 
     else
