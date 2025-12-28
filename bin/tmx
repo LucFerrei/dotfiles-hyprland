@@ -88,6 +88,33 @@ fzf_dir() {
     # (tmux ls -F "[TMUX] $PWD/#{session_name}" && find "${DEFAULT_PATH[@]}" -maxdepth 1 ! -name '.*' -type d) | fzf
     find "${DEFAULT_PATH[@]}" -maxdepth 1 ! -name '.*' -type d | fzf
 }
+#only when tmux server is running
+fzf_dir_tmux() {
+    (tmux ls -F "[TMUX] $PWD/#{session_name}" && find "${DEFAULT_PATH[@]}" -maxdepth 1 ! -name '.*' -type d) | fzf
+}
+
+load_sessionizer(){
+    local session=$1
+    local path=$2
+    get_attribute "windows" $path
+    get_attribute "commands" $path
+
+    if [[ ${#WINDOWS[@]} || ${#COMMANDS[@]} ]]; then
+	for i in "${!WINDOWS[@]}"; do
+	    if [ $i == 0 ]; then
+		tmux rename-window -t 1 "${WINDOWS[0]}"
+		tmux send-keys -t "$session":1 "${COMMANDS[0]}" Enter
+
+	    else
+		# echo "Window ${WINDOWS[$i]}" 
+		# echo "Command ${COMMANDS[$i]}"
+		tmux neww -c $path -d -n "${WINDOWS[$i]}" "${COMMANDS[$i]}; zsh"
+	    fi
+	done
+    else
+	echo "nao executou"
+    fi
+}
 
 
 # TODO: create a layout file for each dir
@@ -107,6 +134,37 @@ create_or_attach_session() {
 	    fi
 	fi
 	tmux switch-client -t "$session"
+	#create temporary window
+	get_attribute "windows" $path
+	get_attribute "commands" $path
+	tmux send-keys -t "$session":1 "tmux new-window -n temporary -t 100" Enter
+	sleep 1
+	if [[ ${#WINDOWS[@]} || ${#COMMANDS[@]} ]]; then
+	    for i in "${!WINDOWS[@]}"; do
+		echo "passei pelo loop"
+		local next=$((i+1))
+
+		echo "Next: $next"
+		echo "I: $i"
+		echo "Session: $session"
+
+		if [ "$i" -eq 0 ]; then
+		    tmux send-keys -t "$session":100 "tmux rename-window -t $next ${WINDOWS[$i]}" Enter
+		    tmux send-keys -t "$session":$next "${COMMANDS[$i]}" Enter
+		else
+		    sleep 1
+		    tmux send-keys -t "$session":100 "tmux neww -n ${WINDOWS[$i]}" Enter
+		    sleep 1
+		    tmux send-keys -t "$session":$next "${COMMANDS[$i]}" Enter
+		    # tmux send-keys -t "$session":$next "tmux neww -c $path -d -n ${WINDOWS[$i]} \"${COMMANDS[$i]}; zsh\"" Enter
+		fi
+	    done
+	sleep 1
+	tmux send-keys -t "$session":100 "tmux kill-window -t 100" Enter
+
+	fi
+	# tmux new-window -d -n temporary -t 100
+
     else
 	if ! tmux has-session -t "$session" 2>/dev/null; then
 	    valid_path $path
@@ -116,24 +174,25 @@ create_or_attach_session() {
 	    else #there's no session and path is valid
 		# echo "passando pelo pipe de criação"
 		tmux new-session -d -s "$session" -c "$path"
-		get_attribute "windows" $path
-		get_attribute "commands" $path
-
-		if [[ ${#WINDOWS[@]} || ${#COMMANDS[@]} ]]; then
-		    for i in "${!WINDOWS[@]}"; do
-			if [ $i == 0 ]; then
-			    tmux rename-window -t 1 "${WINDOWS[0]}"
-			    tmux send-keys -t "$session":1 "${COMMANDS[0]}" Enter
-
-			else
-			    # echo "Window ${WINDOWS[$i]}" 
-			    # echo "Command ${COMMANDS[$i]}"
-			    tmux neww -d -n "${WINDOWS[$i]}" "${COMMANDS[$i]}; zsh"
-			fi
-		    done
-		else
-		    echo "nao executou"
-		fi
+		# get_attribute "windows" $path
+		# get_attribute "commands" $path
+		#
+		# if [[ ${#WINDOWS[@]} || ${#COMMANDS[@]} ]]; then
+		#     for i in "${!WINDOWS[@]}"; do
+		# 	if [ $i == 0 ]; then
+		# 	    tmux rename-window -t 1 "${WINDOWS[0]}"
+		# 	    tmux send-keys -t "$session":1 "${COMMANDS[0]}" Enter
+		#
+		# 	else
+		# 	    # echo "Window ${WINDOWS[$i]}" 
+		# 	    # echo "Command ${COMMANDS[$i]}"
+		# 	    tmux neww -c $path -d -n "${WINDOWS[$i]}" "${COMMANDS[$i]}; zsh"
+		# 	fi
+		#     done
+		# else
+		#     echo "nao executou"
+		# fi
+		load_sessionizer "$session" "$path"
 	    fi
 	fi
 	tmux attach-session -t "$session"
