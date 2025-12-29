@@ -145,6 +145,7 @@
   "pulseaudio": {
     "format": "{volume}% {icon}",
     "format-muted": " 󰝟 ",
+    "on-click": "pavucontrol",
     "format-icons": {
       "default": [
         "",
