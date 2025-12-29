@@ -84,13 +84,37 @@ valid_path() {
     fi
 }
 
-fzf_dir() {
-    # (tmux ls -F "[TMUX] $PWD/#{session_name}" && find "${DEFAULT_PATH[@]}" -maxdepth 1 ! -name '.*' -type d) | fzf
-    find "${DEFAULT_PATH[@]}" -maxdepth 1 ! -name '.*' -type d | fzf
+list_active_sessions() {
+    tmux list-sessions -F "#{session_last_attached} [TMUX] #S" | sort -rn | cut -d' ' -f2-
 }
-#only when tmux server is running
-fzf_dir_tmux() {
-    (tmux ls -F "[TMUX] $PWD/#{session_name}" && find "${DEFAULT_PATH[@]}" -maxdepth 1 ! -name '.*' -type d) | fzf
+
+get_inactive_dirs() {
+    local active_sesssions=$(list_active_sessions)
+
+    find "${DEFAULT_PATH[@]}" -maxdepth 1 ! -name '.*' -type d -print0 | while IFS= read -r -d '' dir; do
+    local session_dir=$(get_session_name $dir)
+
+    list_active_sessions | grep -q $session_dir
+    if [ $? != 0 ]; then 
+	echo $dir
+    fi
+done
+}
+
+fzf_dir() {
+    if ! tmux has-session 2>/dev/null; then
+	find "${DEFAULT_PATH[@]}" -maxdepth 1 ! -name '.*' -type d | fzf
+    else
+       {
+	   tmux list-sessions -F "#{session_last_attached} [TMUX] #S" | sort -rn | cut -d' ' -f2-
+	   get_inactive_dirs
+       } | fzf
+    fi
+}
+
+remove_tmux_prefix() {
+    local prefixed_session=$1
+    echo $prefixed_session | cut -d' ' -f2
 }
 
 load_sessionizer(){
@@ -122,12 +146,13 @@ create_or_attach_session() {
     has_session=$(tmux has-session -t "$session" 2>/dev/null)
     
     if in_tmux; then
+	valid_path $path
+	if [ $? != 0 ]; then
+	    echo "Invalid path"
+	    return 1
+	fi
 	if ! tmux has-session -t "$session" 2>/dev/null; then
-	    valid_path $path
-	    if [ $? != 0 ]; then
-		echo "Invalid path"
-		return 1
-	    else tmux new -s "$session" -c $path -d
+	    tmux new -s "$session" -c $path -d
 
 		get_attribute "windows" $path
 		get_attribute "commands" $path
@@ -157,43 +182,28 @@ create_or_attach_session() {
 		tmux send-keys -t "$session":100 "tmux kill-window -t 100" Enter
 
 		fi
-	    fi
+	else
+	    tmux switch-client -t "$session"
 	fi
+
 	tmux switch-client -t "$session"
 
     else
+	valid_path $path
+	if [ $? != 0 ]; then
+	    echo "Invalid path"
+	    return 1
+	fi
+
 	if ! tmux has-session -t "$session" 2>/dev/null; then
-	    valid_path $path
-	    if [ $? != 0 ]; then
-		echo "Invalid path"
-		return 1
-	    else #there's no session and path is valid
-		# echo "passando pelo pipe de criação"
-		tmux new-session -d -s "$session" -c "$path"
-		# get_attribute "windows" $path
-		# get_attribute "commands" $path
-		#
-		# if [[ ${#WINDOWS[@]} || ${#COMMANDS[@]} ]]; then
-		#     for i in "${!WINDOWS[@]}"; do
-		# 	if [ $i == 0 ]; then
-		# 	    tmux rename-window -t 1 "${WINDOWS[0]}"
-		# 	    tmux send-keys -t "$session":1 "${COMMANDS[0]}" Enter
-		#
-		# 	else
-		# 	    # echo "Window ${WINDOWS[$i]}" 
-		# 	    # echo "Command ${COMMANDS[$i]}"
-		# 	    tmux neww -c $path -d -n "${WINDOWS[$i]}" "${COMMANDS[$i]}; zsh"
-		# 	fi
-		#     done
-		# else
-		#     echo "nao executou"
-		# fi
-		load_sessionizer "$session" "$path"
-	    fi
+	    tmux new-session -d -s "$session" -c "$path"
+	    load_sessionizer "$session" "$path"
+
 	fi
 	tmux attach-session -t "$session"
     fi
 }
 
 set_default_path 
+fzf_dir_tmux
 create_or_attach_session 

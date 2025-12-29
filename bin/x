@@ -110,3 +110,19 @@ fi
 # fi
 
 # tmux attach-session -t "$session"
+#
+#
+generate_session() {
+    echo "personal/books"
+    echo "personal/dotfiles-hyprland"
+    echo "personal/wallpapers"
+} 
+
+fzf_tmux() {
+    {
+	tmux list-sessions -F "#{session_last_attached} [TMUX] #S" | sort -rn | cut -d' ' -f2-
+	generate_session
+    } | fzf 
+}
+
+fzf_tmux
