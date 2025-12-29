@@ -182,28 +182,29 @@ create_or_attach_session() {
 		tmux send-keys -t "$session":100 "tmux kill-window -t 100" Enter
 
 		fi
-	else
 	    tmux switch-client -t "$session"
+	else
+	    local active_session=$(remove_tmux_prefix $session)
+	    tmux switch-client -t "$active_session"
 	fi
-
-	tmux switch-client -t "$session"
-
     else
-	valid_path $path
-	if [ $? != 0 ]; then
-	    echo "Invalid path"
-	    return 1
-	fi
 
 	if ! tmux has-session -t "$session" 2>/dev/null; then
+	    valid_path $path
+	    if [ $? != 0 ]; then
+		echo "Invalid path"
+		return 1
+	    fi
 	    tmux new-session -d -s "$session" -c "$path"
 	    load_sessionizer "$session" "$path"
 
+	    tmux attach-session -t "$session"
+	else
+	    local active_session=$(remove_tmux_prefix $session)
+	    tmux switch-client -t "$active_session"
 	fi
-	tmux attach-session -t "$session"
     fi
 }
 
 set_default_path 
-fzf_dir_tmux
 create_or_attach_session 
