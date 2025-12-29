@@ -114,7 +114,7 @@ fzf_dir() {
 
 remove_tmux_prefix() {
     local prefixed_session=$1
-    echo $prefixed_session | cut -d' ' -f2
+    echo "$prefixed_session" | cut -d' ' -f2
 }
 
 load_sessionizer(){
@@ -143,15 +143,16 @@ load_sessionizer(){
 create_or_attach_session() {
     path=$(fzf_dir)
     session=$(get_session_name $path)
-    has_session=$(tmux has-session -t "$session" 2>/dev/null)
+    # has_session=$(tmux has-session -t "$session" 2>/dev/null)
+    active_session=$(remove_tmux_prefix "$path")
     
     if in_tmux; then
-	valid_path $path
-	if [ $? != 0 ]; then
-	    echo "Invalid path"
-	    return 1
-	fi
-	if ! tmux has-session -t "$session" 2>/dev/null; then
+	if ! tmux has-session -t "$session" 2>/dev/null && ! tmux has-session -t "$active_session" 2>/dev/null; then
+	    valid_path $path
+	    if [ "$?" != 0 ]; then
+		echo "Invalid path"
+		return 1
+	    fi
 	    tmux new -s "$session" -c $path -d
 
 		get_attribute "windows" $path
@@ -184,15 +185,16 @@ create_or_attach_session() {
 		fi
 	    tmux switch-client -t "$session"
 	else
-	    local active_session=$(remove_tmux_prefix $session)
+	    # local active_session=$(remove_tmux_prefix $session)
 	    tmux switch-client -t "$active_session"
 	fi
     else
 
-	if ! tmux has-session -t "$session" 2>/dev/null; then
-	    valid_path $path
-	    if [ $? != 0 ]; then
-		echo "Invalid path"
+	if ! tmux has-session -t "$session" 2>/dev/null && ! tmux has-session -t "$active_session" 2>/dev/null; then
+	    valid_path "$path"
+	    if [ "$?" != 0 ]; then
+		# echo $active_session
+		echo "$active_session is a invalid path"
 		return 1
 	    fi
 	    tmux new-session -d -s "$session" -c "$path"
@@ -200,8 +202,8 @@ create_or_attach_session() {
 
 	    tmux attach-session -t "$session"
 	else
-	    local active_session=$(remove_tmux_prefix $session)
-	    tmux switch-client -t "$active_session"
+	    # local active_session=$(remove_tmux_prefix $session)
+	    tmux attach-session -t "$active_session"
 	fi
     fi
 }

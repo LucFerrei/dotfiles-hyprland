@@ -118,6 +118,10 @@ generate_session() {
     echo "personal/wallpapers"
 } 
 
+remove_tmux_prefix() {
+    local prefixed_session=$1
+    echo $prefixed_session | cut -d' ' -f2
+}
 fzf_tmux() {
     {
 	tmux list-sessions -F "#{session_last_attached} [TMUX] #S" | sort -rn | cut -d' ' -f2-
@@ -126,3 +130,6 @@ fzf_tmux() {
 }
 
 fzf_tmux
+
+
+# remove_tmux_prefix "[TMUX] personal/books"
