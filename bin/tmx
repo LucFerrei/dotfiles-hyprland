@@ -116,8 +116,6 @@ load_sessionizer(){
     fi
 }
 
-
-# TODO: create a layout file for each dir
 create_or_attach_session() {
     path=$(fzf_dir)
     session=$(get_session_name $path)
@@ -129,8 +127,7 @@ create_or_attach_session() {
 	    if [ $? != 0 ]; then
 		echo "Invalid path"
 		return 1
-	    else
-		tmux new -s "$session" -c $path -d
+	    else tmux new -s "$session" -c $path -d
 
 		get_attribute "windows" $path
 		get_attribute "commands" $path
