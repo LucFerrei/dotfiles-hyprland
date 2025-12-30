@@ -6,7 +6,8 @@ export EDITOR=nvim
 
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 # ZSH_THEME="robbyrussell"
-ZSH_THEME="oxide"
+# ZSH_THEME="oxide"
+ZSH_THEME="oxide-rose-pine-v2"
 # ZSH_THEME="ys"
 # ZSH_THEME="amuse"
 

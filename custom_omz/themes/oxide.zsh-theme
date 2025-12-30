@@ -40,6 +40,11 @@ if [[ "${terminfo[colors]}" -ge 256 ]]; then
     oxide_red="%F{203}"
     oxide_limegreen="%F{120}"
     oxide_mutedteal="%F{110}"
+    # oxide_turquoise="%F{116}"
+    # oxide_orange="%F{181}"
+    # oxide_red="%F{168}"
+    # oxide_limegreen="%F{30}"
+    # oxide_mutedteal="%F{183}"
 
 else
     oxide_turquoise="%F{cyan}"
@@ -81,4 +86,3 @@ add-zsh-hook precmd vcs_info
 
 # Oxide prompt style.
 PROMPT=$'\n%{$oxide_limegreen%}%~%{$oxide_reset_color%} ${vcs_info_msg_0_}\n%(?.%{%F{white}%}.%{$oxide_red%})%(!.#.❯)%{$oxide_reset_color%} '
-# PROMPT=$'\n%{$oxide_turquoise%}%~%{$oxide_reset_color%} ${vcs_info_msg_0_}\n%(?.%{%F{white}%}.%{$oxide_red%})%(!.#.❯)%{$oxide_reset_color%} '
