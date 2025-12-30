@@ -84,6 +84,27 @@ valid_path() {
     fi
 }
 
+validate_session() {
+    local session=$1
+
+    if tmux has-session -t "$session" 2>/dev/null; then
+	return 0
+    else
+	return 1
+    fi
+}
+
+is_empty(){
+    local session=$1
+
+    if [ -z "$session" ]; then
+	return 1
+    else
+	return 0
+    fi
+
+}
+
 list_active_sessions() {
     tmux list-sessions -F "#{session_last_attached} [TMUX] #S" | sort -rn | cut -d' ' -f2-
 }
@@ -183,9 +204,14 @@ create_or_attach_session() {
 		tmux send-keys -t "$session":100 "tmux kill-window -t 100" Enter
 
 		fi
-	    tmux switch-client -t "$session"
 	else
+	    is_empty "$active_session"
+	    if [ "$?" != 0 ]; then
+		echo "Invalid session"
+		return 1
+	    fi
 	    # local active_session=$(remove_tmux_prefix $session)
+	    tmux switch-client -t "$session"
 	    tmux switch-client -t "$active_session"
 	fi
     else
@@ -202,7 +228,12 @@ create_or_attach_session() {
 
 	    tmux attach-session -t "$session"
 	else
-	    # local active_session=$(remove_tmux_prefix $session)
+	    # validate_session "$active_session"
+	    is_empty "$active_session"
+	    if [ "$?" != 0 ]; then
+		echo "Invalid session"
+		return 1
+	    fi
 	    tmux attach-session -t "$active_session"
 	fi
     fi
