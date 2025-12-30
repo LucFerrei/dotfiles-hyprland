@@ -19,7 +19,7 @@ source $ZSH/oh-my-zsh.sh
 
 # tmux-sessionizer
 export PATH="$HOME/personal/dotfiles-hyprland/bin:$PATH"
-bindkey -s ^f '^u"tmux-sessionizer"\n'
+bindkey -s ^f '^u"tmx"\n'
 
 # Defina aqui o caminho da pasta de origem que é CONSTANTE
 # *MUDE ESTE CAMINHO* para o seu diretório real.
