@@ -27,22 +27,32 @@ setopt PROMPT_SUBST
 autoload -U add-zsh-hook
 autoload -Uz vcs_info
 
-if [[ "${terminfo[colors]}" -ge 256 ]]; then
-    oxide_path="%F{189}"       
-    oxide_branch="%F{116}"     
-    # oxide_love="%F{204}"       
-    oxide_love="%F{211}"       
-    oxide_staged="%F{144}"  
-    oxide_unstaged="%F{216}"       
-    oxide_remote="%F{183}"     
-    oxide_stashed="%F{217}"     
-else
-    oxide_pine="%F{green}"
-    oxide_path="%F{yellow}"
-    oxide_love="%F{red}"
-    oxide_foam="%F{cyan}"
-    oxide_rose="%F{magenta}"
-fi
+# if [[ "${terminfo[colors]}" -ge 256 ]]; then
+#     oxide_path="%F{189}"       
+#     oxide_branch="%F{116}"     
+#     # oxide_love="%F{204}"       
+#     oxide_love="%F{211}"       
+#     oxide_staged="%F{144}"  
+#     oxide_unstaged="%F{216}"       
+#     oxide_remote="%F{183}"     
+#     oxide_stashed="%F{217}"     
+# else
+#     oxide_pine="%F{green}"
+#     oxide_path="%F{yellow}"
+#     oxide_love="%F{red}"
+#     oxide_foam="%F{cyan}"
+#     oxide_rose="%F{magenta}"
+# fi
+
+oxide_path="%F{#E0DEF4}"       
+# oxide_path="%F{#908CAA}"       
+oxide_branch="%F{#9CCFD8}"     
+# oxide_love="%F{204}"       
+oxide_love="%F{#EB6F92}"       
+oxide_staged="%F{#A3BE8C}"  
+oxide_unstaged="%F{#F6C177}"       
+oxide_remote="%F{#C4A7E7}"     
+oxide_stashed="%F{#EBBCBA}"     
 
 oxide_reset_color="%f"
 
