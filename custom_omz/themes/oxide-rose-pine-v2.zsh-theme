@@ -44,8 +44,8 @@ autoload -Uz vcs_info
 #     oxide_rose="%F{magenta}"
 # fi
 
-oxide_path="%F{#E0DEF4}"       
-# oxide_path="%F{#908CAA}"       
+# oxide_path="%F{#E0DEF4}"       
+oxide_path="%F{#BDBCCC}"       
 oxide_branch="%F{#9CCFD8}"     
 # oxide_love="%F{204}"       
 oxide_love="%F{#EB6F92}"       

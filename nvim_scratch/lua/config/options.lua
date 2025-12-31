@@ -35,10 +35,10 @@ end
 
 function toggle_color_mode()
     local variant = require('rose-pine.config').options.variant
-    if variant=="moon" then
+    if variant=="main" then
 	variant = "dawn"
     else
-	variant = "moon"
+	variant = "main"
     end
     require('rose-pine').setup({
 	variant = variant
