@@ -48,6 +48,7 @@ autoload -Uz vcs_info
 oxide_path="%F{#BDBCCC}"       
 oxide_branch="%F{#9CCFD8}"     
 # oxide_love="%F{204}"       
+oxide_pine="%F{#31748f}"       
 oxide_love="%F{#EB6F92}"       
 oxide_staged="%F{#A3BE8C}"  
 oxide_unstaged="%F{#F6C177}"       
