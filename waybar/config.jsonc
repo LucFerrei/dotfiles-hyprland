@@ -96,6 +96,7 @@
     "max-length": 50
   },
   "temperature": {
+    "hwmon-path": "/sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input",
     "format": "{temperatureC}°C {icon}",
     "tooltip": true,
     "tooltip-format": "Temperatura atual: {temperatureC}°C\nCrítico > 80°C",
