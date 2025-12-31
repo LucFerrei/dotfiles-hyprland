@@ -53,7 +53,7 @@ get_attribute() {
 	    # echo "${COMMANDS[@]}"
 	fi
     else
-	echo "There's no $attribute"
+	# echo "There's no $attribute"
 	return 1
     fi
 }
@@ -171,7 +171,7 @@ create_or_attach_session() {
 	if ! tmux has-session -t "$session" 2>/dev/null && ! tmux has-session -t "$active_session" 2>/dev/null; then
 	    valid_path "$path"
 	    if [ "$?" != 0 ]; then
-		echo "Invalid path"
+		echo "No valid path/session selected"
 		return 1
 	    fi
 	    # echo "criando nova sessão"
@@ -210,7 +210,7 @@ create_or_attach_session() {
 	else
 	    is_empty "$active_session"
 	    if [ "$?" != 0 ]; then
-		echo "Invalid session"
+		echo "No valid path/session selected"
 		return 1
 	    fi
 	    # local active_session=$(remove_tmux_prefix $session)
@@ -233,7 +233,7 @@ create_or_attach_session() {
 	    # validate_session "$active_session"
 	    is_empty "$active_session"
 	    if [ "$?" != 0 ]; then
-		echo "Invalid session"
+		echo "No valid path/session selected"
 		return 1
 	    fi
 	    tmux attach-session -t "$active_session"
