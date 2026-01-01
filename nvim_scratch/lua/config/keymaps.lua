@@ -49,4 +49,4 @@ vim.keymap.set("n", "<leader>t", "<Cmd>lua toggle_transparency()<CR>", { noremap
 vim.keymap.set("n", "<leader>c", "<Cmd>lua toggle_color_mode()<CR>", { noremap = true, silent = true })
 
 ---- Tmux-Sessionizer
-vim.keymap.set("n", "<C-f>", "<cmd>terminal tmx<CR>")
+vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmx<CR>")
