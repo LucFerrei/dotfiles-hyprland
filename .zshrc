@@ -19,7 +19,7 @@ plugins=(git tmux python docker vi-mode)
 source $ZSH/oh-my-zsh.sh
 
 # tmux-sessionizer
-export PATH="$HOME/personal/dotfiles-hyprland/bin:$PATH"
+export PATH="$PATH:$HOME/personal/dotfiles-hyprland/bin:$HOME/work/tmx/"
 bindkey -s ^f '^u"tmx"\n'
 
 # Defina aqui o caminho da pasta de origem que é CONSTANTE
