@@ -1,5 +1,5 @@
 [flavor]
 # dark = "catppuccin-mocha"
-use = "rose-pine"
+# use = "rose-pine"
 # For Yazi 0.4 and above
-dark = "rose-pine"
+dark = "tokyo-night"
