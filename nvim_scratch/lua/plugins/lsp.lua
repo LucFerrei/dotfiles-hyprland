@@ -32,9 +32,30 @@ return {
 		}
 	    },
 	})
-
+    -- Rust setup (The "Standalone" fix)
+	vim.lsp.config('rust_analyzer', {
+	  cmd = {'rust-analyzer'},
+	  filetypes = {'rust'},
+	  -- Adding '.' allows it to attach even if there is no Cargo.toml
+	  root_markers = {'Cargo.toml', 'rust-project.json', '.git', '.'},
+	  settings = {
+	    ['rust-analyzer'] = {
+	      -- This helps with standalone file diagnostics
+	      checkOnSabe = false,
+	      -- procMacro { enable = true },
+	      cargo = {
+		loadOutDirsFromCheck = false,
+	      },
+	    imports = {
+		granularity = { group = "module" },
+		prefix = "self",
+	    },
+	    }
+	  }
+	})
 	vim.lsp.enable('lua_ls')
 	vim.lsp.enable('clangd')
+	vim.lsp.enable('rust_analyzer')
     end,
   },
 
