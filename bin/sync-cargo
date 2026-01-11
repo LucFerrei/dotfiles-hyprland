@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+# Define o caminho do Cargo.toml no diretório atual
+TOML_PATH="Cargo.toml"
+# Obtém o nome da pasta atual para usar como nome do pacote
+PACKAGE_NAME=$(basename "$PWD")
+
+echo "🔧 Sincronizando diretório: $PACKAGE_NAME"
+
+# 1. Verifica se o Cargo.toml existe. Se não, cria a estrutura inicial.
+if [ ! -f "$TOML_PATH" ]; then
+    echo "  - Criando novo Cargo.toml..."
+    cat <<EOF > "$TOML_PATH"
+[package]
+name = "$PACKAGE_NAME"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+EOF
+fi
+
+# 2. Itera sobre todos os arquivos .rs no diretório atual
+for rs_file in *.rs; do
+    # Evita erros se não houver nenhum arquivo .rs
+    [ -e "$rs_file" ] || continue
+    
+    filename=$(basename "$rs_file")
+    bin_name="${filename%.*}"
+
+    # Ignora o main.rs pois o Cargo já o reconhece nativamente
+    if [ "$filename" == "main.rs" ]; then
+        continue
+    fi
+
+    # 3. Verifica se o arquivo já está trackeado como path no Cargo.toml
+    # O grep procura especificamente pelo padrão path = "arquivo.rs"
+    if ! grep -q "path = \"$filename\"" "$TOML_PATH"; then
+        echo "  - Adicionando novo binário: $bin_name"
+        cat <<EOF >> "$TOML_PATH"
+
+[[bin]]
+name = "$bin_name"
+path = "$filename"
+EOF
+    fi
+done
+
+echo "✅ Feito! O rust-analyzer agora rastreia todos os arquivos de $PACKAGE_NAME."
