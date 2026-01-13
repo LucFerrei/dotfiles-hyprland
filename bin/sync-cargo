@@ -3,7 +3,14 @@
 # Define o caminho do Cargo.toml no diretório atual
 TOML_PATH="Cargo.toml"
 # Obtém o nome da pasta atual para usar como nome do pacote
+declare -l CURRENT
+DIR=$1
+if [[ -n "$DIR" ]]; then
+    CURRENT="PWD"
+    cd $DIR
+fi
 PACKAGE_NAME=$(basename "$PWD")
+
 
 echo "🔧 Sincronizando diretório: $PACKAGE_NAME"
 
