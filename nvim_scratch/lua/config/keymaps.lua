@@ -2,7 +2,7 @@
 vim.keymap.set("n", ";", ":", { noremap = true, })
 --- moves
 vim.keymap.set("i", "jk", "<Esc>", { noremap = true, silent = true, })
-vim.keymap.set("i", "kj", "<Esc>", { noremap = true, silent = true, })
+-- vim.keymap.set("i", "kj", "<Esc>", { noremap = true, silent = true, })
 --- move lines (insert mode)
 vim.keymap.set("n", "m", "<Cmd>m+1<CR>", { noremap = true, silent = true, })
 vim.keymap.set("n", "M", "<Cmd>m-2<CR>", { noremap = true, silent = true, })
@@ -48,5 +48,11 @@ vim.keymap.set("n", "<leader><BS>", "<Cmd>RenderMarkdown buf_toggle<CR>", { nore
 vim.keymap.set("n", "<leader>t", "<Cmd>lua toggle_transparency()<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>c", "<Cmd>lua toggle_color_mode()<CR>", { noremap = true, silent = true })
 
----- Tmux-Sessionizer
+---- Tmx
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmx<CR>")
+
+vim.keymap.set('n', '<leader>dt', function()
+    local is_enabled = vim.diagnostic.is_enabled()
+    vim.diagnostic.enable(not is_enabled)
+    print("Diagnostics " .. (is_enabled and "Disabled" or "Enabled"))
+end, { desc = "Toggle Diagnostics" })
