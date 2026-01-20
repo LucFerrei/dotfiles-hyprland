@@ -10,7 +10,7 @@ return {
 	-- refer to the configuration section below
 	bigfile = { enabled = false },
 	dashboard = { 
-	    enabled = false,
+	    enabled = true,
 	    preset = {
 		keys = {
 		  { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
