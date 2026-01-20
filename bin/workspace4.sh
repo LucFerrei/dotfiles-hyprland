@@ -1,3 +1,2 @@
 #!/bin/sh
-kitty --hold btop
-exec /usr/bin/zsh
+alacritty -e sh -c "btop; exec zsh"

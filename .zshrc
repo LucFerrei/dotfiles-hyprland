@@ -14,12 +14,13 @@ ZSH_THEME="oxide-rose-pine-v2"
 zstyle ':omz:update' mode auto      # update automatically without asking
 setopt IGNORE_EOF
 
-plugins=(git tmux python docker vi-mode) 
+plugins=(git tmux python docker) 
 
 source $ZSH/oh-my-zsh.sh
 
 # tmux-sessionizer
 export PATH="$PATH:$HOME/personal/dotfiles-hyprland/bin:$HOME/work/tmx/"
+TMX_DIR="$HOME/work/tmx"
 bindkey -s ^f '^u"tmx"\n'
 
 # Defina aqui o caminho da pasta de origem que é CONSTANTE
