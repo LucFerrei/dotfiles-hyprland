@@ -5,11 +5,23 @@ return {
 	-- priority = 1000,
 	config = function ()
 	    require('kanagawa').setup({
+		transparent = true,
 		colors = {
+		    palette = {
+		    },
 		    theme = {
 			all = {
 			    ui = {
-				bg_gutter = "none"
+				bg_gutter = "none",
+				float = { bg = "none" }
+			    }
+			},
+			dragon = {
+			    syn = {
+				-- fun = "#c4746e",
+				-- type = "#c4746e",
+				-- keyword = "#c4746e",
+				-- variable = "#c4746e",
 			    }
 			}
 		    }

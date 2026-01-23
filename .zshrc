@@ -11,6 +11,8 @@ ZSH_THEME="oxide-rose-pine-v2"
 # ZSH_THEME="ys"
 # ZSH_THEME="amuse"
 
+# DISABLE_AUTO_TITLE="true"
+
 zstyle ':omz:update' mode auto      # update automatically without asking
 setopt IGNORE_EOF
 

@@ -8,16 +8,11 @@
   "gtk-layer-shell": true,
   /* === Modules Order === */
   "modules-left": [
-    "custom/archicon",
-    "clock",
-    "cpu",
-    "memory",
-    "disk",
-    "temperature",
-    "battery"
+    "hyprland/workspaces",
+    "hyprland/window"
   ],
   "modules-center": [
-    "hyprland/workspaces"
+    "clock"
   ],
   "modules-right": [
     /*"wlr/taskbar",*/
@@ -25,6 +20,11 @@
     /*pulseaudio/slider",*/
     "pulseaudio",
     "bluetooth",
+    "cpu",
+    "memory",
+    "disk",
+    "temperature",
+    "battery",
     "network",
     "hyprland/language"
   ],
@@ -36,10 +36,17 @@
     "on-click": "wofi --show drun",
     "tooltip": false
   },
+    "hyprland/window": {
+	"format": "{}",
+	"max-length": 30,
+	"min-length": 30,
+	"tooltip": false
+    },
   "clock": {
     "timezone": "America/Sao_Paulo",
-    "format": " {:%H:%M}",
-    "format-alt": " {:%B %d, %Y}",
+    // "format": " {:%H:%M}",
+    "format": "{:%B %d, %R}",
+    // "format-alt": " {:%B %d, %Y}",
     "tooltip-format": "{calendar}",
     // "on-click": "toggle",
     // "calendar": {
@@ -48,20 +55,18 @@
     "calendar": {
         // Formato customizado para cada elemento do calendário
         "format": {
-            // Estiliza o cabeçalho dos meses (Ano e Mês)
-            "months": "<span color='#ffead3'><b>{}</b></span>", 
-            
-            // Estiliza os dias do mês
-            "days": "<span color='#ecc6d9'>{}</span>", 
-            
-            // Estiliza o cabeçalho da semana (Dom, Seg, Ter...)
-            "weekdays": "<span color='#ffcc66'><b>{}</b></span>", 
-            
-            // Estiliza o dia de hoje (adiciona sublinhado e cor de destaque)
-            "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
-        },
-        // Altera a posição dos números da semana (se ativado)
-        "weeks-pos": "right" 
+	    // Dragon White (fujiWhite) - Clean and legible for the header
+	    "months": "<span color='#c5c9c5'><b>{}</b></span>", 
+
+	    // Dragon Gray (oldWhite) - Subtle and atmospheric for general days
+	    "days": "<span color='#a6a69c'>{}</span>", 
+
+	    // autumnYellow - Bold for the week structure
+	    "weekdays": "<span color='#DCA561'><b>{}</b></span>", 
+
+	    // waveRed - High contrast for the current day
+	    "today": "<span color='#E46876'><b><u>{}</u></b></span>"
+        }
     }
   },
   "cpu": {

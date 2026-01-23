@@ -13,7 +13,7 @@
 * {
   border: none;
   font-family: "VictorMono Nerd Font"; 
-  font-weight: 600;
+  font-weight: 800;
   font-style: italic;
   font-size: 15px;
   min-height: 0px;
@@ -37,12 +37,14 @@ window#waybar.hidden {
 #disk,
 #battery,
 #temperature,
+#window,
 #idle_inhibitor,
 #pulseaudio,
 #pulseaudio-slider,
 #network,
 #bluetooth,
 #language {
+  /* color: #c5c9c5; Fuji White */
   color: #c5c9c5; /* Fuji White */
   margin-top: 6px;
   margin-bottom: 6px;
@@ -70,21 +72,13 @@ window#waybar.hidden {
   border-bottom-right-radius: 10px;
 }
 
-/* -- Specific styles -- */
-
-#custom-archicon {
-  font-size: 20px;
-  color: #8ba4b0; /* Dragon Blue */
-  padding-right: 17px;
-}
-
 /* Modules center */
 #workspaces {
-  background: #1d1c19; /* Dragon Black */
-  border: 1px solid #282727;
-  border-radius: 10px;
+  background: transparent;
+  border: 0px solid #282727;
+  border-radius: 2px;
   margin: 6px 5px;
-  padding: 0px 6px;
+  /* padding: 0px 6px; */
 }
 
 #workspaces button {
@@ -94,11 +88,9 @@ window#waybar.hidden {
   transition: all 0.3s ease;
 }
 
-#workspaces button.occupied {
-  color: #8a9a7b; /* Spring Green */
-}
-
 #workspaces button.active {
+  border-radius: 10px;
+  background: #16161D;
   color: #c4746e; /* Sokuhi Red */
   text-shadow: 0 0 3px rgba(196, 116, 110, 0.5);
 }

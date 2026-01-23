@@ -1,65 +1,37 @@
+# Kanagawa Dragon Alacritty Colors
+
 [colors.primary]
-background = "#181616"
-foreground = "#c5c9c5"
-dim_foreground = "#737c73"
-bright_foreground = "#c8c093"
-
-[colors.cursor]
-text = "#181616"
-cursor = "#c8c093"
-
-[colors.vi_mode_cursor]
-text = "#181616"
-cursor = "#a292a3"
-
-[colors.selection]
-text = "CellForeground"
-background = "#2d4f67"
-
-[colors.search.matches]
-foreground = "#c5c9c5"
-background = "#223249"
-
-[colors.search.focused_match]
-foreground = "#181616"
-background = "#8ba4b1"
-
-[colors.footer_bar]
-foreground = "#c5c9c5"
-background = "#16161d"
-
-[colors.hints.start]
-foreground = "#181616"
-background = "#c0a36e"
-
-[colors.hints.end]
-foreground = "#181616"
-background = "#7fb4ca"
+background = '#181616'
+foreground = '#c5c9c5'
 
 [colors.normal]
-black =   "#0d0c0c"
-red =     "#c4746e"
-green =   "#8a9a7b"
-yellow =  "#c4b28a"
-blue =    "#8ba4b1"
-magenta = "#a292a3"
-cyan =    "#8ea4a2"
-white =   "#c5c9c5"
+black = '#0d0c0c'
+red = '#c4746e'
+green = '#8a9a7b'
+yellow = '#c4b28a'
+blue = '#8ba4b0'
+magenta = '#a292a3'
+cyan = '#8ea4a2'
+white = '#c8c093'
 
 [colors.bright]
-black =   "#a6a69c"
-red =     "#e46876"
-green =   "#87a987"
-yellow =  "#e6c384"
-blue =    "#7fb4ca"
-magenta = "#938aa9"
-cyan =    "#7aa89f"
-white =   "#c8c093"
+black = '#a6a69c'
+red = '#e46876'
+green = '#87a987'
+yellow = '#e6c384'
+blue = '#7fb4ca'
+magenta = '#938aa9'
+cyan = '#7aa89f'
+white = '#c5c9c5'
+
+[colors.selection]
+background = '#2d4f67'
+foreground = '#c8c093'
 
 [[colors.indexed_colors]]
 index = 16
-color = "#b6927b" # Dragon Orange
+color = '#b6927b'
 
 [[colors.indexed_colors]]
 index = 17
-color = "#e82424" # Dragon Red
+color = '#b98d7b'
