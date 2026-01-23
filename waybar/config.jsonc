@@ -24,9 +24,9 @@
     "memory",
     "disk",
     "temperature",
-    "battery",
-    "network",
-    "hyprland/language"
+    "battery"
+    // "network",
+    // "hyprland/language"
   ],
   /* === Modules Left === */
   "custom/archicon": {
