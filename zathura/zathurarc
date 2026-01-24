@@ -1,5 +1,5 @@
 # --- Font---
-set font "Style Size"
+set font "Inter 9"
 
 # --- Behavior---
 set selection-clipboard clipboard  # Copia texto selecionado para o clipboard do sistema
