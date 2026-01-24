@@ -24,8 +24,8 @@
     "memory",
     "disk",
     "temperature",
-    "battery"
-    // "network",
+    "battery",
+    "network"
     // "hyprland/language"
   ],
   /* === Modules Left === */
