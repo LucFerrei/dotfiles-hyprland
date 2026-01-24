@@ -18,10 +18,6 @@ return {
 			},
 			dragon = {
 			    syn = {
-				-- fun = "#c4746e",
-				-- type = "#c4746e",
-				-- keyword = "#c4746e",
-				-- variable = "#c4746e",
 			    }
 			}
 		    }
