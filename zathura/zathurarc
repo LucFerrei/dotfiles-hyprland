@@ -1,4 +1,7 @@
-# --- Comportamento ---
+# --- Font---
+set font "Style Size"
+
+# --- Behavior---
 set selection-clipboard clipboard  # Copia texto selecionado para o clipboard do sistema
 set statusbar-home-tilde true      # Mostra ~ em vez de /home/usuario
 set window-title-basename true     # Mostra apenas o nome do arquivo na barra de título
