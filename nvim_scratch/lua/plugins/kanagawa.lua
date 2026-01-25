@@ -5,6 +5,7 @@ return {
 	-- priority = 1000,
 	config = function ()
 	    require('kanagawa').setup({
+		compile = true,
 		transparent = true,
 		colors = {
 		    palette = {
@@ -31,9 +32,9 @@ return {
 			PmenuThumb = { bg = theme.ui.bg_p2 },
 		    }
 		end,
-		theme = "dragon",
+		theme = "wave",
 		background = {
-		    dark = "dragon",
+		    dark = "wave",
 		    light = "lotus"
 		}
 	    })

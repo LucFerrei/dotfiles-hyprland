@@ -45,3 +45,20 @@ function toggle_color_mode()
     })
     vim.cmd("colorscheme rose-pine")
 end
+
+local autopairs = require('nvim-autopairs')
+local Rule = require('nvim-autopairs.rule')
+
+autopairs.setup({
+  -- your existing config
+})
+
+-- Add the < > pair
+autopairs.add_rules({
+  Rule("<", ">")
+    -- Optional: Only pair them if followed by a letter (prevents pairing in math)
+    :with_pair(function(opts)
+        local pair = opts.line:sub(opts.col - 1, opts.col - 1)
+        return pair:match("[%w%s]") ~= nil
+    end),
+})
