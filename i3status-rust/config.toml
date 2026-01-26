@@ -29,15 +29,19 @@ interval = 10
 format = " $icon $mem_used_percents "
 
 [[block]]
+block = "battery"
+format = " $icon $percentage "
+
+[[block]]
 block = "temperature"
-format = " $icon $average avg "
-format_alt = " $icon $min min, $max max, $average avg "
+format = " $icon $max max, $average avg "
 interval = 10
 chip = "*-isa-*"
 
 [[block]]
 block = "net"
-format = " $icon {$signal_strength $ssid $frequency|Wired connection}"
+# format = " $icon {$signal_strength $ssid $frequency|Wired connection}"
+format = " $icon {$ssid|Wired connection}"
 
 [[block]]
 block = "time"
