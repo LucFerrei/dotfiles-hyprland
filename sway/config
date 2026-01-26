@@ -166,3 +166,9 @@ exec swaymsg '$ws1; exec chromium'
 exec swaymsg '$ws2; exec ~/personal/dotfiles-hyprland/bin/workspace2.sh'
 exec swaymsg '$ws3; exec ~/personal/dotfiles-hyprland/bin/workspace4.sh'
 exec swaymsg '$ws4; exec ~/personal/dotfiles-hyprland/bin/workspace4.sh'
+
+exec swayidle -w \
+     timeout 300 'swaylock' \
+     timeout 600 'swaymsg "output * power off"' \
+     resume 'swaymsg "output * power on"' \
+     before-sleep 'swaylock'

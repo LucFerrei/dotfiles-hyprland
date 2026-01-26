@@ -14,7 +14,7 @@ startup_mode = "Maximized"
 
 [font]
 # normal = { family = "VictorMono Nerd Font", style = "SemiBold" }
-normal = { family = "Iosevka Nerd Font", style = "Regular" }
+normal = { family = "Terminess Nerd Font", style = "Regular" }
 # normal = { family = "ZedMono Nerd Font", style = "SemiBold" }
 # size = 14
 size = 15

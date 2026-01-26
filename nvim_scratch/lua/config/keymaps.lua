@@ -45,8 +45,8 @@ vim.keymap.set("v", "<", "<gv", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader><BS>", "<Cmd>RenderMarkdown buf_toggle<CR>", { noremap = true, silent = true })
 
 ---- Toggle Rose Pine
-vim.keymap.set("n", "<leader>t", "<Cmd>lua toggle_transparency()<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>c", "<Cmd>lua toggle_color_mode()<CR>", { noremap = true, silent = true })
+-- vim.keymap.set("n", "<leader>t", "<Cmd>lua toggle_transparency()<CR>", { noremap = true, silent = true })
+-- vim.keymap.set("n", "<leader>c", "<Cmd>lua toggle_color_mode()<CR>", { noremap = true, silent = true })
 
 ---- Tmx
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmx<CR>")
