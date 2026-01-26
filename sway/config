@@ -1,0 +1,136 @@
+output HDMI-A-1 disable
+# Set your modifier key (Mod4 is usually the Windows/Logo key)
+set $mod Mod4
+#
+# Kanagawa-Wave Palette
+set $fujiWhite  #DCD7BA
+set $oldWhite   #C8C093
+set $sumiInk0   #16161D
+set $sumiInk1   #1F1F28
+set $sumiInk2   #2A2A37
+set $sumiInk3   #363646
+set $waveBlue1  #223249
+set $waveBlue2  #2D4F67
+set $crystalBlue #7E9CD8
+set $oniViolet  #957FB8
+set $autumnRed  #C34043
+set $autumnYellow #DCA561
+
+# Workspace names
+set $ws1 "1:  Web"
+set $ws2 "2:  Code"
+set $ws3 "3:  Books"
+set $ws4 "4:  Btop"
+set $ws5 "5:  Misc"
+
+# Set direction keys (Vim-style)
+set $left h
+set $down j
+set $up k
+set $right l
+# Move focus
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+
+# Move the actual window
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+
+# Your preferred terminal and launcher
+set $term alacritty
+# set $menu dmenu_path | wmenu | dmenu | bemenu-run | wofi --show run
+set $menu wofi 
+
+### Output Configuration
+# Default wallpaper (if swaybg is installed)
+output * bg /home/lucas/personal/wallpapers/option1-anders-jilden-cYrMQA7a3Wc-unsplash.jpg fill
+
+### Input Configuration
+# You can get input names via 'swaymsg -t get_inputs'
+input "type:keyboard" {
+    xkb_layout br
+    xkb_variant abnt2
+    xkb_options ctrl:nocaps,altwin:swap_alt_win
+}
+input "type:touchpad" {
+    tap enabled
+    natural_scroll enabled
+}
+
+### Keybindings
+bindsym $mod+t exec $term
+bindsym $mod+q kill
+bindsym $mod+r exec $menu
+bindsym $mod+backspace exec swaylock
+bindsym $mod+m layout toggle tabbed split
+bindsym $mod+Shift+e exec swaymsg exit
+
+# Switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+# ... (up to 10)
+bindsym $mod+Shift+c reload
+
+# Resize
+mode "resize" {
+    # Teclas Vim
+    bindsym $left  resize grow width 10px
+    bindsym $down  resize shrink height 10px
+    bindsym $up    resize grow height 10px
+    bindsym $right resize shrink width 10px
+
+    # Teclas de Seta (Geralmente mais intuitivas para resize)
+    bindsym Left   resize shrink width 10px
+    bindsym Down   resize shrink height 10px
+    bindsym Up     resize grow height 10px
+    bindsym Right  resize grow width 10px
+
+    # Voltar ao normal
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+# Bind the mode to a key (Physical Alt + R)
+bindsym $mod+Shift+r mode "resize"
+
+
+# Target           border        bg           text        indicator    child_border
+client.focused     $crystalBlue  $waveBlue2   $fujiWhite  $oniViolet   $crystalBlue
+client.unfocused   $sumiInk3     $sumiInk1    $oldWhite   $sumiInk3    $sumiInk3
+client.focused_inactive $sumiInk3 $sumiInk2   $oldWhite   $sumiInk3    $sumiInk3
+client.urgent      $autumnRed    $autumnRed   $fujiWhite  $autumnRed   $autumnRed
+
+# Bar config
+bar {
+    position top
+    status_command i3status
+    
+    colors {
+        background $sumiInk1
+        statusline $fujiWhite
+        separator  $sumiInk3
+
+        #                      border        bg           text
+        focused_workspace     $crystalBlue  $waveBlue2   $fujiWhite
+        active_workspace      $sumiInk3     $sumiInk2    $fujiWhite
+        inactive_workspace    $sumiInk1     $sumiInk1    $oldWhite
+        urgent_workspace      $autumnRed    $autumnRed   $fujiWhite
+        binding_mode          $autumnYellow $autumnYellow $sumiInk0
+    }
+}
+exec swaymsg '$ws1; exec chromium'
+exec swaymsg '$ws2; exec ~/personal/dotfiles-hyprland/bin/workspace2.sh'
+exec swaymsg '$ws3; exec ~/personal/dotfiles-hyprland/bin/workspace4.sh'
+exec swaymsg '$ws4; exec ~/personal/dotfiles-hyprland/bin/workspace4.sh'
