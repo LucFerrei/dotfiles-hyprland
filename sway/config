@@ -70,6 +70,12 @@ input "6058:20564:ThinkPad_Extra_Buttons" {
     xkb_model thinkpad
     xkb_options ctrl:nocaps,altwin:swap_alt_win
 }
+
+# Mouse and Touchpad
+input "type:pointer" {
+    pointer_accel 0.6
+    accel_profile "flat"
+}
 input "type:touchpad" {
     tap enabled
     natural_scroll enabled
@@ -127,21 +133,33 @@ client.focused_inactive $sumiInk3 $sumiInk2   $oldWhite   $sumiInk3    $sumiInk3
 client.urgent      $autumnRed    $autumnRed   $fujiWhite  $autumnRed   $autumnRed
 
 # Bar config
+# bar {
+#     position top
+#     status_command i3status
+#
+#     colors {
+#         background $sumiInk1
+#         statusline $fujiWhite
+#         separator  $sumiInk3
+#
+#         #                      border        bg           text
+#         focused_workspace     $crystalBlue  $waveBlue2   $fujiWhite
+#         active_workspace      $sumiInk3     $sumiInk2    $fujiWhite
+#         inactive_workspace    $sumiInk1     $sumiInk1    $oldWhite
+#         urgent_workspace      $autumnRed    $autumnRed   $fujiWhite
+#         binding_mode          $autumnYellow $autumnYellow $sumiInk0
+#     }
+# }
+
 bar {
     position top
-    status_command i3status
+    status_command i3status-rs ~/.config/i3status-rust/config.toml
     
     colors {
-        background $sumiInk1
-        statusline $fujiWhite
-        separator  $sumiInk3
+        statusline #ffffff
+        background #181616
+        focused_workspace $crystalBlue  $waveBlue2   $fujiWhite
 
-        #                      border        bg           text
-        focused_workspace     $crystalBlue  $waveBlue2   $fujiWhite
-        active_workspace      $sumiInk3     $sumiInk2    $fujiWhite
-        inactive_workspace    $sumiInk1     $sumiInk1    $oldWhite
-        urgent_workspace      $autumnRed    $autumnRed   $fujiWhite
-        binding_mode          $autumnYellow $autumnYellow $sumiInk0
     }
 }
 exec swaymsg '$ws1; exec chromium'

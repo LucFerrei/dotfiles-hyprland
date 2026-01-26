@@ -30,6 +30,7 @@ window#waybar.hidden {
 }
 
 /* - General rules for visible modules -- */
+/* Update general module names if they differ */
 #custom-archicon,
 #clock,
 #cpu,
@@ -38,19 +39,15 @@ window#waybar.hidden {
 #battery,
 #temperature,
 #window,
-#idle_inhibitor,
 #pulseaudio,
-#pulseaudio-slider,
 #network,
 #bluetooth,
 #language {
-  /* color: #c5c9c5; Fuji White */
-  color: #c5c9c5; /* Fuji White */
+  color: #c5c9c5;
   margin-top: 6px;
   margin-bottom: 6px;
   padding-left: 10px;
   padding-right: 10px;
-  transition: none;
 }
 
 /* Separation to the left */
@@ -75,30 +72,26 @@ window#waybar.hidden {
 /* Modules center */
 #workspaces {
   background: transparent;
-  border: 0px solid #282727;
-  border-radius: 2px;
   margin: 6px 5px;
-  /* padding: 0px 6px; */
 }
 
 #workspaces button {
-  color: #727169; /* Muted text */
+  color: #727169;
   background: transparent;
   padding: 4px 4px;
-  transition: all 0.3s ease;
 }
 
-#workspaces button.active {
+/* Changed .active to .focused for Sway */
+#workspaces button.focused {
   border-radius: 10px;
   background: #16161D;
-  color: #c4746e; /* Sokuhi Red */
+  color: #c4746e; 
   text-shadow: 0 0 3px rgba(196, 116, 110, 0.5);
 }
 
-#workspaces button:hover {
-  color: #c4b28a; /* Carp Yellow */
+#workspaces button.urgent {
+  color: #E46876;
 }
-
 /* Modules right */
 #taskbar {
   background: transparent;
