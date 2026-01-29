@@ -6,7 +6,7 @@ return {
 	config = function ()
 	    require('kanagawa').setup({
 		compile = true,
-		transparent = true,
+		transparent = false,
 		colors = {
 		    palette = {
 		    },
@@ -38,7 +38,7 @@ return {
 		    light = "lotus"
 		}
 	    })
-	    vim.cmd("colorscheme kanagawa")
+	    -- vim.cmd("colorscheme kanagawa")
 	end
     }
 }

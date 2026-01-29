@@ -8,13 +8,14 @@ COLORTERM = "truecolor"
 title = "Alacritty"
 class = { instance = "Alacritty", general = "Alacritty" }
 decorations = "none"
-opacity = 0.9
+opacity = 1
 blur = false
 startup_mode = "Maximized"
 
 [font]
-# normal = { family = "VictorMono Nerd Font", style = "SemiBold" }
-normal = { family = "Terminess Nerd Font", style = "Regular" }
+normal = { family = "VictorMono Nerd Font", style = "SemiBold" }
+# normal = { family = "Terminess Nerd Font", style = "Regular" }
 # normal = { family = "ZedMono Nerd Font", style = "SemiBold" }
+size = 13 
 # size = 14
-size = 15
+# size = 15

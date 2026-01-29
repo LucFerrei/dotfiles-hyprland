@@ -47,7 +47,8 @@ set $menu wofi
 
 ### Output Configuration
 # Default wallpaper (if swaybg is installed)
-output * bg /home/lucas/personal/wallpapers/option1-anders-jilden-cYrMQA7a3Wc-unsplash.jpg fill
+# output * bg /home/lucas/personal/wallpapers/option1-anders-jilden-cYrMQA7a3Wc-unsplash.jpg fill
+output * bg /home/lucas/personal/wallpapers/arch_fill.png fill
 
 ### Input Configuration
 # You can get input names via 'swaymsg -t get_inputs'
