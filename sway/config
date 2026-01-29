@@ -1,7 +1,10 @@
 output HDMI-A-1 disable
 # Set your modifier key (Mod4 is usually the Windows/Logo key)
 set $mod Mod4
-#
+
+# font pango:VictorMono Nerd Font Bold Italic 11, Font Awesome 6 Free 10
+font pango:VictorMono Nerd Font Bold Italic 10
+
 # Kanagawa-Wave Palette
 # set $fujiWhite  #DCD7BA
 # set $oldWhite   #C8C093
@@ -38,7 +41,7 @@ set $autumnYellow #ebcb8b
 
 # Workspace names
 set $ws1 "1:  Web"
-set $ws2 "2:  Code"
+set $ws2 "2: 󰣇 Code"
 set $ws3 "3:  Books"
 set $ws4 "4:  Btop"
 set $ws5 "5:  Misc"
