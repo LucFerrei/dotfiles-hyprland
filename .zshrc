@@ -80,17 +80,17 @@ alias ll='eza -lha --icons --git --group-directories-first'
 alias tree='eza -T --icons --git'
 
 # export FZF_DEFAULT_OPTS=" \
-# --color=bg+:#313244,bg:#1E1E2E,spinner:#F5E0DC,hl:#F38BA8 \
-# --color=fg:#CDD6F4,header:#F38BA8,info:#CBA6F7,pointer:#F5E0DC \
-# --color=marker:#B4BEFE,fg+:#CDD6F4,prompt:#CBA6F7,hl+:#F38BA8 \
-# --color=selected-bg:#45475A \
-# --color=border:#6C7086,label:#CDD6F4"
+# --color=bg+:#282727,bg:#181616,spinner:#c4746e,hl:#c4746e \
+# --color=fg:#c5c9c5,header:#c4746e,info:#8a9a7b,pointer:#c4746e \
+# --color=marker:#8a9a7b,fg+:#c5c9c5,prompt:#938aa9,hl+:#c4746e \
+# --color=selected-bg:#363646 \
+# --color=border:#54546d,label:#c5c9c5"
 export FZF_DEFAULT_OPTS=" \
---color=bg+:#282727,bg:#181616,spinner:#c4746e,hl:#c4746e \
---color=fg:#c5c9c5,header:#c4746e,info:#8a9a7b,pointer:#c4746e \
---color=marker:#8a9a7b,fg+:#c5c9c5,prompt:#938aa9,hl+:#c4746e \
---color=selected-bg:#363646 \
---color=border:#54546d,label:#c5c9c5"
+--color=bg+:#1a1b1e,bg:#000000,spinner:#ff7eb6,hl:#78a9ff \
+--color=fg:#f2f4f8,header:#ff7eb6,info:#39c5bb,pointer:#be95ff \
+--color=marker:#39c5bb,fg+:#f2f4f8,prompt:#be95ff,hl+:#78a9ff \
+--color=selected-bg:#282a2e \
+--color=border:#444444,label:#f2f4f8"
 
 alias tms='tmux-sessionizer'
 

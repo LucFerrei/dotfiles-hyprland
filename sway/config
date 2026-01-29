@@ -3,18 +3,38 @@ output HDMI-A-1 disable
 set $mod Mod4
 #
 # Kanagawa-Wave Palette
-set $fujiWhite  #DCD7BA
-set $oldWhite   #C8C093
-set $sumiInk0   #16161D
-set $sumiInk1   #1F1F28
-set $sumiInk2   #2A2A37
-set $sumiInk3   #363646
-set $waveBlue1  #223249
-set $waveBlue2  #2D4F67
-set $crystalBlue #7E9CD8
-set $oniViolet  #957FB8
-set $autumnRed  #C34043
-set $autumnYellow #DCA561
+# set $fujiWhite  #DCD7BA
+# set $oldWhite   #C8C093
+# set $sumiInk0   #16161D
+# set $sumiInk1   #1F1F28
+# set $sumiInk2   #2A2A37
+# set $sumiInk3   #363646
+# set $waveBlue1  #223249
+# set $waveBlue2  #2D4F67
+# set $crystalBlue #7E9CD8
+# set $oniViolet  #957FB8
+# set $autumnRed  #C34043
+# set $autumnYellow #DCA561
+set $bg_oled      #000000
+set $fg_oled      #f2f4f8
+set $gray_alt     #1a1b1e
+set $selection    #282a2e
+set $accent_blue  #78a9ff
+set $accent_purple #be95ff
+set $accent_red    #ff7eb6
+# Definições de Cores (Referência Oldworld)
+set $fujiWhite    #f2f4f8
+set $oldWhite     #a8a8a8
+set $sumiInk0     #000000
+set $sumiInk1     #0a0a0a
+set $sumiInk2     #161617
+set $sumiInk3     #1a1b1e
+set $waveBlue1    #1e2030
+set $waveBlue2    #282a2e
+set $crystalBlue  #78a9ff
+set $oniViolet    #be95ff
+set $autumnRed    #ff7eb6
+set $autumnYellow #ebcb8b
 
 # Workspace names
 set $ws1 "1:  Web"
@@ -130,11 +150,16 @@ mode "resize" {
 bindsym $mod+Shift+r mode "resize"
 
 
-# Target           border        bg           text        indicator    child_border
-client.focused     $crystalBlue  $waveBlue2   $fujiWhite  $oniViolet   $crystalBlue
-client.unfocused   $sumiInk3     $sumiInk1    $oldWhite   $sumiInk3    $sumiInk3
-client.focused_inactive $sumiInk3 $sumiInk2   $oldWhite   $sumiInk3    $sumiInk3
-client.urgent      $autumnRed    $autumnRed   $fujiWhite  $autumnRed   $autumnRed
+# # Target           border        bg           text        indicator    child_border
+# client.focused     $crystalBlue  $waveBlue2   $fujiWhite  $oniViolet   $crystalBlue
+# client.unfocused   $sumiInk3     $sumiInk1    $oldWhite   $sumiInk3    $sumiInk3
+# client.focused_inactive $sumiInk3 $sumiInk2   $oldWhite   $sumiInk3    $sumiInk3
+# client.urgent      $autumnRed    $autumnRed   $fujiWhite  $autumnRed   $autumnRed
+# Target                 border          bg              text           indicator       child_border
+client.focused           $accent_blue    $selection      $fg_oled       $accent_purple  $accent_blue
+client.unfocused         $gray_alt       $bg_oled        #a8a8a8        $gray_alt       $gray_alt
+client.focused_inactive  $gray_alt       $bg_oled        #a8a8a8        $gray_alt       $gray_alt
+client.urgent            $accent_red     $accent_red     $bg_oled       $accent_red     $accent_red
 
 # Bar config
 # bar {
@@ -178,3 +203,5 @@ exec swayidle -w \
      timeout 600 'swaymsg "output * power off"' \
      resume 'swaymsg "output * power on"' \
      before-sleep 'swaylock'
+
+exec dbus-update-activation-environment --all

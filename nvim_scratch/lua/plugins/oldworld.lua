@@ -5,15 +5,16 @@ return {
     config = function ()
 	require("oldworld").setup({
 	    terminal_colors = true,
+	    transparent = true,
 	    variant = "oled",
 	    styles = {
 		comments = { italic = true },
 		keywords = { italic = true, bold = true },
 		-- functions = { italic = true, bold = true },
-		-- identifiers = { italic = true, bold = true }
+		identifiers = { italic = true }
 	    },
 	    integrations = {
-		neo_tree = false,
+		neo_tree = true,
 		telescope = false,
 	    }
 	})
