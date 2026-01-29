@@ -115,6 +115,7 @@ bindsym $mod+m layout toggle tabbed split
 bindsym $mod+Shift+e exec swaymsg exit
 bindsym $mod+Print exec hyprshot -m region -o /home/lucas/scheenshots/
 bindsym $mod+e exec dolphin
+bindsym $mod+f fullscreen toggle
 
 # Switch to workspace
 bindsym $mod+1 workspace $ws1
