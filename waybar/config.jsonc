@@ -8,168 +8,81 @@
   "gtk-layer-shell": true,
   /* === Modules Order === */
   "modules-left": [
-    "custom/archicon",
-    "clock",
+    "sway/workspaces", // Changed from hyprland/workspaces
+    "sway/window"      // Changed from hyprland/window
+  ],
+  "modules-center": [
+    "clock"
+  ],
+  "modules-right": [
+    "pulseaudio",
+    "bluetooth",
     "cpu",
     "memory",
     "disk",
     "temperature",
-    "battery"
-  ],
-  "modules-center": [
-    "hyprland/workspaces"
-  ],
-  "modules-right": [
-    /*"wlr/taskbar",*/
-    /*"idle_inhibitor",*/
-    /*pulseaudio/slider",*/
-    "pulseaudio",
-    "bluetooth",
+    "battery",
     "network",
-    "hyprland/language"
+    "sway/language"    // Changed from hyprland/language
   ],
+
   /* === Modules Left === */
-  "custom/archicon": {
-    // "format": "",
-    "format": "󱎂",
-    "on-click": "wofi --show drun",
+  "sway/window": {      // Changed from hyprland/window
+    "format": "{}",
+    "max-length": 30,
+    "min-length": 30,
     "tooltip": false
   },
-  "clock": {
-    "timezone": "America/Sao_Paulo",
-    "format": " {:%H:%M}",
-    "format-alt": " {:%B %d, %Y}",
-    "tooltip-format": "{calendar}",
-    // "on-click": "toggle",
-    // "calendar": {
-    //   "mode": "month"
-    // }
-    "calendar": {
-        // Formato customizado para cada elemento do calendário
-        "format": {
-            // Estiliza o cabeçalho dos meses (Ano e Mês)
-            "months": "<span color='#ffead3'><b>{}</b></span>", 
-            
-            // Estiliza os dias do mês
-            "days": "<span color='#ecc6d9'>{}</span>", 
-            
-            // Estiliza o cabeçalho da semana (Dom, Seg, Ter...)
-            "weekdays": "<span color='#ffcc66'><b>{}</b></span>", 
-            
-            // Estiliza o dia de hoje (adiciona sublinhado e cor de destaque)
-            "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
-        },
-        // Altera a posição dos números da semana (se ativado)
-        "weeks-pos": "right" 
-    }
-  },
-  "cpu": {
-    "format": "{usage}% ",
-    "tooltip": true,
-    "tooltip-format": "Uso de CPU: {usage}%\nNúcleos: {cores}"
-  },
-  "memory": {
-    "format": "{}% 󰍛",
-    "tooltip": true,
-    "tooltip-format": "RAM em uso: {used} / {total} ({percentage}%)"
-  },
-  "disk": {
-    "format": "{percentage_free}% ",
-    "tooltip": true,
-    "tooltip-format": "Espaço livre: {free} / {total} ({percentage_free}%)"
-  },
-  "battery": {
-    // "bat": "BAT2",
-    "interval": 60,
-    "states": {
-      "warning": 30,
-      "critical": 15
-    },
-    "events": {
-      "on-discharging-warning": "notify-send -u normal 'Low Battery'",
-      "on-discharging-critical": "notify-send -u critical 'Very Low Battery'",
-      "on-charging-100": "notify-send -u normal 'Battery Full!'"
-    },
-    "format": "{capacity}% {icon}",
-    "format-charging": " {capacity}%",
-    "format-icons": ["", "", "", "", ""],
-    "max-length": 50
-  },
-  "temperature": {
-    "format": "{temperatureC}°C {icon}",
-    "tooltip": true,
-    "tooltip-format": "Temperatura atual: {temperatureC}°C\nCrítico > 80°C",
-    "format-icons": [
-      ""
-    ]
-  },
-  /* === Modules Center === */
-  "hyprland/workspaces": {
+
+  "sway/workspaces": {  // Changed from hyprland/workspaces
+    "disable-scroll": true,
+    "all-outputs": true,
     "format": "{name}",
     "format-icons": {
       "default": "",
-      "active": ""
-    },
-    "persistent-workspaces": {
-      "*": 2
-    },
-    "disable-scroll": true,
-    "all-outputs": true,
-    "show-special": true
-  },
-  /* === Modules Right === */
-  "wlr/taskbar": {
-    "format": "{icon}",
-    "all-outputs": true,
-    "active-first": true,
-    "tooltip-format": "{name}",
-    "on-click": "activate",
-    "on-click-middle": "close",
-    "ignore-list": [
-      "rofi"
-    ]
-  },
-  "idle_inhibitor": {
-    "format": "{icon}",
-    "format-icons": {
-      "activated": "",
-      "deactivated": ""
+      "focused": ""  // Sway uses 'focused' instead of 'active'
     }
   },
-  "pulseaudio/slider": {
-    "format": "{volume}%",
-    "format-muted": "MUTE",
-    "step": 5,
-    "tooltip": false
+
+  "sway/language": {    // Changed from hyprland/language
+    "format": "{} ",
+    "on-click": "sway msg input type:keyboard xkb_switch_layout next"
+  },
+
+  /* ... Keep your Clock, CPU, Memory, Disk, Battery, Temp, Pulseaudio as they were ... */
+  "clock": {
+    "timezone": "America/Sao_Paulo",
+    "format": "{:%B %d, %R}",
+    "tooltip-format": "{calendar}",
+    "calendar": {
+        "format": {
+            "months": "<span color='#c5c9c5'><b>{}</b></span>",
+            "days": "<span color='#a6a69c'>{}</span>",
+            "weekdays": "<span color='#DCA561'><b>{}</b></span>",
+            "today": "<span color='#E46876'><b><u>{}</u></b></span>"
+        }
+    }
+  },
+  "cpu": { "format": "{usage}% " },
+  "memory": { "format": "{}% 󰍛" },
+  "disk": { "format": "{percentage_free}% " },
+  "battery": {
+    "states": { "warning": 30, "critical": 15 },
+    "format": "{capacity}% {icon}",
+    "format-icons": ["", "", "", "", ""]
+  },
+  "temperature": {
+    "hwmon-path": "/sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input",
+    "format": "{temperatureC}°C {icon}"
   },
   "pulseaudio": {
     "format": "{volume}% {icon}",
-    "format-muted": " 󰝟 ",
     "on-click": "pavucontrol",
-    "format-icons": {
-      "default": [
-        "",
-        ""
-      ]
-    }
+    "format-icons": { "default": ["", ""] }
   },
   "network": {
-    "format": "{ifname}",
     "format-ethernet": "{ifname} 󰈀",
-    "format-disconnected": " ",
-    "tooltip-format": " {ifname} via {gwaddr}",
-    "tooltip-format-ethernet": " {ifname} {ipaddr}/{cidr}",
-    "tooltip-format-disconnected": "Disconnected",
-    "max-length": 50
+    "on-click": "kitty nmtui"
   },
-  "hyprland/language": {
-    "format": "{} ",
-    "on-click": "hyprctl switchxkblayout at-translated-set-2-keyboard next",
-    "format-es": "ESP",
-    "format-en": "ENG"
-  },
-  "bluetooth":{
-    "on-click": "blueman-manager"
-
-}
+  "bluetooth":{ "on-click": "blueman-manager" }
 }

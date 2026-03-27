@@ -1,0 +1,38 @@
+# OldWorld OLED Alacritty Colors
+# High contrast pitch-black background
+
+[colors.primary]
+background = '#000000'
+foreground = '#c9c7cd'
+
+[colors.normal]
+black = '#000000'
+red = '#ea83a5'
+green = '#90b99f'
+yellow = '#e6b99d'
+blue = '#92a2d5'
+magenta = '#aca1cf'
+cyan = '#85b5ba'
+white = '#c9c7cd'
+
+[colors.bright]
+black = '#5b586c'
+red = '#f5a191'
+green = '#9dc6ac'
+yellow = '#e0c9a1'
+blue = '#a6b6e9'
+magenta = '#ecaad6'
+cyan = '#99c9ce'
+white = '#ffffff'
+
+[colors.selection]
+background = '#282830'
+foreground = '#ffffff'
+
+[[colors.indexed_colors]]
+index = 16
+color = '#f5a191'
+
+[[colors.indexed_colors]]
+index = 17
+color = '#e29eca'

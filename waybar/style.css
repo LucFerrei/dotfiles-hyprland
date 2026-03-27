@@ -1,22 +1,36 @@
+/* -- Kanagawa Dragon Palette --
+   Background: #181616 (Sumibi)
+   Foreground: #c5c9c5 (Fuji)
+   Red:        #c4746e (Sokuhi)
+   Green:      #8a9a7b (Spring Green)
+   Yellow:     #c4b28a (Carp Yellow)
+   Blue:       #8ba4b0 (Dragon Blue)
+   Magenta:    #a292a3 (Violet)
+   Cyan:       #8ea4a2 (Wave Aqua)
+-------------------------------- */
+
 /* -- Global rules -- */
 * {
   border: none;
-  /* font-family: "FiraCode Nerd Font"; */
-  font-family: "CaskaydiaCove Nerd Font";
-  font-weight: normal;
+  font-family: "VictorMono Nerd Font", "Noto Color Emoji", sans-serif; 
+  font-weight: 800;
+  font-style: italic;
   font-size: 15px;
-  min-height: 15px;
+  min-height: 0px;
 }
 
 window#waybar {
-  background: rgba(34, 36, 54, 0.6);
+  /* Using Dragon Sumibi (Darker background) */
+  background: rgba(24, 22, 22, 0.6); 
+  border-bottom: 1px solid #282727;
 }
 
 window#waybar.hidden {
   opacity: 0.2;
 }
 
-/* - Genera rules for visible modules -- */
+/* - General rules for visible modules -- */
+/* Update general module names if they differ */
 #custom-archicon,
 #clock,
 #cpu,
@@ -24,18 +38,16 @@ window#waybar.hidden {
 #disk,
 #battery,
 #temperature,
-#idle_inhibitor,
+#window,
 #pulseaudio,
-#pulseaudio-slider,
 #network,
 #bluetooth,
 #language {
-  color: #faf4ed;
+  color: #c5c9c5;
   margin-top: 6px;
   margin-bottom: 6px;
   padding-left: 10px;
   padding-right: 10px;
-  transition: none;
 }
 
 /* Separation to the left */
@@ -48,7 +60,7 @@ window#waybar.hidden {
   border-bottom-left-radius: 10px;
 }
 
-/* Separation to the rigth */
+/* Separation to the right */
 #clock,
 #temperature,
 #language {
@@ -57,61 +69,29 @@ window#waybar.hidden {
   border-bottom-right-radius: 10px;
 }
 
-/* -- Specific styles -- */
-
-/* Modules left */
-#custom-archicon {
-  font-size: 20px;
-  /* color: #89B4FA; */
-  /* background: #161320; */
-  padding-right: 17px;
-}
-
-#clock {
-}
-
-#cpu {
-}
-
-#memory {
-}
-
-#disk {
-}
-
-#temperature {
-}
-
 /* Modules center */
 #workspaces {
-  background: rgba(0, 0, 0, 0.5);
-  border-radius: 10px;
+  background: transparent;
   margin: 6px 5px;
-  padding: 0px 6px;
 }
 
 #workspaces button {
-  color: #f2cdcd;
+  color: #727169;
   background: transparent;
   padding: 4px 4px;
-  transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
 }
 
-#workspaces button.occupied {
-  color: #A6E3A1;
+/* Changed .active to .focused for Sway */
+#workspaces button.focused {
+  border-radius: 10px;
+  background: #16161D;
+  color: #c4746e; 
+  text-shadow: 0 0 3px rgba(196, 116, 110, 0.5);
 }
 
-#workspaces button.active {
-  color: #f38ba8;
-  text-shadow: 0 0 3px #fab387;
+#workspaces button.urgent {
+  color: #E46876;
 }
-
-#workspaces button:hover {
-  color: #89B4FA;
-}
-
-#workspaces button.active:hover {}
-
 /* Modules right */
 #taskbar {
   background: transparent;
@@ -124,52 +104,43 @@ window#waybar.hidden {
   padding: 0px 5px;
   margin: 0px 3px;
   border-radius: 6px;
+  color: #c5c9c5;
   transition: background 0.3s ease;
 }
 
 #taskbar button.active {
-  background: rgba(34, 36, 54, 0.5);
+  background: #282727; /* Lighter Dragon black */
+  border-bottom: 1px solid #c4b28a;
 }
 
 #taskbar button:hover {
-  background: rgba(34, 36, 54, 0.5);
+  background: #282727;
 }
 
 #idle_inhibitor {
   padding-right: 15px;
+  color: #8ea4a2; /* Wave Aqua */
 }
 
 #pulseaudio {
   min-width: 55px;
-  /* color: #1A1826; */
-}
-
-#pulseaudio-slider {
-  /* color: #1A1826; */
-  min-width: 50px;
-}
-
-#pulseaudio-slider slider {
-}
-
-#pulseaudio-slider {
+  color: #c4b28a; /* Yellow */
 }
 
 #network {
   padding-right: 13px;
+  color: #8a9a7b; /* Green */
 }
 
 #language {
   padding-right: 15px;
-}
-#bluetooth{
-  /* color: #1A1826; */
+  color: #a292a3; /* Violet */
 }
 
 /* === Optional animation === */
 @keyframes blink {
   to {
-    background-color: #BF616A;
-    color: #B5E8E0;
+    background-color: #c4746e;
+    color: #181616;
   }
 }

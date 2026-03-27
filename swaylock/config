@@ -1,0 +1,57 @@
+# --- Geral ---
+ignore-empty-password
+show-failed-attempts
+indicator-radius=100
+indicator-thickness=10
+
+# --- Imagem e Cor de Fundo ---
+# O Dragon usa um fundo mais escuro (SumibiInk)
+color=181616
+# image=/caminho/para/seu/wallpaper.png
+scaling=fill
+
+# --- Círculo Interno (Inside) ---
+# Fundo: SumibiInk com transparência
+inside-color=18161688
+# Verifying: BoatYellow
+inside-ver-color=c0a36e88
+# Wrong: AutumnRed
+inside-wrong-color=c4746e88
+# Clear: DragonBlue
+inside-clear-color=65859488
+# CapsLock: SurimiOrange
+inside-caps-lock-color=ff9e3b88
+
+# --- Círculo Externo (Ring) ---
+# Ring normal: DragonWhite
+ring-color=c5c9c5
+# Ring Verifying: CarpYellow
+ring-ver-color=e6c384
+# Ring Wrong: CrystalBlue (Contraste para erro)
+ring-wrong-color=7e9cd8
+# Ring Clear: AutumnGreen
+ring-clear-color=76946a
+# Ring Caps: SurimiOrange
+ring-caps-lock-color=ff9e3b
+
+# --- Destaques de Digitação (Highlights) ---
+# Key Press: AutumnGreen
+key-hl-color=76946a
+# Backspace: AutumnRed
+bs-hl-color=c4746e
+separator-color=00000000
+
+# --- Texto ---
+# Texto normal: DragonWhite
+text-color=c5c9c5
+# Texto durante ações (contraste dark)
+text-ver-color=181616
+text-wrong-color=181616
+text-clear-color=181616
+text-caps-lock-color=181616
+# font=JetBrainsMono Nerd Font
+font=VictorMono Nerd Font 
+font-size=24
+
+# --- Linha de Separação (Line) ---
+line-uses-ring

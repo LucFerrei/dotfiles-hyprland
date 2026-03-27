@@ -1,4 +1,7 @@
-# --- Comportamento ---
+# --- Font---
+set font "Inter 9"
+
+# --- Behavior---
 set selection-clipboard clipboard  # Copia texto selecionado para o clipboard do sistema
 set statusbar-home-tilde true      # Mostra ~ em vez de /home/usuario
 set window-title-basename true     # Mostra apenas o nome do arquivo na barra de título
@@ -9,16 +12,53 @@ set recolor                     "true"
 set recolor-keephue             "true"
 
 # Cores Gruvbox Dark
-set recolor-lightcolor          "#282828" # Fundo (bg0)
-set recolor-darkcolor           "#EBDBB2" # Texto (fg1)
+# set recolor-lightcolor          "#282828" # Fundo (bg0)
+# set recolor-darkcolor           "#EBDBB2" # Texto (fg1)
+#
+# # Interface do Zathura acompanhando o tema
+# set default-bg                  "#282828"
+# set default-fg                  "#EBDBB2"
+# set statusbar-bg                "#3C3836"
+# set statusbar-fg                "#EBDBB2"
+# set inputbar-bg                 "#282828"
+# set inputbar-fg                 "#FABD2F" # Amarelo Gruvbox para destaque
+set default-fg                "#c9c7cd"
+set default-bg 			          "#161617"
 
-# Interface do Zathura acompanhando o tema
-set default-bg                  "#282828"
-set default-fg                  "#EBDBB2"
-set statusbar-bg                "#3C3836"
-set statusbar-fg                "#EBDBB2"
-set inputbar-bg                 "#282828"
-set inputbar-fg                 "#FABD2F" # Amarelo Gruvbox para destaque
+set completion-bg		          "#1b1b1c"
+set completion-fg		          "#c9c7cd"
+set completion-highlight-bg	  "#313134"
+set completion-highlight-fg	  "#c9c7cd"
+set completion-group-bg		    "#1b1b1c"
+set completion-group-fg		    "#92a2d5"
+
+set statusbar-fg		          "#c9c7cd"
+set statusbar-bg		          "#1b1b1c"
+
+set notification-bg		        "#1b1b1c"
+set notification-fg		        "#c9c7cd"
+set notification-error-bg	    "#1b1b1c"
+set notification-error-fg	    "#ea83a5"
+set notification-warning-bg	  "#1b1b1c"
+set notification-warning-fg	  "#f5a191"
+
+set inputbar-fg			          "#c9c7cd"
+set inputbar-bg 		          "#1b1b1c"
+
+set recolor-lightcolor		    "#161617"
+set recolor-darkcolor		      "#c9c7cd"
+
+set index-fg			            "#c9c7cd"
+set index-bg			            "#161617"
+set index-active-fg		        "#c9c7cd"
+set index-active-bg		        "#1b1b1c"
+
+set render-loading-bg		      "#161617"
+set render-loading-fg		      "#c9c7cd"
+
+set highlight-color		        "#313134"
+set highlight-fg              "#e29eca"
+set highlight-active-color	  "#e29eca"
 
 # --- Keybinds ---
 map ; focus_inputbar

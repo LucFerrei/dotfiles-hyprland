@@ -22,26 +22,10 @@ vim.diagnostic.config({
   severity_sort = true,
 })
 
-function toggle_transparency()
-    local tranparency_state = require('rose-pine.config').options.styles.transparency
-    tranparency_state = not tranparency_state
-    require('rose-pine').setup({
-	styles = {
-	    transparency = tranparency_state
-	}
-    })
-    vim.cmd("colorscheme rose-pine")
+local function clear_bg()
+    vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+    vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+    vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
 end
 
-function toggle_color_mode()
-    local variant = require('rose-pine.config').options.variant
-    if variant=="main" then
-	variant = "dawn"
-    else
-	variant = "main"
-    end
-    require('rose-pine').setup({
-	variant = variant
-    })
-    vim.cmd("colorscheme rose-pine")
-end
+clear_bg()

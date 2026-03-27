@@ -204,7 +204,6 @@ rules = [
 
 	# Media
 	{ mime = "{audio,video}/*", fg = "#f6c177" },
-
 	# Archives
 	{ mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", fg = "#eb6f92" },
 
@@ -223,7 +222,7 @@ rules = [
 	{ name = "*/", is = "dummy", fg = "#191724", bg = "#eb6f92" },
 
 	# Fallback
-	{ name = "*",  fg = "#e0def4" },
+	# { name = "*",  fg = "#e0def4" },
 	{ name = "*/", fg = "#9ccfd8" }
 ]
 
