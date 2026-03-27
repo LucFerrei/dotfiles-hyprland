@@ -21,7 +21,7 @@ plugins=(git tmux python docker)
 source $ZSH/oh-my-zsh.sh
 
 # tmux-sessionizer
-export PATH="$PATH:$HOME/personal/dotfiles-hyprland/bin:$HOME/work/tmx/"
+export PATH="$PATH:$HOME/personal/dotfiles-hyprland/bin"
 TMX_DIR="$HOME/work/tmx"
 bindkey -s ^f '^u"tmx"\n'
 
@@ -97,3 +97,5 @@ alias tms='tmux-sessionizer'
 #nvim theme config
 # alias nvim_dia='nvim -c "NvimDia"'
 # alias nvim_noite='nvim -c "NvimNoite"'
+export PATH="/home/lucas/.config/herd-lite/bin:$PATH"
+export PHP_INI_SCAN_DIR="/home/lucas/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"

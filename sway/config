@@ -1,3 +1,4 @@
+# output HDMI-A-1 enable
 output HDMI-A-1 disable
 # Set your modifier key (Mod4 is usually the Windows/Logo key)
 set $mod Mod4
@@ -5,39 +6,26 @@ set $mod Mod4
 # font pango:VictorMono Nerd Font Bold Italic 11, Font Awesome 6 Free 10
 font pango:VictorMono Nerd Font Bold Italic 10
 
-# Kanagawa-Wave Palette
-# set $fujiWhite  #DCD7BA
-# set $oldWhite   #C8C093
-# set $sumiInk0   #16161D
-# set $sumiInk1   #1F1F28
-# set $sumiInk2   #2A2A37
-# set $sumiInk3   #363646
-# set $waveBlue1  #223249
-# set $waveBlue2  #2D4F67
-# set $crystalBlue #7E9CD8
-# set $oniViolet  #957FB8
-# set $autumnRed  #C34043
-# set $autumnYellow #DCA561
-set $bg_oled      #000000
-set $fg_oled      #f2f4f8
-set $gray_alt     #1a1b1e
-set $selection    #282a2e
-set $accent_blue  #78a9ff
+set $bg_oled       #000000
+set $fg_oled       #f2f4f8
+set $gray_alt      #1a1b1e
+set $selection     #282a2e
+set $accent_blue   #78a9ff
 set $accent_purple #be95ff
 set $accent_red    #ff7eb6
 # Definições de Cores (Referência Oldworld)
-set $fujiWhite    #f2f4f8
-set $oldWhite     #a8a8a8
-set $sumiInk0     #000000
-set $sumiInk1     #0a0a0a
-set $sumiInk2     #161617
-set $sumiInk3     #1a1b1e
-set $waveBlue1    #1e2030
-set $waveBlue2    #282a2e
-set $crystalBlue  #78a9ff
-set $oniViolet    #be95ff
-set $autumnRed    #ff7eb6
-set $autumnYellow #ebcb8b
+set $fujiWhite     #f2f4f8
+set $oldWhite      #a8a8a8
+set $sumiInk0      #000000
+set $sumiInk1      #0a0a0a
+set $sumiInk2      #161617
+set $sumiInk3      #1a1b1e
+set $waveBlue1     #1e2030
+set $waveBlue2     #282a2e
+set $crystalBlue   #78a9ff
+set $oniViolet     #be95ff
+set $autumnRed     #ff7eb6
+set $autumnYellow  #ebcb8b
 
 # Workspace names
 set $ws1 "1:  Web"
@@ -97,7 +85,7 @@ input "6058:20564:ThinkPad_Extra_Buttons" {
 
 # Mouse and Touchpad
 input "type:pointer" {
-    pointer_accel 0.6
+    pointer_accel 0.5
     accel_profile "flat"
 }
 input "type:touchpad" {
@@ -202,6 +190,8 @@ exec swaymsg "workspace $ws2; exec ~/personal/dotfiles-hyprland/bin/workspace2.s
 exec swaymsg "workspace $ws3; exec ~/personal/dotfiles-hyprland/bin/workspace3.sh"
 exec swaymsg "workspace $ws4; exec ~/personal/dotfiles-hyprland/bin/workspace4.sh"
 
+exec otd-daemon
+
 exec swayidle -w \
      timeout 300 'swaylock' \
      timeout 600 'swaymsg "output * power off"' \
@@ -209,3 +199,4 @@ exec swayidle -w \
      before-sleep 'swaylock'
 
 exec dbus-update-activation-environment --all
+
