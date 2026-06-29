@@ -18,7 +18,7 @@ return {
 		telescope = false,
 	    }
 	})
-	vim.cmd("colorscheme oldworld")
+	-- vim.cmd("colorscheme oldworld")
     end
 }
 -- #sadfsadf

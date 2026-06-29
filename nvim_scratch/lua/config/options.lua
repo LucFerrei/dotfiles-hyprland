@@ -28,4 +28,4 @@ local function clear_bg()
     vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
 end
 
-clear_bg()
+-- clear_bg()

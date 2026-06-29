@@ -4,11 +4,11 @@ return {
     name = "rose-pine",
     config = function()
 	require("rose-pine").setup({
-	    variant = "main",
+	    variant = "moon",
 	    styles = {
 		bold = true,
 		italic = true,
-		transparency = false,
+		transparency = true,
 	    },
 	})
 	-- vim.cmd("colorscheme rose-pine")

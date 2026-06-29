@@ -7,4 +7,6 @@ maximize = true
 
 #theme
 # theme = 3024 Night
-theme = Birds Of Paradise
+# theme = Birds Of Paradise
+# theme = Modus Vivendi
+theme = Nvim Dark

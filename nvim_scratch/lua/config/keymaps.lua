@@ -2,7 +2,7 @@
 vim.keymap.set("n", ";", ":", { noremap = true, })
 --- moves
 vim.keymap.set("i", "jk", "<Esc>", { noremap = true, silent = true, })
-vim.keymap.set("i", "kj", "<Esc>", { noremap = true, silent = true, })
+-- vim.keymap.set("i", "kj", "<Esc>", { noremap = true, silent = true, })
 --- move lines (insert mode)
 vim.keymap.set("n", "m", "<Cmd>m+1<CR>", { noremap = true, silent = true, })
 vim.keymap.set("n", "M", "<Cmd>m-2<CR>", { noremap = true, silent = true, })
@@ -47,6 +47,15 @@ vim.keymap.set("n", "<leader><BS>", "<Cmd>RenderMarkdown buf_toggle<CR>", { nore
 ---- Toggle Rose Pine
 -- vim.keymap.set("n", "<leader>t", "<Cmd>lua toggle_transparency()<CR>", { noremap = true, silent = true })
 -- vim.keymap.set("n", "<leader>c", "<Cmd>lua toggle_color_mode()<CR>", { noremap = true, silent = true })
+
+---- Resize windows
+vim.keymap.set("n", "<A-Up>", ":resize +2<CR>")
+vim.keymap.set("n", "<A-Down>", ":resize -2<CR>")
+vim.keymap.set("n", "<A-Left>", ":vertical resize -2<CR>")
+vim.keymap.set("n", "<A-Right>", ":vertical resize +2<CR>")
+
+-- Toggle Supermaven
+vim.keymap.set("n", "<leader>s", "<Cmd>SupermavenToggle<CR>", { noremap = true, silent = false })
 
 ---- Tmx
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmx<CR>")

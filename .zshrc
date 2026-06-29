@@ -5,9 +5,9 @@ export ZSH_CUSTOM="$HOME/personal/dotfiles-hyprland/custom_omz"
 export EDITOR=nvim
 
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-# ZSH_THEME="robbyrussell"
+ZSH_THEME="robbyrussell"
 # ZSH_THEME="oxide"
-ZSH_THEME="oxide-rose-pine-v2"
+# ZSH_THEME="oxide-rose-pine-v2"
 # ZSH_THEME="ys"
 # ZSH_THEME="amuse"
 
@@ -24,6 +24,9 @@ source $ZSH/oh-my-zsh.sh
 export PATH="$PATH:$HOME/personal/dotfiles-hyprland/bin"
 TMX_DIR="$HOME/work/tmx"
 bindkey -s ^f '^u"tmx"\n'
+
+# add some bin
+export PATH="$HOME/bin:$PATH"
 
 # Defina aqui o caminho da pasta de origem que é CONSTANTE
 # *MUDE ESTE CAMINHO* para o seu diretório real.
@@ -93,9 +96,14 @@ export FZF_DEFAULT_OPTS=" \
 --color=border:#444444,label:#f2f4f8"
 
 alias tms='tmux-sessionizer'
+alias books='yazi /home/lucas/personal/books/'
+alias insta='yazi /home/lucas/work/instagram/'
 
 #nvim theme config
 # alias nvim_dia='nvim -c "NvimDia"'
 # alias nvim_noite='nvim -c "NvimNoite"'
 export PATH="/home/lucas/.config/herd-lite/bin:$PATH"
 export PHP_INI_SCAN_DIR="/home/lucas/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
+[[ -f ~/.secrets ]] && source ~/.secrets
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.npm-global/bin:$PATH"

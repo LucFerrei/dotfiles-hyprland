@@ -1,4 +1,4 @@
-general.import = ["~/.config/alacritty/oldworld.toml"]
+general.import = ["~/.config/alacritty/rose-pine-moon.toml"]
 [env]
 TERM = "xterm-256color"
 COLORTERM = "truecolor"
@@ -7,14 +7,21 @@ COLORTERM = "truecolor"
 title = "Alacritty"
 class = { instance = "Alacritty", general = "Alacritty" }
 decorations = "none"
-opacity = 0.7
-blur = false
+blur = true
+opacity = 0.8
 startup_mode = "Maximized"
 
 [font]
 # normal = { family = "VictorMono Nerd Font", style = "SemiBold" }
+# normal = { family = "Iosevka Nerd Font", style = "Regular" }
+normal = { family = "IosevkaTermSlab Nerd Font", style = "Regular" }
 # normal = { family = "Terminess Nerd Font", style = "Regular" }
-normal = { family = "ZedMono Nerd Font", style = "SemiBold" }
+# normal = { family = "ZedMono Nerd Font", style = "SemiBold" }
 # size = 13 
 size = 14
 # size = 15
+
+[[keyboard.bindings]]
+key = "Return"
+mods = "Shift"
+chars = "\u001B\r"

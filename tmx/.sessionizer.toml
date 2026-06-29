@@ -1,5 +1,5 @@
 [[windows]]
-name = "nvim"
+name = "dev"
 command = "nvim"
 
 [[windows]]
