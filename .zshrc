@@ -1,11 +1,25 @@
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
+# Completions extras
+fpath=(~/.zsh/zsh-completions/src $fpath)
+
+autoload -Uz compinit
+compinit
+
+# Sugestões baseadas no histórico
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# Highlight de comandos
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+eval "$(starship init zsh)"
+
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_CUSTOM="$HOME/personal/dotfiles-hyprland/custom_omz"
 export EDITOR=nvim
 
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+# ZSH_THEME="robbyrussell"
 # ZSH_THEME="oxide"
 # ZSH_THEME="oxide-rose-pine-v2"
 # ZSH_THEME="ys"
@@ -98,6 +112,7 @@ export FZF_DEFAULT_OPTS=" \
 alias tms='tmux-sessionizer'
 alias books='yazi /home/lucas/personal/books/'
 alias insta='yazi /home/lucas/work/instagram/'
+alias pgr='playground'
 
 #nvim theme config
 # alias nvim_dia='nvim -c "NvimDia"'
@@ -107,3 +122,4 @@ export PHP_INI_SCAN_DIR="/home/lucas/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
 [[ -f ~/.secrets ]] && source ~/.secrets
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.npm-global/bin:$PATH"
+

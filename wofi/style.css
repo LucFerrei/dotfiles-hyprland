@@ -1,0 +1,97 @@
+/* ============================================================
+   Wofi - Tema Spotlight (macOS-like)
+   Compacto, input dominante, resultados expandem ao digitar
+   ============================================================ */
+
+* {
+    font-family: "SF Pro Display", "Inter", "Segoe UI", sans-serif;
+    font-size: 16px;
+    transition: none;
+}
+
+window {
+    background-color: rgba(28, 28, 30, 0.92);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.55);
+}
+
+#outer-box {
+    margin: 0px;
+    padding: 6px;
+    background: transparent;
+    border-radius: 16px;
+}
+
+/* Campo de busca - grande e dominante, como no Spotlight */
+#input {
+    margin: 4px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    background-color: transparent;
+    color: #f5f5f7;
+    border: none;
+    font-size: 22px;
+    font-weight: 300;
+    caret-color: #0a84ff;
+}
+
+#input:focus {
+    background-color: transparent;
+    outline: none;
+    box-shadow: none;
+}
+
+/* Linha divisória entre input e resultados só aparece quando há conteúdo */
+#scroll {
+    margin: 0px 4px 6px 4px;
+    padding: 0px;
+    border: none;
+    background: transparent;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+#inner-box {
+    margin: 6px 0px 0px 0px;
+    padding: 0px;
+    background: transparent;
+}
+
+/* Itens de resultado */
+#entry {
+    padding: 8px 10px;
+    margin: 1px 2px;
+    border-radius: 8px;
+    background: transparent;
+    color: #d1d1d6;
+}
+
+#entry:selected {
+    background-color: rgba(10, 132, 255, 0.9);
+    color: #ffffff;
+}
+
+#entry image {
+    margin-right: 12px;
+}
+
+#text {
+    color: inherit;
+    font-weight: 400;
+    font-size: 15px;
+}
+
+#entry:selected #text {
+    color: #ffffff;
+    font-weight: 500;
+}
+
+scrollbar {
+    background: transparent;
+}
+
+scrollbar slider {
+    background-color: rgba(255, 255, 255, 0.18);
+    border-radius: 10px;
+    min-width: 5px;
+}
