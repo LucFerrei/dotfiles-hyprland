@@ -1,5 +1,5 @@
 return {
-  dir = "~/work/yankee_harpoon", -- ou seu caminho/URL do repo
+ "LucFerrei/yankee_harpoon",
   config = function()
     require("yankee_harpoon").setup()
   end,

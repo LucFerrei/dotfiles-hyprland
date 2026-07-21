@@ -63,8 +63,14 @@
         }
     }
   },
-  "cpu": { "format": "{usage}% " },
-  "memory": { "format": "{}% 󰍛" },
+  "cpu": { 
+      "format": "{}% ",
+      "format": 10 
+  },
+  "memory": { 
+      "format": "{}% 󰍛",
+      "interval": 10 
+  },
   "disk": { "format": "{percentage_free}% " },
   "battery": {
     "states": { "warning": 30, "critical": 15 },

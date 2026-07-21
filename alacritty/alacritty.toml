@@ -8,17 +8,17 @@ title = "Alacritty"
 class = { instance = "Alacritty", general = "Alacritty" }
 decorations = "none"
 blur = true
-opacity = 0.8
+opacity = 1
 startup_mode = "Maximized"
 
 [font]
 # normal = { family = "VictorMono Nerd Font", style = "SemiBold" }
 # normal = { family = "Iosevka Nerd Font", style = "Regular" }
-normal = { family = "IosevkaTermSlab Nerd Font", style = "Regular" }
+normal = { family = "SF Mono", style = "SemiBold" }
 # normal = { family = "Terminess Nerd Font", style = "Regular" }
 # normal = { family = "ZedMono Nerd Font", style = "SemiBold" }
-# size = 13 
-size = 14
+size = 13 
+# size = 14
 # size = 15
 
 [[keyboard.bindings]]

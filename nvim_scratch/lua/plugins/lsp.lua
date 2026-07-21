@@ -13,7 +13,7 @@ return {
     dependencies = { "williamboman/mason.nvim" },
     opts = {
       -- List the servers you want automatically installed
-      ensure_installed = { "lua_ls", "pyright", "ts_ls", "html", "clangd" },
+      ensure_installed = { "lua_ls", "pyright", "ts_ls", "html", },
     },
   },
 

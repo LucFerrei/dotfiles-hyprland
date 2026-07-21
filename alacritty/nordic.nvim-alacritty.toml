@@ -1,0 +1,71 @@
+# Nordic.nvim for Alacritty
+# Based on: https://github.com/AlexvZyl/nordic.nvim
+# Format: alacritty.toml theme import
+
+[colors.primary]
+background = "#242933"
+foreground = "#C0C8D8"
+dim_foreground = "#60728A"
+bright_foreground = "#ECEFF4"
+
+[colors.cursor]
+text = "#242933"
+cursor = "#D8DEE9"
+
+[colors.vi_mode_cursor]
+text = "#242933"
+cursor = "#8FBCBB"
+
+[colors.selection]
+text = "CellForeground"
+background = "#2E3440"
+
+[colors.search.matches]
+foreground = "#242933"
+background = "#EBCB8B"
+
+[colors.search.focused_match]
+foreground = "#242933"
+background = "#A3BE8C"
+
+[colors.hints.start]
+foreground = "#242933"
+background = "#EBCB8B"
+
+[colors.hints.end]
+foreground = "#242933"
+background = "#8FBCBB"
+
+[colors.footer_bar]
+foreground = "#C0C8D8"
+background = "#191D24"
+
+[colors.normal]
+black = "#1E222A"
+red = "#BF616A"
+green = "#A3BE8C"
+yellow = "#EBCB8B"
+blue = "#81A1C1"
+magenta = "#B48EAD"
+cyan = "#8FBCBB"
+white = "#C0C8D8"
+
+[colors.bright]
+black = "#4C566A"
+red = "#C5727A"
+green = "#B1C89D"
+yellow = "#EFD49F"
+blue = "#88C0D0"
+magenta = "#BE9DB8"
+cyan = "#9FC6C5"
+white = "#ECEFF4"
+
+[colors.dim]
+black = "#191D24"
+red = "#B74E58"
+green = "#97B67C"
+yellow = "#E7C173"
+blue = "#5E81AC"
+magenta = "#A97EA1"
+cyan = "#80B3B2"
+white = "#BBC3D4"
