@@ -1,9 +1,8 @@
 return{
     {
 	"scottmckendry/cyberdream.nvim",
-	lazy = false,
-	priority = 1000,
-	options = function ()
+	lazy = true, -- rose-pine é o tema de startup; carrega só se ativado via :colorscheme
+	config = function ()
 	    require("cyberdream").setup({
 		variant = "light",
 		transparent = false,
