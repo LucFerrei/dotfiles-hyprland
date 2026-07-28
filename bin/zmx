@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+
+# aimestereo/zellij-sessionizer
+
+# set your own root folders, all children folders will become options for in sessionizer menu
+root_folders="$HOME/personal $HOME/work $HOME"
+
+self="$(readlink -f "$0")"
+quit_option="=== Quit sessionizer ==="
+session_prefix="[zellij] "
+
+function active_sessions() {
+    zellij list-sessions --no-formatting 2>/dev/null |
+        grep -v 'EXITED' |
+        awk '{print $1}'
+}
+
+function build_menu() {
+    printf '%s\n' "$quit_option"
+    active_sessions | sed "s|^|$session_prefix|"
+    find $root_folders -mindepth 1 -maxdepth 1 -type d
+}
+
+function preview_entry() {
+    case $1 in
+        "$quit_option")
+            echo "Sair do sessionizer"
+            ;;
+        "$session_prefix"*)
+            zellij list-sessions --no-formatting 2>/dev/null | grep -F -- "${1#"$session_prefix"}"
+            ;;
+        *)
+            eza -la --icons --color=always --group-directories-first -- "$1" 2>/dev/null ||
+                ls -la -- "$1"
+            ;;
+    esac
+}
+
+function kill_entry() {
+    case $1 in
+        "$session_prefix"*)
+            zellij delete-session --force -- "${1#"$session_prefix"}" >/dev/null 2>&1
+            ;;
+        *) : ;; # não é sessão: no-op
+    esac
+}
+
+case ${1-} in
+    --list)
+        build_menu
+        exit 0
+        ;;
+    --preview)
+        preview_entry "$2"
+        exit 0
+        ;;
+    --kill)
+        kill_entry "$2"
+        exit 0
+        ;;
+esac
+
+selected_option=$(build_menu | fzf --ansi \
+    --preview "$self --preview {}" \
+    --preview-window=right,50%,border-left \
+    --bind "ctrl-x:execute-silent($self --kill {})+reload($self --list)" \
+    --header 'enter: attach | ctrl-x: kill session') || exit 0
+
+if [[ -z $selected_option || $selected_option == "$quit_option" ]]; then
+    exit 0
+fi
+
+case $selected_option in
+    "$session_prefix"*)
+        exec zellij attach "${selected_option#"$session_prefix"}"
+        ;;
+    *)
+        cd "$selected_option" || exit 1
+        exec zellij attach --create "$(basename "$selected_option" | tr . _)"
+        ;;
+esac
