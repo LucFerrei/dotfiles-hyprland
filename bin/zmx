@@ -1,0 +1,404 @@
+#!/usr/bin/env bash
+
+# aimestereo/zellij-sessionizer
+
+set -euo pipefail
+
+config_dir="${XDG_CONFIG_HOME:-$HOME/.config}/zmx"
+config_file="$config_dir/zmx.toml"
+default_sessionizer="$config_dir/.sessionizer.toml"
+
+# fallback quando não há zmx.toml
+default_root_folders=("$HOME/personal" "$HOME/work" "$HOME")
+
+self="$(readlink -f "$0")"
+quit_option="=== Quit sessionizer ==="
+session_prefix="[zellij] "
+
+# layouts gerados ficam no runtime dir com nome estável (um arquivo por sessão,
+# sobrescrito), em vez de mktemp: a quantidade fica limitada, o systemd limpa no
+# logout e dá para usar exec — com mktemp era preciso manter este bash vivo só
+# para apagar o temp depois, e um SIGHUP vazava o arquivo
+runtime_dir="${XDG_RUNTIME_DIR:-/tmp}/zmx"
+
+# lê os [[paths]] do zmx.toml em awk, não em python: este é o caminho quente
+# (roda a cada abertura do menu e a cada reload do fzf) e o startup do
+# interpretador python custava mais que todo o resto da montagem do menu.
+# Formato de saída: path \t depth \t hidden \t ignore1|ignore2
+function root_specs() {
+    if [[ ! -f $config_file ]]; then
+        printf '%s\t1\tfalse\t\n' "${default_root_folders[@]}"
+        return 0
+    fi
+
+    awk '
+        function trim(s) { gsub(/^[ \t\r]+|[ \t\r]+$/, "", s); return s }
+
+        function unquote(s,   q) {
+            s = trim(s)
+            q = substr(s, 1, 1)
+            if ((q == "\"" || q == "'\''") && substr(s, length(s), 1) == q)
+                s = substr(s, 2, length(s) - 2)
+            return s
+        }
+
+        function expand(s) {
+            if (s ~ /^~\//)     s = ENVIRON["HOME"] substr(s, 2)
+            else if (s == "~")  s = ENVIRON["HOME"]
+            sub(/^\$HOME/, ENVIRON["HOME"], s)
+            return s
+        }
+
+        # ignore = ["node_modules", ".git"] -> node_modules|.git
+        function parselist(s,   n, i, parts, out) {
+            sub(/^\[/, "", s); sub(/\]$/, "", s)
+            n = split(s, parts, ",")
+            out = ""
+            for (i = 1; i <= n; i++) {
+                parts[i] = unquote(parts[i])
+                if (parts[i] != "") out = (out == "" ? parts[i] : out "|" parts[i])
+            }
+            return out
+        }
+
+        function flush() {
+            if (inpath && path != "")
+                printf "%s\t%s\t%s\t%s\n", path, depth, hidden, ignore
+            path = ""; depth = 1; hidden = "false"; ignore = ""
+        }
+
+        BEGIN { inpath = 0; path = ""; depth = 1; hidden = "false"; ignore = "" }
+
+        { line = trim($0) }
+        line == "" || line ~ /^#/ { next }
+
+        line == "[[paths]]" { flush(); inpath = 1; next }
+        line ~ /^\[/        { flush(); inpath = 0; next }
+
+        inpath && index(line, "=") {
+            key = trim(substr(line, 1, index(line, "=") - 1))
+            val = trim(substr(line, index(line, "=") + 1))
+            if      (key == "path")   path   = expand(unquote(val))
+            else if (key == "depth")  depth  = unquote(val) + 0
+            else if (key == "hidden") hidden = unquote(val)
+            else if (key == "ignore") ignore = parselist(val)
+            next
+        }
+
+        END { flush() }
+    ' "$config_file"
+}
+
+# expande cada [[paths]] em diretórios, respeitando depth/hidden/ignore.
+# Sem isso o menu virava 100+ entradas dominadas por .cache, .rustup, .npm...
+function list_dirs() {
+    local path depth hidden ignore
+    while IFS=$'\t' read -r path depth hidden ignore; do
+        [[ -d $path ]] || continue
+        [[ $depth -ge 1 ]] || depth=1
+
+        local -a names=() prune=() extra=()
+        [[ $hidden == true ]] || names+=('.*')
+        if [[ -n $ignore ]]; then
+            IFS='|' read -r -a extra <<<"$ignore"
+            names+=("${extra[@]}")
+        fi
+
+        if ((${#names[@]})); then
+            prune=('(')
+            local first=1 name
+            for name in "${names[@]}"; do
+                ((first)) || prune+=(-o)
+                prune+=(-name "$name")
+                first=0
+            done
+            prune+=(')' -prune -o)
+        fi
+
+        find "$path" -mindepth 1 -maxdepth "$depth" \
+            "${prune[@]}" -type d -print 2>/dev/null
+    done < <(root_specs)
+}
+
+function active_sessions() {
+    # sem `|| true` o pipefail derruba o script quando não há sessão viva
+    zellij list-sessions --no-formatting 2>/dev/null |
+        grep -v 'EXITED' |
+        awk '{print $1}' || true
+}
+
+function session_exists() {
+    active_sessions | grep -qxF -- "$1"
+}
+
+# nomes de sessão precisam ser únicos: com basename puro, ~/work/pomodoro e
+# ~/learning_rust/pomodoro colidiam e o segundo anexava silenciosamente no
+# diretório do primeiro. Só desambigua com o pai quando há colisão de fato,
+# para não poluir o caso comum.
+declare -A name_count=()
+name_map_ready=0
+menu_cache=""
+
+function build_name_map() {
+    ((name_map_ready)) && return 0
+
+    local dir base
+    while IFS= read -r dir; do
+        [[ $dir == /* ]] || continue
+        base=${dir##*/}
+        base=${base//[^[:alnum:]_-]/_}
+        name_count[$base]=$((${name_count[$base]:-0} + 1))
+    done < <(if [[ -n $menu_cache ]]; then printf '%s\n' "$menu_cache"; else list_dirs; fi)
+
+    name_map_ready=1
+}
+
+function session_name_for() {
+    local path=$1 base parent
+    base=${path##*/}
+    base=${base//[^[:alnum:]_-]/_}
+
+    build_name_map
+    if ((${name_count[$base]:-0} > 1)); then
+        parent=${path%/*}
+        parent=${parent##*/}
+        parent=${parent//[^[:alnum:]_-]/_}
+        printf '%s\n' "${parent}_${base}"
+    else
+        printf '%s\n' "$base"
+    fi
+}
+
+function build_menu() {
+    printf '%s\n' "$quit_option"
+    active_sessions | sed "s|^|$session_prefix|"
+    list_dirs | sort -u
+    return 0
+}
+
+# devolve o KDL do layout no stdout, ou 1 se o projeto não define nenhum.
+# .zellij.kdl tem precedência e é usado verbatim: é o formato nativo do zellij e
+# suporta splits, panes flutuantes, plugins e swap layouts, nada disso
+# representável no .sessionizer.toml
+function resolve_layout() {
+    local root=$1 sessionizer
+
+    if [[ -f "$root/.zellij.kdl" ]]; then
+        cat -- "$root/.zellij.kdl"
+        return 0
+    fi
+
+    if [[ -f "$root/.sessionizer.toml" ]]; then
+        sessionizer="$root/.sessionizer.toml"
+    elif [[ -f $default_sessionizer ]]; then
+        sessionizer=$default_sessionizer
+    else
+        return 1
+    fi
+
+    build_layout "$sessionizer" "$root"
+}
+
+# os swap layouts (Alt+[ / Alt+]) — "vertical", "horizontal" e "stacked" — vêm do
+# layout default do zellij. um layout customizado substitui o default inteiro, e
+# sem eles as duas teclas viram no-op. pegamos a definição do próprio zellij em
+# vez de copiá-la aqui, para não divergir entre versões; o `tab_template name="ui"`
+# do dump é descartado porque traz a status-bar junto, e nós emitimos o nosso
+function swap_layouts() {
+    zellij setup --dump-swap-layout default 2>/dev/null |
+        sed -n '/^swap_/,$p'
+}
+
+# converte o .sessionizer.toml em um layout kdl do zellij (uma tab por entrada).
+# continua em python — ao contrário do zmx.toml, isto roda uma única vez na
+# criação da sessão, e o shlex.split é o que faz `nvim -c "set nu" f.txt` virar
+# args corretos; reimplementar essa divisão em awk trocaria correção por ~20ms
+function build_layout() {
+    python3 - "$1" "$2" "$(swap_layouts)" <<'PY'
+import shlex, sys, tomllib
+
+sessionizer, cwd, swaps = sys.argv[1], sys.argv[2], sys.argv[3]
+shells = {"sh", "bash", "zsh", "fish", "nu", "elvish"}
+
+with open(sessionizer, "rb") as fh:
+    config = tomllib.load(fh)
+
+tabs = config.get("tabs") or []
+if not tabs:
+    sys.exit(1)
+
+def quote(value):
+    return '"' + str(value).replace("\\", "\\\\").replace('"', '\\"') + '"'
+
+lines = ["layout {", "    cwd " + quote(cwd)]
+
+# um layout customizado substitui o layout padrão do zellij, que é quem traz a
+# tab-bar; sem este template a barra de abas não aparece. a status-bar fica de
+# fora de propósito
+tab_bar = [
+    "        pane size=1 borderless=true {",
+    '            plugin location="zellij:tab-bar"',
+    "        }",
+    "        children",
+]
+
+lines += ["    default_tab_template {"] + tab_bar + ["    }"]
+
+# os swap_tiled_layout do dump se referem a um template chamado "ui"; sem ele os
+# blocos são inertes. mesmo conteúdo do default_tab_template, para a tab-bar não
+# sumir nem duplicar ao alternar de arranjo
+if swaps:
+    lines += ['    tab_template name="ui" {'] + tab_bar + ["    }"]
+
+for index, tab in enumerate(tabs, start=1):
+    name = tab.get("name") or f"tab{index}"
+    command = (tab.get("command") or "").strip()
+    lines.append(f"    tab name={quote(name)} {{")
+
+    argv = shlex.split(command) if command else []
+    # name= também no pane: sem isso o título vem do comando e vira
+    # "EXIT CODE: n" quando ele termina, perdendo o nome da aba
+    if not argv or (len(argv) == 1 and argv[0] in shells):
+        # um shell puro vira o pane padrão, senão sair dele deixa o pane órfão
+        lines.append(f"        pane name={quote(name)}")
+    elif len(argv) == 1:
+        lines.append(f"        pane command={quote(argv[0])} name={quote(name)}")
+    else:
+        lines.append(f"        pane command={quote(argv[0])} name={quote(name)} {{")
+        lines.append("            args " + " ".join(quote(a) for a in argv[1:]))
+        lines.append("        }")
+
+    lines.append("    }")
+
+if swaps:
+    lines += ["    " + line for line in swaps.splitlines()]
+
+lines.append("}")
+
+print("\n".join(lines))
+PY
+}
+
+function preview_entry() {
+    case $1 in
+        "$quit_option")
+            echo "Sair do sessionizer"
+            ;;
+        "$session_prefix"*)
+            zellij list-sessions --no-formatting 2>/dev/null |
+                grep -F -- "${1#"$session_prefix"}" || true
+            ;;
+        *)
+            if [[ -f "$1/.zellij.kdl" ]]; then
+                echo "layout: .zellij.kdl (nativo)"
+            elif [[ -f "$1/.sessionizer.toml" ]]; then
+                echo "layout: .sessionizer.toml"
+            fi
+            eza -la --icons --color=always --group-directories-first -- "$1" 2>/dev/null ||
+                ls -la -- "$1"
+            ;;
+    esac
+}
+
+function kill_entry() {
+    local name
+    case $1 in
+        "$session_prefix"*)
+            name=${1#"$session_prefix"}
+            ;;
+        /*)
+            # matar direto do diretório, sem precisar achar a sessão na lista
+            name=$(session_name_for "$1")
+            session_exists "$name" || return 0
+            ;;
+        *) return 0 ;;
+    esac
+    zellij delete-session --force -- "$name" >/dev/null 2>&1 || true
+}
+
+# cria a sessão a partir do layout do projeto, ou anexa se ela já existir
+function attach_session() {
+    local session_root=$1 session_name layout layout_file
+    session_name=$(session_name_for "$session_root")
+
+    # dentro do zellij não se aninha: o servidor troca a sessão do cliente atual.
+    # switch-session aceita --layout-string, então aqui nem precisa de arquivo
+    if [[ -n ${ZELLIJ:-} ]]; then
+        if session_exists "$session_name"; then
+            exec zellij action switch-session "$session_name"
+        fi
+        if layout=$(resolve_layout "$session_root"); then
+            exec zellij action switch-session \
+                --cwd "$session_root" --layout-string "$layout" "$session_name"
+        fi
+        exec zellij action switch-session --cwd "$session_root" "$session_name"
+    fi
+
+    cd "$session_root" || exit 1
+
+    if session_exists "$session_name"; then
+        exec zellij attach "$session_name"
+    fi
+
+    if ! layout=$(resolve_layout "$session_root"); then
+        exec zellij attach --create "$session_name"
+    fi
+
+    # --new-session-with-layout (e não --layout) para criar a sessão em vez de
+    # tentar anexar tabs a uma sessão existente. e não --layout-string: essa
+    # flag não cria sessão fora do zellij, erra com "Session not found"
+    mkdir -p -m 700 "$runtime_dir"
+    layout_file="$runtime_dir/$session_name.kdl"
+    printf '%s\n' "$layout" >"$layout_file"
+    exec zellij --session "$session_name" --new-session-with-layout "$layout_file"
+}
+
+case ${1-} in
+    --list)
+        build_menu
+        exit 0
+        ;;
+    --preview)
+        preview_entry "$2"
+        exit 0
+        ;;
+    --kill)
+        kill_entry "$2"
+        exit 0
+        ;;
+    --layout)
+        # debug: imprime o layout gerado para um path
+        resolve_layout "$2"
+        exit $?
+        ;;
+    --name)
+        # debug: mostra em que sessão um path vai cair
+        session_name_for "$2"
+        exit 0
+        ;;
+esac
+
+menu_cache=$(build_menu)
+
+selected_option=$(printf '%s\n' "$menu_cache" | fzf --ansi \
+    --preview "$self --preview {}" \
+    --preview-window=right,50%,border-left \
+    --bind "ctrl-x:execute-silent($self --kill {})+reload($self --list)" \
+    --header 'enter: attach | ctrl-x: kill session') || exit 0
+
+if [[ -z $selected_option || $selected_option == "$quit_option" ]]; then
+    exit 0
+fi
+
+case $selected_option in
+    "$session_prefix"*)
+        session=${selected_option#"$session_prefix"}
+        if [[ -n ${ZELLIJ:-} ]]; then
+            exec zellij action switch-session "$session"
+        fi
+        exec zellij attach "$session"
+        ;;
+    *)
+        attach_session "$selected_option"
+        ;;
+esac

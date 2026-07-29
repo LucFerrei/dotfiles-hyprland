@@ -3,6 +3,7 @@
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_CUSTOM="$HOME/personal/dotfiles-hyprland/custom_omz"
 export EDITOR=nvim
+export GTK_IM_MODULE=simple
 
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="robbyrussell"
@@ -23,7 +24,7 @@ source $ZSH/oh-my-zsh.sh
 # tmux-sessionizer
 export PATH="$PATH:$HOME/personal/dotfiles-hyprland/bin"
 TMX_DIR="$HOME/work/tmx"
-bindkey -s ^f '^u"tmx"\n'
+bindkey -s ^f '^u"zmxc"\n'
 
 # add some bin
 export PATH="$HOME/bin:$PATH"
