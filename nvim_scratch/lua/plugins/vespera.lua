@@ -1,7 +1,7 @@
 return {
 	"LucFerrei/Vespera",
 	name = "vespera",
-	lazy = false,
+	lazy = true,
 	priority = 1000,
 	config = function()
 		require("vespera").setup({
@@ -10,6 +10,6 @@ return {
 				comments = { italic = true },
 			},
 		})
-		vim.cmd("colorscheme vespera")
+		-- vim.cmd("colorscheme vespera")
 	end,
 }
