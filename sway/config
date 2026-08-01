@@ -4,7 +4,7 @@ output HDMI-A-1 disable
 set $mod Mod4
 
 # font pango:VictorMono Nerd Font Bold Italic 11, Font Awesome 6 Free 10
-font pango:VictorMono Nerd Font Bold Italic 10
+font pango:JetBrainsMono Nerd Font Bold Italic 10
 
 set $bg_oled       #000000
 set $fg_oled       #f2f4f8
@@ -28,11 +28,11 @@ set $autumnRed     #ff7eb6
 set $autumnYellow  #ebcb8b
 
 # Workspace names
-set $ws1 "1:  Web"
-set $ws2 "2: 󰣇 Code"
-set $ws3 "3:  Books"
-set $ws4 "4:  Btop"
-set $ws5 "5:  Misc"
+# set $ws1 "1:  Web"
+# set $ws2 "2: 󰣇 Code"
+# set $ws3 "3:  Books"
+# set $ws4 "4:  Btop"
+# set $ws5 "5:  Misc"
 
 # Set direction keys (Vim-style)
 set $left h
@@ -52,20 +52,20 @@ bindsym $mod+Shift+$up move up
 bindsym $mod+Shift+$right move right
 
 # Your preferred terminal and launcher
-set $term alacritty
+set $term kitty
 # set $menu dmenu_path | wmenu | dmenu | bemenu-run | wofi --show run
-set $menu wofi 
+set $menu fuzzel
 
 ### Output Configuration
 # Default wallpaper (if swaybg is installed)
 # output * bg /home/lucas/personal/wallpapers/option1-anders-jilden-cYrMQA7a3Wc-unsplash.jpg fill
-output * bg /home/lucas/personal/wallpapers/arch_fill.png fill
+output * bg /home/lucas/personal/wallpapers/luca-micheli-ruWkmt3nU58-unsplash.jpg fill
 
 ### Input Configuration
 # You can get input names via 'swaymsg -t get_inputs'
 input "type:keyboard" {
-    xkb_layout br
-    xkb_variant abnt2
+    xkb_layout us
+    xkb_variant intl
     xkb_options ctrl:nocaps,altwin:swap_alt_win
 }
 
@@ -153,42 +153,11 @@ client.unfocused         $gray_alt       $bg_oled        #a8a8a8        $gray_al
 client.focused_inactive  $gray_alt       $bg_oled        #a8a8a8        $gray_alt       $gray_alt
 client.urgent            $accent_red     $accent_red     $bg_oled       $accent_red     $accent_red
 
-# Bar config
-# bar {
-#     position top
-#     status_command i3status
-#
-#     colors {
-#         background $sumiInk1
-#         statusline $fujiWhite
-#         separator  $sumiInk3
-#
-#         #                      border        bg           text
-#         focused_workspace     $crystalBlue  $waveBlue2   $fujiWhite
-#         active_workspace      $sumiInk3     $sumiInk2    $fujiWhite
-#         inactive_workspace    $sumiInk1     $sumiInk1    $oldWhite
-#         urgent_workspace      $autumnRed    $autumnRed   $fujiWhite
-#         binding_mode          $autumnYellow $autumnYellow $sumiInk0
-#     }
-# }
 
+# Start Waybar
 bar {
-    position top
-    status_command i3status-rs ~/.config/i3status-rust/config.toml
-    
-    colors {
-        statusline #ffffff
-        background #181616
-        focused_workspace $crystalBlue  $waveBlue2   $fujiWhite
-
-    }
+    swaybar_command waybar
 }
-
-# Faster and cleaner syntax
-# exec swaymsg "workspace $ws1; exec chromium"
-exec swaymsg "workspace $ws2; exec ~/personal/dotfiles-hyprland/bin/workspace2.sh"
-exec swaymsg "workspace $ws3; exec ~/personal/dotfiles-hyprland/bin/workspace3.sh"
-exec swaymsg "workspace $ws4; exec ~/personal/dotfiles-hyprland/bin/workspace4.sh"
 
 exec otd-daemon
 

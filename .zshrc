@@ -108,3 +108,7 @@ export PHP_INI_SCAN_DIR="/home/lucas/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
 [[ -f ~/.secrets ]] && source ~/.secrets
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.npm-global/bin:$PATH"
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/lucas/.local/bin:$PATH"

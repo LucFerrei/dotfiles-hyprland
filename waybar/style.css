@@ -1,146 +1,133 @@
-/* -- Kanagawa Dragon Palette --
-   Background: #181616 (Sumibi)
-   Foreground: #c5c9c5 (Fuji)
-   Red:        #c4746e (Sokuhi)
-   Green:      #8a9a7b (Spring Green)
-   Yellow:     #c4b28a (Carp Yellow)
-   Blue:       #8ba4b0 (Dragon Blue)
-   Magenta:    #a292a3 (Violet)
-   Cyan:       #8ea4a2 (Wave Aqua)
--------------------------------- */
-
-/* -- Global rules -- */
 * {
-  border: none;
-  font-family: "VictorMono Nerd Font", "Noto Color Emoji", sans-serif; 
-  font-weight: 800;
-  font-style: italic;
-  font-size: 15px;
-  min-height: 0px;
+  font-family: JetbrainsMono Nerd Font;
+  font-size: 14px;
+  min-height: 0;
+  padding-right: 2px;
+  padding-left: 2px;
+  padding-bottom: 0px;
 }
 
-window#waybar {
-  /* Using Dragon Sumibi (Darker background) */
-  background: rgba(24, 22, 22, 0.6); 
-  border-bottom: 1px solid #282727;
-}
-
-window#waybar.hidden {
-  opacity: 0.2;
-}
-
-/* - General rules for visible modules -- */
-/* Update general module names if they differ */
-#custom-archicon,
-#clock,
-#cpu,
-#memory,
-#disk,
-#battery,
-#temperature,
-#window,
-#pulseaudio,
-#network,
-#bluetooth,
-#language {
-  color: #c5c9c5;
-  margin-top: 6px;
-  margin-bottom: 6px;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-/* Separation to the left */
-#custom-archicon,
-#cpu,
-#pulseaudio,
-#idle_inhibitor {
-  margin-left: 5px;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-}
-
-/* Separation to the right */
-#clock,
-#temperature,
-#language {
-  margin-right: 5px;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-}
-
-/* Modules center */
-#workspaces {
+#waybar {
   background: transparent;
-  margin: 6px 5px;
+  color: #c6d0f5;
+  margin: 2px 2px;
+}
+
+#workspaces {
+  border-radius: 5px;
+  margin: 5px;
+  background: #101010;
+  margin-left: 1rem;
 }
 
 #workspaces button {
-  color: #727169;
-  background: transparent;
-  padding: 4px 4px;
+  color: #babbf1;
+  border-radius: 5px;
+  padding: 0.4rem;
 }
 
-/* Changed .active to .focused for Sway */
-#workspaces button.focused {
-  border-radius: 10px;
-  background: #16161D;
-  color: #c4746e; 
-  text-shadow: 0 0 3px rgba(196, 116, 110, 0.5);
+#workspaces button.active {
+  color: #99d1db;
+  border-radius: 5px;
 }
 
-#workspaces button.urgent {
-  color: #E46876;
-}
-/* Modules right */
-#taskbar {
-  background: transparent;
-  border-radius: 10px;
-  padding: 0px 5px;
-  margin: 6px 5px;
+#workspaces button:hover {
+  color: #85c1dc;
+  border-radius: 5px;
 }
 
-#taskbar button {
-  padding: 0px 5px;
-  margin: 0px 3px;
-  border-radius: 6px;
-  color: #c5c9c5;
-  transition: background 0.3s ease;
+#custom-music,
+#tray,
+#backlight,
+#clock,
+#battery,
+#pulseaudio,
+#network,
+#cpu,
+#memory,
+#custom-lock,
+#custom-power {
+  background-color: #101010;
+  padding: 0.5rem 1rem;
+  margin: 5px 0;
+  border-radius: 0px 5px 5px 0px;
 }
 
-#taskbar button.active {
-  background: #282727; /* Lighter Dragon black */
-  border-bottom: 1px solid #c4b28a;
+#custom-stream_status {
+  background-color: #101010;
+  padding: 0.5rem 1rem;
+  margin: 5px 0;
+  border-radius: 0px 5px 5px 0px;
 }
 
-#taskbar button:hover {
-  background: #282727;
+#custom-stream_status.up {
+  color: #c3e88d;
 }
 
-#idle_inhibitor {
-  padding-right: 15px;
-  color: #8ea4a2; /* Wave Aqua */
+#custom-stream_status.warning {
+  color: #ff9e64;
+}
+
+#custom-stream_status.down {
+  color: #ea999c;
+}
+
+#memory {
+  border-radius: 0px 5px 5px 0px;
+}
+
+#clock {
+  color: #8caaee;
+  border-radius: 5px;
+  margin-right: 1rem;
+}
+
+#battery {
+  color: #a6d189;
+}
+
+#battery.charging {
+  color: #a6d189;
+}
+
+#battery.warning:not(.charging) {
+  color: #e78284;
+}
+
+#backlight {
+  color: #e5c890;
+}
+
+#backlight,
+#battery {
+  border-radius: 0;
 }
 
 #pulseaudio {
-  min-width: 55px;
-  color: #c4b28a; /* Yellow */
+  color: #ea999c;
+  border-radius: 5px 0px 0px 5%;
+  margin-left: 1rem;
 }
 
-#network {
-  padding-right: 13px;
-  color: #8a9a7b; /* Green */
+#custom-music {
+  color: #ca9ee6;
+  border-radius: 5px;
 }
 
-#language {
-  padding-right: 15px;
-  color: #a292a3; /* Violet */
+#custom-lock {
+  border-radius: 5px 0px 0px 5px;
+  color: #babbf1;
 }
 
-/* === Optional animation === */
-@keyframes blink {
-  to {
-    background-color: #c4746e;
-    color: #181616;
-  }
+#custom-power {
+  margin-right: 1rem;
+  border-radius: 0px 5px 5px 0px;
+  color: #e78284;
 }
+
+#tray {
+  margin-right: 1rem;
+  margin-left: 1rem;
+  border-radius: 5px;
+}
+
