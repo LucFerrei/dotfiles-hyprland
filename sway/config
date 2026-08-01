@@ -55,6 +55,7 @@ bindsym $mod+Shift+$right move right
 set $term kitty
 # set $menu dmenu_path | wmenu | dmenu | bemenu-run | wofi --show run
 set $menu fuzzel
+set $explorer nautilus
 
 ### Output Configuration
 # Default wallpaper (if swaybg is installed)
@@ -102,7 +103,7 @@ bindsym $mod+Shift+backspace exec swaymsg exit
 bindsym $mod+m layout toggle tabbed split
 bindsym $mod+Shift+e exec swaymsg exit
 bindsym $mod+Print exec hyprshot -m region -o /home/lucas/scheenshots/
-bindsym $mod+e exec dolphin
+bindsym $mod+e exec $explorer
 bindsym $mod+f fullscreen toggle
 
 # Switch to workspace
