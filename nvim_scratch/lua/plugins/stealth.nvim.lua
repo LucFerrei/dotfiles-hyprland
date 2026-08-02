@@ -4,6 +4,7 @@ return {
   priority = 1000,
   opts = {
     variant = "monochrome",
+    transparent = true,
     styles = {
       comments = { italic = true },
       keywords = { bold = true },

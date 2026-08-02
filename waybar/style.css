@@ -23,7 +23,7 @@
 #workspaces button {
   color: #babbf1;
   border-radius: 5px;
-  padding: 0.4rem;
+  padding: 0.5rem;
 }
 
 #workspaces button.active {
