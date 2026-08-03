@@ -12,14 +12,14 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 # Highlight de comandos
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-eval "$(starship init zsh)"
+# eval "$(starship init zsh)"
 
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_CUSTOM="$HOME/personal/dotfiles-hyprland/custom_omz"
 export EDITOR=nvim
 
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-# ZSH_THEME="robbyrussell"
+ZSH_THEME="robbyrussell"
 # ZSH_THEME="oxide"
 # ZSH_THEME="oxide-rose-pine-v2"
 # ZSH_THEME="ys"

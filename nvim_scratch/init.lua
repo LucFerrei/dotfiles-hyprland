@@ -2,6 +2,24 @@ require("config.lazy")
 require("config.options")
 require("config.keymaps")
 
+-- Enable displaying whitespace characters
+vim.opt.list = true
+
+-- Define character symbols (use '·' or '•')
+vim.opt.listchars = {
+  space = '·',   -- Character for regular spaces
+  tab = '▸ ',    -- Character for tabs
+  -- trail = '•',   -- Character for trailing spaces
+  multispace = '·',
+}
+
+vim.opt.numberwidth = 2
+
+-- Make the dots faint/subtle like in your screenshot
+vim.api.nvim_set_hl(0, "Whitespace", { fg = "#444444" })
+
+vim.opt.colorcolumn = "100"
+
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
   callback = function(ev)
@@ -22,8 +40,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- end, opts) -- Format File
 
     -- Diagnostics (Errors/Warnings)
-    -- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts) -- Previous Error
-    -- vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts) -- Next Error
+    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts) -- Previous Error
+    vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts) -- Next Error
     -- vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, opts) -- Show line error
   end,
 })

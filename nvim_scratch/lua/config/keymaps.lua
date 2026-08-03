@@ -1,7 +1,7 @@
 -- Produtivity
-vim.keymap.set("n", ";", ":", { noremap = true, })
+-- vim.keymap.set("n", ";", ":", { noremap = true, })
 --- moves
-vim.keymap.set("i", "jk", "<Esc>", { noremap = true, silent = true, })
+vim.keymap.set("i", "jj", "<Esc>", { noremap = true, silent = true, })
 -- vim.keymap.set("i", "kj", "<Esc>", { noremap = true, silent = true, })
 --- move lines (insert mode)
 vim.keymap.set("n", "m", "<Cmd>m+1<CR>", { noremap = true, silent = true, })
@@ -22,7 +22,7 @@ vim.keymap.set("n", "<leader>F", vim.lsp.buf.format, { noremap = true, silent = 
 
 -- Neo-Tree & Oil
 vim.keymap.set("n", "<leader>e", ":Neotree toggle<CR>", { noremap = true, silent = true, })
-vim.keymap.set("n", "-", ":Oil<CR>", { noremap = true, silent = true, })
+-- vim.keymap.set("n", "-", ":Oil<CR>", { noremap = true, silent = true, })
 
 -- Buffers
 vim.keymap.set("n", "<leader>bl", "<Cmd>bn<CR>", { noremap = true, silent = true, })

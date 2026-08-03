@@ -1,5 +1,6 @@
 return {
   "zbirenbaum/copilot.lua",
+  enabled = false,
   requires = {
     "copilotlsp-nvim/copilot-lsp", -- (optional) for NES functionality
   },

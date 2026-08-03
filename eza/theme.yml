@@ -2,7 +2,6 @@ colourful: true
 
 # Colors are in format of:
 # color/paletteRef (Description) #color code
-
 # Gold (Terminal Yellow) #ea9d34
 # Love (Terminal Red) #b4637a
 # Rose (Terminal Cyan) #d7827e

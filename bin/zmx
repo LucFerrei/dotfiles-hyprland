@@ -15,6 +15,14 @@ self="$(readlink -f "$0")"
 quit_option="=== Quit sessionizer ==="
 session_prefix="[zellij] "
 
+# ZMX_COMPACT=1 (via `zmxc`) gera os layouts sem tab-bar e sem status-bar. É env
+# var e não flag porque o fzf reexecuta este script em --preview/--kill e o valor
+# precisa atravessar esses subprocessos sozinho
+case ${ZMX_COMPACT:-0} in
+    1 | true | yes) compact=1 ;;
+    *) compact=0 ;;
+esac
+
 # layouts gerados ficam no runtime dir com nome estável (um arquivo por sessão,
 # sobrescrito), em vez de mktemp: a quantidade fica limitada, o systemd limpa no
 # logout e dá para usar exec — com mktemp era preciso manter este bash vivo só
@@ -192,11 +200,43 @@ function resolve_layout() {
         sessionizer="$root/.sessionizer.toml"
     elif [[ -f $default_sessionizer ]]; then
         sessionizer=$default_sessionizer
+    elif ((compact)); then
+        bare_layout "$root"
+        return 0
     else
         return 1
     fi
 
+    # em compact o layout deixa de ser opcional: devolver 1 aqui faria o chamador
+    # criar a sessão sem layout nenhum, e aí o zellij aplica o default dele — que
+    # é exatamente quem traz a tab-bar e a status-bar de volta
+    if ((compact)); then
+        build_layout "$sessionizer" "$root" || bare_layout "$root"
+        return 0
+    fi
+
     build_layout "$sessionizer" "$root"
+}
+
+# layout mínimo para projetos sem .sessionizer.toml: uma tab, um pane, zero
+# plugins de UI. só existe no modo compact
+function bare_layout() {
+    local cwd=$1 swaps
+    cwd=${cwd//\\/\\\\}
+    cwd=${cwd//\"/\\\"}
+    swaps=$(swap_layouts)
+
+    printf 'layout {\n'
+    printf '    cwd "%s"\n' "$cwd"
+    printf '    default_tab_template {\n        children\n    }\n'
+    if [[ -n $swaps ]]; then
+        printf '    tab_template name="ui" {\n        children\n    }\n'
+    fi
+    printf '    pane\n'
+    if [[ -n $swaps ]]; then
+        printf '%s\n' "$swaps" | sed 's/^/    /'
+    fi
+    printf '}\n'
 }
 
 # os swap layouts (Alt+[ / Alt+]) — "vertical", "horizontal" e "stacked" — vêm do
@@ -214,10 +254,11 @@ function swap_layouts() {
 # criação da sessão, e o shlex.split é o que faz `nvim -c "set nu" f.txt` virar
 # args corretos; reimplementar essa divisão em awk trocaria correção por ~20ms
 function build_layout() {
-    python3 - "$1" "$2" "$(swap_layouts)" <<'PY'
+    python3 - "$1" "$2" "$(swap_layouts)" "$compact" <<'PY'
 import shlex, sys, tomllib
 
 sessionizer, cwd, swaps = sys.argv[1], sys.argv[2], sys.argv[3]
+compact = sys.argv[4] == "1"
 shells = {"sh", "bash", "zsh", "fish", "nu", "elvish"}
 
 with open(sessionizer, "rb") as fh:
@@ -234,21 +275,21 @@ lines = ["layout {", "    cwd " + quote(cwd)]
 
 # um layout customizado substitui o layout padrão do zellij, que é quem traz a
 # tab-bar; sem este template a barra de abas não aparece. a status-bar fica de
-# fora de propósito
-tab_bar = [
+# fora de propósito. em compact nem a tab-bar entra: só os panes
+tab_body = ["        children"] if compact else [
     "        pane size=1 borderless=true {",
     '            plugin location="zellij:tab-bar"',
     "        }",
     "        children",
 ]
 
-lines += ["    default_tab_template {"] + tab_bar + ["    }"]
+lines += ["    default_tab_template {"] + tab_body + ["    }"]
 
 # os swap_tiled_layout do dump se referem a um template chamado "ui"; sem ele os
 # blocos são inertes. mesmo conteúdo do default_tab_template, para a tab-bar não
 # sumir nem duplicar ao alternar de arranjo
 if swaps:
-    lines += ['    tab_template name="ui" {'] + tab_bar + ["    }"]
+    lines += ['    tab_template name="ui" {'] + tab_body + ["    }"]
 
 for index, tab in enumerate(tabs, start=1):
     name = tab.get("name") or f"tab{index}"
@@ -384,7 +425,7 @@ selected_option=$(printf '%s\n' "$menu_cache" | fzf --ansi \
     --preview "$self --preview {}" \
     --preview-window=right,50%,border-left \
     --bind "ctrl-x:execute-silent($self --kill {})+reload($self --list)" \
-    --header 'enter: attach | ctrl-x: kill session') || exit 0
+    --header "enter: attach | ctrl-x: kill session$(((compact)) && echo ' | compact')") || exit 0
 
 if [[ -z $selected_option || $selected_option == "$quit_option" ]]; then
     exit 0
