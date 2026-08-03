@@ -54,7 +54,7 @@ bindsym $mod+Shift+$up move up
 bindsym $mod+Shift+$right move right
 
 # Your preferred terminal and launcher
-set $term kitty
+set $term GTK_IM_MODULE=simple ghostty
 # set $menu dmenu_path | wmenu | dmenu | bemenu-run | wofi --show run
 set $menu fuzzel
 set $explorer nautilus
@@ -69,20 +69,6 @@ output * bg /home/lucas/personal/wallpapers/luca-micheli-ruWkmt3nU58-unsplash.jp
 input "type:keyboard" {
     xkb_layout us
     xkb_variant intl
-    xkb_options ctrl:nocaps,altwin:swap_alt_win
-}
-
-input "1:1:AT_Translated_Set_2_keyboard" {
-    xkb_layout br
-    xkb_variant abnt2
-    xkb_model thinkpad
-    xkb_options ctrl:nocaps,altwin:swap_alt_win
-}
-
-input "6058:20564:ThinkPad_Extra_Buttons" {
-    xkb_layout br
-    xkb_variant abnt2
-    xkb_model thinkpad
     xkb_options ctrl:nocaps,altwin:swap_alt_win
 }
 
@@ -172,3 +158,5 @@ exec swayidle -w \
 
 exec dbus-update-activation-environment --all
 
+exec_always export GTK_IM_MODULE=xim
+exec_always export XMODIFIERS=@im=none
