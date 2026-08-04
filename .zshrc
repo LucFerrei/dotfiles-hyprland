@@ -112,3 +112,15 @@ export PATH="$HOME/.npm-global/bin:$PATH"
 
 # Added by Antigravity CLI installer
 export PATH="/home/lucas/.local/bin:$PATH"
+
+gtt() {
+    # Executa o script e salva a saída na variável
+    local target_path=$(/home/lucas/personal/dotfiles-hyprland/bin/gtt_path.sh "$@")
+    
+    # Se o caminho não for vazio e for um diretório válido, faz o cd
+    if [[ -n "$target_path" && -d "$target_path" ]]; then
+        builtin cd -- "$target_path"
+    else
+        echo "Caminho inválido ou não encontrado." >&2
+    fi
+}

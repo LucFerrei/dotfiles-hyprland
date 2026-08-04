@@ -12,6 +12,6 @@ return {
   },
   config = function(_, opts)
     require("stealth").setup(opts)
-    vim.cmd.colorscheme("stealth")
+    -- vim.cmd.colorscheme("stealth")
   end,
 }
