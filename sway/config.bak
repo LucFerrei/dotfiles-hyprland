@@ -1,6 +1,6 @@
 # output HDMI-A-1 enable
 output HDMI-A-1 disable
-output VGA-1 scale 1
+output VGA-1 scale 1.5
 # Set your modifier key (Mod4 is usually the Windows/Logo key)
 set $mod Mod4
 
@@ -63,17 +63,14 @@ set $explorer nautilus
 ### Output Configuration
 # Default wallpaper (if swaybg is installed)
 # output * bg /home/lucas/personal/wallpapers/option1-anders-jilden-cYrMQA7a3Wc-unsplash.jpg fill
-output * bg /home/lucas/personal/wallpapers/francisco-ghisletti-Wf2tCunxqQU-unsplash.jpg fill
+output * bg /home/lucas/personal/wallpapers/catdog_wallpaper.png fill
 
 ### Input Configuration
 # You can get input names via 'swaymsg -t get_inputs'
 input "type:keyboard" {
     xkb_layout us
-    xkb_variant dvp
-    xkb_options ctrl:nocaps,altwin:swap_alt_win,compose:rctrl
-    # xkb_layout br
-    # xkb_variant abnt2
-    # xkb_options ctrl:nocaps,altwin:swap_alt_win,compose:rctrl
+    xkb_variant intl
+    xkb_options ctrl:nocaps,altwin:swap_alt_win
 }
 
 # Mouse and Touchpad
@@ -99,22 +96,17 @@ bindsym $mod+e exec $explorer
 bindsym $mod+f fullscreen toggle
 
 # Switch to workspace
-# bindsym $mod+& workspace $ws1
-# bindsym $mod+[ workspace $ws2
-# bindsym $mod+{ workspace $ws3
-# bindsym $mod+} workspace $ws4
-# bindsym $mod+( workspace $ws5
-bindsym $mod+parenleft workspace $ws1
-bindsym $mod+parenright workspace $ws2
-bindsym $mod+braceright workspace $ws3
-bindsym $mod+plus workspace $ws4
-bindsym $mod+braceleft workspace $ws5
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
 
 # Move focused container to workspace
-bindsym $mod+Shift+parenleft move container to workspace $ws1
-bindsym $mod+Shift+parenright move container to workspace $ws2
-bindsym $mod+Shift+plus move container to workspace $ws3
-bindsym $mod+Shift+braceleft move container to workspace $ws4
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
 # ... (up to 10)
 bindsym $mod+Shift+c reload
 

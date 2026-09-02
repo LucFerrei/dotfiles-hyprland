@@ -2,6 +2,7 @@ require("config.lazy")
 require("config.options")
 require("config.keymaps")
 
+
 vim.opt.colorcolumn = "100"
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
@@ -11,9 +12,15 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- Essential Navigation
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)     -- Go to Definition
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)    -- Go to Declaration
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)     -- List References
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts) -- Go to Implementation
+    -- vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)     -- List References
+    -- vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts) -- Go to Implementation
     vim.keymap.set('n', 'K',  vim.lsp.buf.hover, opts)          -- Hover Documentation
+
+    -- Lista implementações em uma janela flutuante do Telescope
+    vim.keymap.set('n', 'gi', require('telescope.builtin').lsp_implementations, { desc = 'Telescope Implementations' })
+
+    -- Lista referências em uma janela flutuante do Telescope
+    vim.keymap.set('n', 'gr', require('telescope.builtin').lsp_references, { desc = 'Telescope References' })
 
     -- Refactoring & Actions
     -- vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)      -- Rename Symbol
