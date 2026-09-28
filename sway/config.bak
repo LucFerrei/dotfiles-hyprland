@@ -1,8 +1,9 @@
 # output HDMI-A-1 enable
 output HDMI-A-1 disable
-output VGA-1 scale 1.5
+output VGA-1 scale 1
 # Set your modifier key (Mod4 is usually the Windows/Logo key)
 set $mod Mod4
+include /home/lucas/personal/dotfiles-hyprland/sway/effects
 
 # font pango:VictorMono Nerd Font Bold Italic 11, Font Awesome 6 Free 10
 # font pango:JetBrainsMono Nerd Font Bold 10, Font Awesome 7 Free 10
@@ -57,20 +58,23 @@ bindsym $mod+Shift+$right move right
 # Your preferred terminal and launcher
 set $term GTK_IM_MODULE=simple ghostty
 # set $menu dmenu_path | wmenu | dmenu | bemenu-run | wofi --show run
-set $menu fuzzel
+set $menu wofi
 set $explorer nautilus
 
 ### Output Configuration
 # Default wallpaper (if swaybg is installed)
 # output * bg /home/lucas/personal/wallpapers/option1-anders-jilden-cYrMQA7a3Wc-unsplash.jpg fill
-output * bg /home/lucas/personal/wallpapers/catdog_wallpaper.png fill
+output * bg /home/lucas/personal/wallpapers/amazônia_igaratipo.png fill
 
 ### Input Configuration
 # You can get input names via 'swaymsg -t get_inputs'
 input "type:keyboard" {
-    xkb_layout us
-    xkb_variant intl
-    xkb_options ctrl:nocaps,altwin:swap_alt_win
+    xkb_layout br
+    xkb_variant abnt2
+    # xkb_options ctrl:nocaps,altwin:swap_alt_win,compose:rctrl
+    # xkb_layout br
+    # xkb_variant abnt2
+    # xkb_options ctrl:nocaps,altwin:swap_alt_win,compose:rctrl
 }
 
 # Mouse and Touchpad
@@ -87,7 +91,9 @@ input "type:touchpad" {
 bindsym $mod+t exec $term
 bindsym $mod+q kill
 bindsym $mod+r exec $menu
-bindsym $mod+backspace exec hyprlock
+bindsym $mod+c exec cliphist list | wofi --dmenu | cliphist decode | wl-copy
+bindsym $mod+w exec cliphist wipe
+bindsym $mod+Shift+x exec swaylock
 bindsym $mod+Shift+backspace exec swaymsg exit
 bindsym $mod+m layout toggle tabbed split
 bindsym $mod+Shift+e exec swaymsg exit
@@ -101,12 +107,17 @@ bindsym $mod+2 workspace $ws2
 bindsym $mod+3 workspace $ws3
 bindsym $mod+4 workspace $ws4
 bindsym $mod+5 workspace $ws5
+# bindsym $mod+parenleft workspace $ws1
+# bindsym $mod+parenright workspace $ws2
+# bindsym $mod+braceright workspace $ws3
+# bindsym $mod+plus workspace $ws4
+# bindsym $mod+braceleft workspace $ws5
 
 # Move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2
-bindsym $mod+Shift+3 move container to workspace $ws3
-bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+parenleft move container to workspace $ws1
+bindsym $mod+Shift+parenright move container to workspace $ws2
+bindsym $mod+Shift+plus move container to workspace $ws3
+bindsym $mod+Shift+braceleft move container to workspace $ws4
 # ... (up to 10)
 bindsym $mod+Shift+c reload
 
@@ -151,11 +162,18 @@ bar {
 
 exec otd-daemon
 
+# exec swayidle -w \
+#      timeout 300 'hyprlock' \
+#      timeout 600 'swaymsg "output * power off"' \
+#      resume 'swaymsg "output * power on"' \
+#      before-sleep 'swaylock'
+
 exec swayidle -w \
-     timeout 300 'hyprlock' \
-     timeout 600 'swaymsg "output * power off"' \
-     resume 'swaymsg "output * power on"' \
-     before-sleep 'swaylock'
+  timeout 300 'swaylock' \
+  before-sleep 'swaylock'
+
+exec wl-paste --type text --watch cliphist store
+exec wl-paste --type image --watch cliphist store
 
 exec dbus-update-activation-environment --all
 

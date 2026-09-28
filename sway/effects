@@ -1,0 +1,23 @@
+# Cantos arredondados (barato)
+corner_radius 8
+smart_corner_radius enable
+
+# Blur leve (o mais pesado; xray borra só o wallpaper)
+blur enable
+blur_xray enable
+blur_passes 1
+blur_radius 3
+
+# Sombras desligadas (ligue depois se sobrar desempenho)
+shadows disable
+# shadows enable
+# shadow_blur_radius 10
+# shadow_color #00000060
+
+# Dim de janelas inativas (praticamente de graça)
+default_dim_inactive 0.1
+dim_inactive_colors.unfocused #000000FF
+dim_inactive_colors.urgent #900000FF
+
+# Blur na barra (descomente se usar waybar)
+# layer_effects "waybar" blur enable; blur_ignore_transparent enable

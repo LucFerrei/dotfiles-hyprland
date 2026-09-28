@@ -24,21 +24,22 @@ return {
   {
     "folke/trouble.nvim",
     -- opts will be merged with the parent spec
-    opts = { use_diagnostic_signs = true },
+    opts = { use_diagnostic_signs = false },
   },
 
   -- disable trouble
   { "folke/trouble.nvim", enabled = false },
 
+
   -- override nvim-cmp and add cmp-emoji
-  {
-    "hrsh7th/nvim-cmp",
-    dependencies = { "hrsh7th/cmp-emoji" },
-    ---@param opts cmp.ConfigSchema
-    opts = function(_, opts)
-      table.insert(opts.sources, { name = "emoji" })
-    end,
-  },
+  -- {
+  --   "hrsh7th/nvim-cmp",
+  --   dependencies = { "hrsh7th/cmp-emoji" },
+  --   ---@param opts cmp.ConfigSchema
+  --   opts = function(_, opts)
+  --     table.insert(opts.sources, { name = "emoji" })
+  --   end,
+  -- },
 
   -- change some telescope options and a keymap to browse plugin files
   {
@@ -71,7 +72,6 @@ return {
       ---@type lspconfig.options
       servers = {
         -- pyright will be automatically installed with mason and loaded with lspconfig
-        pyright = {},
       },
     },
   },
@@ -187,11 +187,12 @@ return {
     "williamboman/mason.nvim",
     opts = {
       ensure_installed = {
-        "stylua",
-        "shellcheck",
-        "shfmt",
-        "flake8",
+        -- "stylua",
+        -- "shellcheck",
+        -- "shfmt",
+        -- "flake8",
       },
+      automatic_installation = false,
     },
   },
 }

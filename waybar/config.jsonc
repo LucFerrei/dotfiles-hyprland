@@ -1,55 +1,74 @@
 {
-  "layer": "top",
+  // General config
+  "layer": "bottom",
   "position": "top",
+  "mod": "dock",
+  "exclusive": true,
+  "passthrough": false,
+  "gtk-layer-shell": true,
+  "height": 0,
+
+  // Module order
   "modules-left": [
-        "sway/workspaces"
-    ],
-  "modules-center": ["clock"],
+    "sway/workspaces"
+  ],
+  "modules-center": [ "sway/window" ],
   "modules-right": [
+    "clock",
     "pulseaudio",
-    "bluetooth",
-    "battery",
-    "network",
     "cpu",
     "memory",
+    "temperature",
     "tray",
-    "custom/lock"
+    "battery"
   ],
+
+  // Module config
   "sway/workspaces": {
-    "all-outputs": true,
     "disable-scroll": true,
-    "format": "{name}: {icon}",
-    "format-icons": {
-      "focused": "",
-      "default": ""
+    "all-outputs": true,
+    "on-click": "activate",
+    "format": "{name}",
+    "persintent-workspaces": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": [],
+      "5": []
     }
   },
-  "tray": {
-    "icon-size": 21,
-    "spacing": 10
+
+  "sway/window": {
+    "format": "{}"
   },
-  "clock": {
-    "timezone": "America/Sao_Paulo",
-    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-    "format": "{:%d - %H:%M}"
-  },
-  "network": {
-    "format-wifi": "󰤢 ",
-    "format-ethernet": "󰈀 ",
-    "format-disconnected": "󰤠 ",
-    "interval": 5,
-    "tooltip": false
-  },
+
   "cpu": {
-    "interval": 1,
-    "format": "  {icon0}{icon1}{icon2}{icon3} {usage:>2}%",
-    "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
+    // "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
+    "format": "  {usage}%",
+    "interval": 5,
+    "min-length": 5,
+    "max-length": 10
   },
+
+  "temperature": {
+    "critical-threshold": 80,
+    "format": "{temperatureC}°C"
+    // "tooltip": true
+  },
+
   "memory": {
-    "interval": 30,
-    "format": "  {used:0.1f}G/{total:0.1f}G"
+    "format": "  {used}G",
+    "interval": 2,
+    "tooltip": false,
+    "min-length": 5
   },
-  "bluetooth":{ "on-click": "blueman-manager" },
+
+  "tray": {
+    "icon-size": 13,
+    "spacing": 10,
+    "show-passive-items": true
+  },
+
   "pulseaudio": {
     "format": "{icon} {volume}%",
     "format-muted": "",
@@ -58,14 +77,54 @@
     },
     "on-click": "pavucontrol"
   },
-  "custom/lock": {
-    "tooltip": false,
-    "on-click": "sh -c '(sleep 0.5s; hyprlock)' & disown",
-    "format": ""
+
+  "pulseaudio#microphone": {
+    "scroll-step": 1,
+    "format": "{format_source}",
+    "format-source": " {volume}%",
+    "format-source-muted": "",
+    "on-click": "pamixer --default-source -t",
+    "on-scroll-up": "pamixer --default-source -i 5",
+    "on-scroll-down": "pamixer --default-source -d 5"
   },
-    "later": {
-        "format": "<span class='icon'>{icon}</span> <span class='text'>{text}</span>"
-    }
 
+  "backlight": {
+    "device": "intel_backlight",
+    "format": "{icon} {percent}%",
+    "format-icons": ["", "", ""],
+    "on-click": "~/.config/waybar/scripts/ctrl-brightness.sh up",
+    "on-click-right": "~/.config/waybar/scripts/ctrl-brightness.sh down",
+    "on-scroll-up": "lightctl up",
+    "on-scroll-down": "lightctl down",
+    "tooltip": false,
+    "min-length": 5
+  },
+
+  "battery": {
+    "states": {
+      "good": 95,
+      "warning": 20,
+      "critical": 10
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": " {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-alt": "{time} {icon}",
+    "format-icons": ["", "", "", "", "", "", "", "", "", "", ""],
+    "min-length": 5
+  },
+
+  "clock": {
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    //"format": "{: %R   %d/%m}",
+    "format": "{:%d %b, %H:%M}",
+    "on-click": "gsimplecal"
+  },
+
+  "custom/powermenu": {
+    "on-click": "nwgbar -o 0.75 -layer-shell-exclusive-zone 1",
+    "format": "⏻",
+    "tooltip": false,
+    "min-length": 2
+  },
 }
-

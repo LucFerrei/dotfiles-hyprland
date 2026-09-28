@@ -1,79 +1,42 @@
-# output HDMI-A-1 enable
-output HDMI-A-1 disable
+# Default config for sway
+#
+# Copy this to ~/.config/sway/config and edit it to your liking.
+#
+# Read `man 5 sway` for a complete reference.
+
+include ~/.config/sway/*.swayconf
+
+### Output configuration
+#
+# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+output * bg ~/personal/wallpapers/amazônia_igaratipo.png fill
+
+#
+# Example configuration:
+#
+#   output HDMI-A-1 resolution 1920x1080 position 1920,0
+#
+# You can get the names of your outputs by running: swaymsg -t get_outputs
 output VGA-1 scale 1
-# Set your modifier key (Mod4 is usually the Windows/Logo key)
-set $mod Mod4
 
-# font pango:VictorMono Nerd Font Bold Italic 11, Font Awesome 6 Free 10
-# font pango:JetBrainsMono Nerd Font Bold 10, Font Awesome 7 Free 10
-font pango:JetBrainsMono Nerd Font, Font Awesome 7 Free Bold 10
+### Idle configuration
+#
+# Example configuration:
+#
+# exec swayidle -w \
+#          timeout 300 'swaylock -f -c 000000' \
+#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+#          before-sleep 'swaylock -f -c 000000'
+#
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays after another 300 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.
 
-
-set $bg_oled       #000000
-set $fg_oled       #f2f4f8
-set $gray_alt      #1a1b1e
-set $selection     #282a2e
-set $accent_blue   #78a9ff
-set $accent_purple #be95ff
-set $accent_red    #ff7eb6
-# Definições de Cores (Referência Oldworld)
-set $fujiWhite     #f2f4f8
-set $oldWhite      #a8a8a8
-set $sumiInk0      #000000
-set $sumiInk1      #0a0a0a
-set $sumiInk2      #161617
-set $sumiInk3      #1a1b1e
-set $waveBlue1     #1e2030
-set $waveBlue2     #282a2e
-set $crystalBlue   #78a9ff
-set $oniViolet     #be95ff
-set $autumnRed     #ff7eb6
-set $autumnYellow  #ebcb8b
-
-# Workspace names
-# set $ws1 "1:  Web"
-# set $ws2 "2: 󰣇 Code"
-# set $ws3 "3:  Books"
-# set $ws4 "4:  Btop"
-# set $ws5 "5:  Misc"
-
-# Set direction keys (Vim-style)
-set $left h
-set $down j
-set $up k
-set $right l
-# Move focus
-bindsym $mod+$left focus left
-bindsym $mod+$down focus down
-bindsym $mod+$up focus up
-bindsym $mod+$right focus right
-
-# Move the actual window
-bindsym $mod+Shift+$left move left
-bindsym $mod+Shift+$down move down
-bindsym $mod+Shift+$up move up
-bindsym $mod+Shift+$right move right
-
-# Your preferred terminal and launcher
-set $term GTK_IM_MODULE=simple ghostty
-# set $menu dmenu_path | wmenu | dmenu | bemenu-run | wofi --show run
-set $menu fuzzel
-set $explorer nautilus
-
-### Output Configuration
-# Default wallpaper (if swaybg is installed)
-# output * bg /home/lucas/personal/wallpapers/option1-anders-jilden-cYrMQA7a3Wc-unsplash.jpg fill
-output * bg /home/lucas/personal/wallpapers/francisco-ghisletti-Wf2tCunxqQU-unsplash.jpg fill
-
-### Input Configuration
-# You can get input names via 'swaymsg -t get_inputs'
+### Input configuration
+#
 input "type:keyboard" {
-    xkb_layout us
-    xkb_variant dvp
-    xkb_options ctrl:nocaps,altwin:swap_alt_win,compose:rctrl
-    # xkb_layout br
-    # xkb_variant abnt2
-    # xkb_options ctrl:nocaps,altwin:swap_alt_win,compose:rctrl
+    xkb_layout br
+    xkb_variant abnt2
 }
 
 # Mouse and Touchpad
@@ -86,86 +49,123 @@ input "type:touchpad" {
     natural_scroll enabled
 }
 
-### Keybindings
-bindsym $mod+t exec $term
-bindsym $mod+q kill
-bindsym $mod+r exec $menu
-bindsym $mod+backspace exec hyprlock
-bindsym $mod+Shift+backspace exec swaymsg exit
-bindsym $mod+m layout toggle tabbed split
-bindsym $mod+Shift+e exec swaymsg exit
-bindsym $mod+Print exec hyprshot -m region -o /home/lucas/scheenshots/
-bindsym $mod+e exec $explorer
-bindsym $mod+f fullscreen toggle
-
-# Switch to workspace
-# bindsym $mod+& workspace $ws1
-# bindsym $mod+[ workspace $ws2
-# bindsym $mod+{ workspace $ws3
-# bindsym $mod+} workspace $ws4
-# bindsym $mod+( workspace $ws5
-bindsym $mod+parenleft workspace $ws1
-bindsym $mod+parenright workspace $ws2
-bindsym $mod+braceright workspace $ws3
-bindsym $mod+plus workspace $ws4
-bindsym $mod+braceleft workspace $ws5
-
-# Move focused container to workspace
-bindsym $mod+Shift+parenleft move container to workspace $ws1
-bindsym $mod+Shift+parenright move container to workspace $ws2
-bindsym $mod+Shift+plus move container to workspace $ws3
-bindsym $mod+Shift+braceleft move container to workspace $ws4
-# ... (up to 10)
-bindsym $mod+Shift+c reload
-
-# Resize
-mode "resize" {
-    # Teclas Vim
-    bindsym $left  resize grow width 10px
-    bindsym $down  resize shrink height 10px
-    bindsym $up    resize grow height 10px
-    bindsym $right resize shrink width 10px
-
-    # Teclas de Seta (Geralmente mais intuitivas para resize)
-    bindsym Left   resize shrink width 10px
-    bindsym Down   resize shrink height 10px
-    bindsym Up     resize grow height 10px
-    bindsym Right  resize grow width 10px
-
-    # Voltar ao normal
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-# Bind the mode to a key (Physical Alt + R)
-bindsym $mod+Shift+r mode "resize"
+# You can get the names of your inputs by running: swaymsg -t get_inputs
+# Read `man 5 sway-input` for more information about this section.
 
 
-# # Target           border        bg           text        indicator    child_border
-# client.focused     $crystalBlue  $waveBlue2   $fujiWhite  $oniViolet   $crystalBlue
-# client.unfocused   $sumiInk3     $sumiInk1    $oldWhite   $sumiInk3    $sumiInk3
-# client.focused_inactive $sumiInk3 $sumiInk2   $oldWhite   $sumiInk3    $sumiInk3
-# client.urgent      $autumnRed    $autumnRed   $fujiWhite  $autumnRed   $autumnRed
-# Target                 border          bg              text           indicator       child_border
-client.focused           $accent_blue    $selection      $fg_oled       $accent_purple  $accent_blue
-client.unfocused         $gray_alt       $bg_oled        #a8a8a8        $gray_alt       $gray_alt
-client.focused_inactive  $gray_alt       $bg_oled        #a8a8a8        $gray_alt       $gray_alt
-client.urgent            $accent_red     $accent_red     $bg_oled       $accent_red     $accent_red
+# set inner and outer gaps
+#gaps inner 28
+#gaps outer -8
+#default_border none
+#
+#border_images.focused ~/.config/sway/borders/focused.png
+#border_images.focused_inactive ~/.config/sway/borders/focused_inactive.png
+#border_images.unfocused ~/.config/sway/borders/unfocused.png
+#border_images.urgent ~/.config/sway/borders/urgent.png
+
+gaps outer 1
+gaps inner 5
+default_border pixel 3
+
+blur_xray enable
+blur_passes 1
+blur_radius 4
+corner_radius 10
+
+shadows disable
+shadow_blur_radius 10
+#shadow_inactive_color #00000000
+
+default_dim_inactive 0.2
+dim_inactive_colors.unfocused #00000000
+dim_inactive_colors.urgent    #00000088
+titlebar_separator enable
+
+### Window rules configuration
+#
+#for_window [class=".*"] split toggle
+# for_window [class=".*"] opacity 0.9
 
 
-# Start Waybar
+# for_window [app_id="firefox"] {
+#   border pixel 3
+#   opacity 0.75
+#   dim_inactive 0.25
+# }
+#
+# for_window [app_id="chromium"] {
+#   border pixel 3
+# }
+#
+# for_window [app_id="org.gnome.Nautilus"] {
+#   floating enable
+#   border pixel 3
+# }
+#
+# for_window [app_id="org.gnome.FileRoller"] {
+#   floating enable
+#   border pixel 3
+# }
+#
+# for_window [app_id="mpv"] {
+#   floating enable
+# }
+#
+# for_window [app_id="nwg-look"] {
+#   floating enable
+# }
+#
+# for_window [app_id="nm-connection-editor"] {
+#   floating enable
+# }
+#
+# for_window [app_id="pavucontrol"] {
+#   floating enable
+# }
+#
+# for_window [app_id="blueman-manager"] {
+#   floating enable
+# }
+#
+#
+# for_window [app_id="firefox"] [title="Library"] {
+#   floating enable
+# }
+#
+# for_window [app_id="firefox"] [title="File Upload"] {
+#   floating enable
+# }
+#
+#
+# for_window [class="GStreamer"] {
+#   floating enable
+# }
+
+# for_window [class="floating"] {
+#   floating enable
+#   sticky enable
+#   border enable
+# }
+
+#
+# Status Bar:
+#
+# define status bar
 bar {
-    swaybar_command waybar
+  swaybar_command waybar
 }
 
-exec otd-daemon
+set $bg             #a48abfcc
+set $bg-inactive    #120e1200
+set $bg-urgent      #d9236588
+set $text-light     #f2d8e988
+set $text-dark      #0b0b0b88
+set $text-inactive  #59485000
 
-exec swayidle -w \
-     timeout 300 'hyprlock' \
-     timeout 600 'swaymsg "output * power off"' \
-     resume 'swaymsg "output * power on"' \
-     before-sleep 'swaylock'
-
-exec dbus-update-activation-environment --all
-
-exec_always export GTK_IM_MODULE=xim
-exec_always export XMODIFIERS=@im=none
+# set color theme
+# class                 border        bground       text            indicator     child_border
+client.focused          $bg           $bg           $text-dark      $bg           $bg
+client.focused_inactive $bg-inactive  $bg-inactive  $text-inactive  $bg-inactive  $bg-inactive
+client.unfocused        $bg-inactive  $bg-inactive  $text-inactive  $bg-inactive  $bg-inactive
+client.urgent           $bg-urgent    $bg-urgent    $text-light     $bg-urgent    $bg-urgent
+client.placeholder      $bg-inactive  $bg-inactive  $text-inactive  $bg-inactive  $bg-inactive

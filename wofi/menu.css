@@ -1,82 +1,75 @@
+*{
+  font-family: "JetBrainsMonoNL NF";
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
 window {
-    margin: 0px;
-    border: 10px solid #1e1e2e;
-    background-color: #cdd6f4;
-    border-radius: 20px;
+  border-radius: 15px 15px 15px 15px;
+}
+
+#window {
+  animation-name: fadeIn;
+  animation-duration: 0.4s;
+  background-color: transparent;
+  /* font-size:14; */
 }
 
 #input {
-    padding: 4px;
-    margin: 4px;
-    padding-left: 20px;
-    border: none;
-    color: #cdd6f4;
-    font-weight: bold;
-    background-color: #1e1e2e;
-    /* background: ; */
-   	outline: none;
-    border-radius: 20px;
-    margin: 10px 13px;
-    margin-bottom: 2px;
-}
-#input:focus {
-    border: 0px solid #1e1e2e;
-    margin-bottom: 0px;
+  border: none;
+  background-color: rgba(40, 40, 40, 0.6);
+  border-radius: 15px;
+  margin: 4px 4px 8px 4px;
+  padding: 8px;
 }
 
 #inner-box {
-    margin: 4px;
-    border: 20px solid #1e1e2e;
-    color: #cdd6f4;
-    font-weight: bold;
-    background-color: #242446;
-    /* background-color: red; */
-    border-radius: 20px;
+  color: rgba(191, 97, 106, 0.5);
+  border-radius: 15px;
+  /* margin-right: 180px; */
 }
 
 #outer-box {
-    margin: 0px;
-    border: 3px solid #6cbdff;
-    border-radius: 20px;
-    background-color: #1e1e2e;
+  background-color: rgba(40, 40, 40, 0.5);
+  border-radius: 15px 15px 15px 15px;
+  border: 1px solid #474747;
+  padding: 10px;
+  box-shadow: 0px 0px 3px 1px  #0F0F0F;
+  margin: 25px;
 }
 
 #scroll {
-    margin-top: 5px;
-    border: none;
-    border-radius: 15px;
-    margin-bottom: 5px;
+
 }
 
-#img{
-    margin-right: 10px;
+#text {
+  margin: 5px;
+  color: #FEFEFE;
+  /* border: 2px solid cyan; */
+  /* background-color: cyan; */
 }
 
-#img:selected {
-    background-color: #89b4fa;
-    margin-right: 10px;
-    border-radius: 10px;
-}
+/* #entry:nth-child(even){
+  background-color: #404552;
+} */
 
-#text:selected {
-    color: #cdd6f4;
-    color: black;
-    margin: 0px 0px;
-    border: none;
-    border-radius: 10px;
-    background-color: #89b4fa;
+#img {
+  background-color: transparent;
 }
 
 #entry {
-    margin: 0px 0px;
-    border: none;
-    border-radius: 15px;
-    background-color: transparent;
+  border-radius: 10px;
+  padding: 5px 2px 5px 2px;
+  margin: 0px 4px 0px 4px;
 }
 
 #entry:selected {
-    margin: 0px 0px;
-    border: none;
-    border-radius: 5px;
-    background-color: #89b4fa;
+  background-color: rgba(191, 97, 106, 0.5);
+  padding: 7px;
+}
+
+#text:selected {
+  text-decoration-color: white;
 }

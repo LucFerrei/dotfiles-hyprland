@@ -1,134 +1,215 @@
 * {
-  font-family: JetbrainsMono Nerd Font;
-  font-size: 14px;
+  border: none;
+  border-radius: 0;
+  font-family: JetBrainsMono;
+  font-weight: bold;
+  font-size: 15px;
   min-height: 0;
-  padding-right: 2px;
-  padding-left: 2px;
-  padding-bottom: 0px;
 }
 
-#waybar {
-  background: transparent;
-  color: #c6d0f5;
-  margin: 2px 2px;
+window#waybar {
+  background: rgba(21, 18, 27, 0);
+  color: #cdd6f4;
 }
 
-#workspaces {
-  border-radius: 5px;
-  margin: 5px;
-  background: #101010;
-  margin-left: 1rem;
+tooltip {
+  background: #1e1e2e;
+  border-radius: 10px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #11111b;
 }
+
 
 #workspaces button {
-  color: #babbf1;
-  border-radius: 5px;
-  padding: 0.5rem;
+  padding: 4px 10px;
+  border-radius: 10px;
 }
 
 #workspaces button.active {
-  color: #99d1db;
-  border-radius: 5px;
+  background: linear-gradient(45deg, rgba(191, 97, 106, 1) 0%, rgba(245,194,231,0.8) 64%, rgba(202,158,230,0.8) 100%);
+  background-size: 300% 300%;
+  color: rgba(21, 18, 27, .6);
+  border-radius: 10px;
+}
+
+#workspaces button.focused {
+  background: linear-gradient(45deg, rgba(191, 97, 106, 1) 0%, rgba(245,194,231,0.8) 64%, rgba(202,158,230,0.8) 100%);
+  background-size: 300% 300%;
+  color: rgba(21, 18, 27, .6);
+  border-radius: 10px;
+}
+
+#workspaces button.urgent {
+  background: #a6e3a1;
+  border-radius: 10px;
 }
 
 #workspaces button:hover {
-  color: #85c1dc;
-  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 10px;
 }
 
-#custom-music,
-#tray,
-#backlight,
-#clock,
-#battery,
-#pulseaudio,
-#bluetooth,
-#network,
+
+#window,
 #cpu,
+#temperature,
 #memory,
-#custom-lock,
-#custom-power {
-  background-color: #101010;
-  padding: 0.5rem 1rem;
-  margin: 5px 0;
-  border-radius: 0px 5px 5px 0px;
+#tray,
+#pulseaudio,
+#backlight,
+#battery,
+#clock,
+#custom-powermenu {
+  box-shadow: rgba(0, 0, 0, 0.288) 2px 1px 2px 0px;
+  text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.377);
+  background: rgba(21, 18, 27, .6);
+  animation: gradient 10s ease infinite;
+  color: #fff;
+  padding: 0px 5px;
+  margin: 0px 0px;
+  margin-top: 5px;
+  border: 1px rgba(21, 18, 27, .6);
 }
 
-#custom-stream_status {
-  background-color: #101010;
-  padding: 0.5rem 1rem;
-  margin: 5px 0;
-  border-radius: 0px 5px 5px 0px;
+
+#workspaces {
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.377);
+  background: rgba(21, 18, 27, .6);
+  animation: gradient 10s ease infinite;
+  color: #fff;
+  padding: 0px 5px;
+  margin: 0px 0px;
+  margin-left: 5px;
+  margin-top: 5px;
+  border: 1px rgba(21, 18, 27, .6);
+  border-radius: 10px;
+  padding-right: 0px;
+  padding-left: 0px;
 }
 
-#custom-stream_status.up {
-  color: #c3e88d;
+#window {
+  background: rgb(245,194,231);
+  background: linear-gradient(45deg, rgba(245,194,231,1) 0%, rgba(203,166,247,1) 0%, rgba(243,139,168,1) 13%, rgba(235,160,172,1) 26%, rgba(250,179,135,1) 34%, rgba(249,226,175,1) 49%, rgba(166,227,161,1) 65%, rgba(148,226,213,1) 77%, rgba(137,220,235,1) 82%, rgba(116,199,236,1) 88%, rgba(137,180,250,1) 95%);
+  color: #fff;
+  background-size: 500% 500%;
+  color: rgba(21, 18, 27, .6);
+  border-radius: 10px;
+  margin-left: 60px;
+  margin-right: 60px;
 }
 
-#custom-stream_status.warning {
-  color: #ff9e64;
+#cpu {
+  border-radius: 10px 0px 0px 10px;
+  border-left: 0px;
+  border-right: 0px;
 }
 
-#custom-stream_status.down {
-  color: #ea999c;
+#temperature.critical {
+  background: rgb(243,139,168);
+  background: linear-gradient(45deg, rgba(243,139,168,1) 0%, rgba(255,16,16,.6) 100%);
+  color: #fff;
 }
 
 #memory {
-  border-radius: 0px 5px 5px 0px;
-}
-
-#clock {
-  color: #8caaee;
-  border-radius: 5px;
-  margin-right: 1rem;
-}
-
-#battery {
-  color: #a6d189;
-}
-
-#battery.charging {
-  color: #a6d189;
-}
-
-#battery.warning:not(.charging) {
-  color: #e78284;
-}
-
-#backlight {
-  color: #e5c890;
-}
-
-#backlight,
-#battery {
-  border-radius: 0;
-}
-
-#pulseaudio {
-  color: #ea999c;
-  border-radius: 5px 0px 0px 5%;
-  margin-left: 1rem;
-}
-
-#custom-music {
-  color: #ca9ee6;
-  border-radius: 5px;
-}
-
-#custom-lock {
-  border-radius: 5px 0px 0px 5px;
-  color: #babbf1;
-}
-
-#custom-power {
-  margin-right: 1rem;
-  border-radius: 0px 5px 5px 0px;
-  color: #e78284;
+  border-radius: 0px 10px 10px 0px;
+  border-left: 0px;
+  border-right: 0px;
+  margin-right: 4px;
 }
 
 #tray {
-  margin-right: 1rem;
-  margin-left: 1rem;
-  border-radius: 5px;
+  border-radius: 10px 10px 10px 10px;
+  border-left: 0px;
+  border-right: 0px;
+  margin-right: 4px;
 }
 
+#pulseaudio {
+  border-radius: 0px 10px 10px 0px;
+  border-left: 0px;
+  border-right: 0px;
+  margin-right: 4px;
+}
+
+#pulseaudio.muted {
+  background: rgb(243,139,168);
+  background: linear-gradient(45deg, rgba(243,139,168,1) 0%, rgba(250,179,135,1) 100%);
+  color: rgba(21, 18, 27, .6);
+}
+
+#pulseaudio.microphone {
+  border-radius: 0px 10px 10px 0px;
+  border-left: 0px;
+  border-right: 0px;
+  margin-right: 4px;
+}
+
+#pulseaudio.microphone.muted {
+  background: rgb(243,139,168);
+  background: linear-gradient(45deg, rgba(243,139,168,1) 0%, rgba(250,179,135,1) 100%);
+  color: rgba(21, 18, 27, .6);
+}
+
+#backlight {
+  border-radius: 10px;
+  border-left: 0px;
+  border-right: 0px;
+}
+
+#battery {
+  border-radius: 10px;
+  border-left: 0px;
+  border-right: 0px;
+  margin-right: 4px;
+}
+
+#battery.plugged {
+  background: rgb(137,180,250);
+  background: linear-gradient(45deg, rgba(137,180,250,1) 0%, rgba(245,194,231,0.8) 64%, rgba(202,158,230,0.8) 100%);
+  background-size: 300% 300%;
+  color: rgba(21, 18, 27, .6);
+}
+
+#battery.charging {
+  background: rgb(18,200,71);
+  background: linear-gradient(45deg, rgba(18, 200, 71,1) 0%, rgba(245,194,231,0.8) 64%, rgba(202,158,230,0.8) 100%);
+  background-size: 300% 300%;
+  color: rgba(21, 18, 27, .6);
+}
+
+#battery.warning:not(.charging) {
+  background: rgb(243,139,168);
+  background: linear-gradient(45deg, rgba(243,139,168,1) 0%, rgba(213,142,29,.6) 100%);
+  color: #fff;
+}
+
+#battery.critical:not(.charging) {
+  background: rgb(243,139,168);
+  background: linear-gradient(45deg, rgba(243,139,168,1) 0%, rgba(255,16,16,.6) 100%);
+  color: #fff;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#clock {
+  background: rgb(148,226,213);
+  background: linear-gradient(52deg, rgba(148,226,213,1) 0%, rgba(137,220,235,1) 19%, rgba(116,199,236,1) 43%, rgba(137,180,250,1) 56%, rgba(180,190,254,1) 80%, rgba(186,187,241,1) 100%);
+  background-size: 300% 300%;
+  color: rgba(21, 18, 27, .6);
+  border-radius: 10px;
+  border-right: 0px;
+  margin-right: 4px;
+}
+
+#custom-powermenu {
+  background: linear-gradient(45deg, rgba(191, 97, 106, 1) 0%, rgba(222,128,130,1) 43%, rgba(245,194,231,1) 80%, rgba(180,190,254,1) 100%);
+  background-size: 300% 300%;
+  border-radius: 10px;
+  border-left: 0px;
+  border-right: 0px;
+  margin-right: 6px;
+}
