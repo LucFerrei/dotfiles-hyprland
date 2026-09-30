@@ -33,8 +33,16 @@ return {
 		}
 	    },
 	})
-	vim.lsp.enable('lua_ls')
-	vim.lsp.enable('clangd')
+
+      vim.lsp.config('rust_analyzer', {
+        settings = {
+          ['rust-analyzer'] = {
+            check = { command = 'clippy' },
+          },
+        },
+      })
+
+	vim.lsp.enable({ 'lua_ls', 'clangd', 'rust_analyzer' })
     end,
   },
 

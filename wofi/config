@@ -1,5 +1,18 @@
+# ~/.config/wofi/config
 mode=drun
-insensitive=true
+show=drun
+prompt=  Buscar
+width=520
+height=420
+location=center
+allow_markup=true
 allow_images=true
-term=foot
+image_size=28
+no_actions=true
+insensitive=true
 hide_scroll=true
+term=foot
+gtk_dark=true
+matching=fuzzy
+layer=overlay
+columns=1

@@ -16,11 +16,13 @@
   "modules-right": [
     "clock",
     "pulseaudio",
-    "cpu",
-    "memory",
-    "temperature",
+    "bluetooth",
+    "network",
     "tray",
-    "battery"
+    // "battery",
+    // "temperature",
+    "cpu",
+    "memory"
   ],
 
   // Module config
@@ -77,6 +79,13 @@
     },
     "on-click": "pavucontrol"
   },
+
+  "network": {
+    "format-ethernet": "{ifname} 󰈀 ",
+    "on-click": "kitty nmtui"
+  },
+
+  "bluetooth":{ "on-click": "blueman-manager" },
 
   "pulseaudio#microphone": {
     "scroll-step": 1,

@@ -5,6 +5,7 @@
 # Read `man 5 sway` for a complete reference.
 
 include ~/.config/sway/*.swayconf
+include ~/.config/sway/effects
 
 ### Output configuration
 #
@@ -67,18 +68,6 @@ gaps outer 1
 gaps inner 5
 default_border pixel 3
 
-blur_xray enable
-blur_passes 1
-blur_radius 4
-corner_radius 10
-
-shadows disable
-shadow_blur_radius 10
-#shadow_inactive_color #00000000
-
-default_dim_inactive 0.2
-dim_inactive_colors.unfocused #00000000
-dim_inactive_colors.urgent    #00000088
 titlebar_separator enable
 
 ### Window rules configuration
@@ -156,11 +145,11 @@ bar {
 }
 
 set $bg             #a48abfcc
-set $bg-inactive    #120e1200
+set $bg-inactive    #120e12b3
 set $bg-urgent      #d9236588
 set $text-light     #f2d8e988
 set $text-dark      #0b0b0b88
-set $text-inactive  #59485000
+set $text-inactive  #594850b3
 
 # set color theme
 # class                 border        bground       text            indicator     child_border

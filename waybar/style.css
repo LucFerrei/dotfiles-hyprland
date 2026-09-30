@@ -57,6 +57,8 @@ tooltip {
 #memory,
 #tray,
 #pulseaudio,
+#network,
+#bluetooth,
 #backlight,
 #battery,
 #clock,
@@ -126,11 +128,26 @@ tooltip {
 }
 
 #pulseaudio {
+  border-radius: 10px 0px 0px 10px;
+  border-left: 0px;
+  border-right: 0px;
+  margin-right: 0px;
+}
+
+#bluetooth {
+  border-radius: 0px 0px 0px 0px;
+  border-left: 0px;
+  border-right: 0px;
+  margin-right: 0px;
+}
+
+#network {
   border-radius: 0px 10px 10px 0px;
   border-left: 0px;
   border-right: 0px;
   margin-right: 4px;
 }
+
 
 #pulseaudio.muted {
   background: rgb(243,139,168);
