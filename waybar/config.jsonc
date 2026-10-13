@@ -19,7 +19,7 @@
     "bluetooth",
     "network",
     "tray",
-    // "battery",
+    "battery",
     // "temperature",
     "cpu",
     "memory"
