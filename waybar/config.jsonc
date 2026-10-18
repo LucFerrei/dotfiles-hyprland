@@ -48,7 +48,7 @@
     // "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
     "format": "  {usage}%",
     "interval": 5,
-    "min-length": 5,
+    "min-length": 6,
     "max-length": 10
   },
 

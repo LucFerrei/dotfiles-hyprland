@@ -32,6 +32,7 @@ bindsym $mod+w exec cliphist wipe
 bindsym $mod+Shift+x exec swaylock
 bindsym $mod+Shift+backspace exec swaymsg exit
 bindsym $mod+m layout toggle tabbed split
+bindsym $mod+s layout toggle split
 bindsym $mod+Shift+e exec swaymsg exit
 bindsym $mod+Print exec hyprshot -m region -o /home/lucas/scheenshots/
 bindsym $mod+e exec $explorer

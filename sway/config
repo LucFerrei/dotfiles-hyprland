@@ -72,7 +72,7 @@ titlebar_separator enable
 
 ### Window rules configuration
 #
-#for_window [class=".*"] split toggle
+# for_window [class=".*"] split toggle
 # for_window [class=".*"] opacity 0.9
 
 
@@ -81,42 +81,42 @@ titlebar_separator enable
 #   opacity 0.75
 #   dim_inactive 0.25
 # }
-#
-# for_window [app_id="chromium"] {
-#   border pixel 3
-# }
-#
-# for_window [app_id="org.gnome.Nautilus"] {
-#   floating enable
-#   border pixel 3
-# }
-#
-# for_window [app_id="org.gnome.FileRoller"] {
-#   floating enable
-#   border pixel 3
-# }
-#
-# for_window [app_id="mpv"] {
-#   floating enable
-# }
-#
-# for_window [app_id="nwg-look"] {
-#   floating enable
-# }
-#
-# for_window [app_id="nm-connection-editor"] {
-#   floating enable
-# }
-#
-# for_window [app_id="pavucontrol"] {
-#   floating enable
-# }
-#
-# for_window [app_id="blueman-manager"] {
-#   floating enable
-# }
-#
-#
+
+for_window [app_id="chromium"] {
+  border pixel 3
+}
+
+for_window [app_id="org.gnome.Nautilus"] {
+  floating enable
+  border pixel 3
+}
+
+for_window [app_id="org.gnome.FileRoller"] {
+  floating enable
+  border pixel 3
+}
+
+for_window [app_id="mpv"] {
+  floating enable
+}
+
+for_window [app_id="nwg-look"] {
+  floating enable
+}
+
+for_window [app_id="nm-connection-editor"] {
+  floating enable
+}
+
+for_window [app_id="pavucontrol"] {
+  floating enable
+}
+
+for_window [app_id="blueman-manager"] {
+  floating enable
+}
+
+
 # for_window [app_id="firefox"] [title="Library"] {
 #   floating enable
 # }
@@ -124,17 +124,17 @@ titlebar_separator enable
 # for_window [app_id="firefox"] [title="File Upload"] {
 #   floating enable
 # }
-#
-#
-# for_window [class="GStreamer"] {
-#   floating enable
-# }
 
-# for_window [class="floating"] {
-#   floating enable
-#   sticky enable
-#   border enable
-# }
+
+for_window [class="GStreamer"] {
+  floating enable
+}
+
+for_window [class="floating"] {
+  floating enable
+  sticky enable
+  border enable
+}
 
 #
 # Status Bar:

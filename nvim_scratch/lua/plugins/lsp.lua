@@ -42,7 +42,7 @@ return {
         },
       })
 
-	vim.lsp.enable({ 'lua_ls', 'clangd', 'rust_analyzer' })
+	vim.lsp.enable({ 'lua_ls', 'clangd', 'rust_analyzer', 'sqls' })
     end,
   },
 
