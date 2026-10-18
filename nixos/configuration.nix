@@ -27,6 +27,25 @@
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true; # Powers on the adapter at boot
 
+  services.power-profiles-daemon.enable = false; # Disable conflict
+
+  services.tlp = {
+    enable = true;
+    settings = {
+      # Governor choices: powersave, powersave/powersave, conservative, schedutil, etc.
+      CPU_SCALING_GOVERNOR_ON_AC = "performance";
+      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+
+      # Energy performance preference (EPP) for Intel / modern AMD
+      CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+      CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+
+      # Optional: CPU frequency caps on battery
+      # CPU_MIN_PERF_ON_BAT = 0;
+      # CPU_MAX_PERF_ON_BAT = 50; # Limit max clock speed to 50% on battery
+    };
+  };
+
   # Set your time zone.
   time.timeZone = "America/Sao_Paulo";
 
