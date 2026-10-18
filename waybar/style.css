@@ -102,7 +102,7 @@ tooltip {
 }
 
 #cpu {
-  border-radius: 10px 0px 0px 10px;
+  border-radius: 0;
   border-left: 0px;
   border-right: 0px;
 }
@@ -114,10 +114,9 @@ tooltip {
 }
 
 #memory {
-  border-radius: 0px 10px 10px 0px;
+  border-radius: 0;
   border-left: 0px;
   border-right: 0px;
-  margin-right: 4px;
 }
 
 #tray {
@@ -135,10 +134,10 @@ tooltip {
 }
 
 #bluetooth {
-  border-radius: 0px 0px 0px 0px;
+  border-radius: 0px 10px 10px 0px;
   border-left: 0px;
   border-right: 0px;
-  margin-right: 0px;
+  margin-right: 4px;
 }
 
 #network {
@@ -150,6 +149,8 @@ tooltip {
 
 
 #pulseaudio.muted {
+  padding-left: 10px;
+  padding-right: 10px;
   background: rgb(243,139,168);
   background: linear-gradient(45deg, rgba(243,139,168,1) 0%, rgba(250,179,135,1) 100%);
   color: rgba(21, 18, 27, .6);
@@ -175,7 +176,13 @@ tooltip {
 }
 
 #battery {
-  border-radius: 10px;
+  border-radius: 10px 0px 0px 10px;
+  border-left: 0px;
+  border-right: 0px;
+}
+
+#temperature {
+  border-radius: 0px 10px 10px 0px;
   border-left: 0px;
   border-right: 0px;
   margin-right: 4px;

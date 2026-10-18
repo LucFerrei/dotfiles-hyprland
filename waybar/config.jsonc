@@ -12,17 +12,18 @@
   "modules-left": [
     "sway/workspaces"
   ],
-  "modules-center": [ "sway/window" ],
+  // "modules-center": [ "sway/window" ],
+  "modules-center": [ "clock" ],
   "modules-right": [
-    "clock",
+    // "clock",
     "pulseaudio",
     "bluetooth",
-    "network",
+    // "network",
     "tray",
     "battery",
-    // "temperature",
     "cpu",
-    "memory"
+    "memory",
+    "temperature"
   ],
 
   // Module config
@@ -52,11 +53,19 @@
     "max-length": 10
   },
 
-  "temperature": {
-    "critical-threshold": 80,
-    "format": "{temperatureC}°C"
-    // "tooltip": true
-  },
+  // "temperature": {
+  //   "critical-threshold": 80,
+  //   "format": "{temperatureC}°C"
+  //   // "tooltip": true
+  // },
+
+    "temperature": {
+      "critical-threshold": 80,
+      "format": "{icon} {temperatureC}°C",
+      "format-critical": "\uf06d {temperatureC}°C",
+      "format-icons": ["\uf2cb", "\uf2c9", "\uf2c7"]
+      // "tooltip": true
+    },
 
   "memory": {
     "format": "  {used}G",
@@ -109,19 +118,19 @@
     "min-length": 5
   },
 
-  "battery": {
+"battery": {
     "states": {
-      "good": 95,
-      "warning": 20,
-      "critical": 10
+        "warning": 30,
+        "critical": 15
     },
     "format": "{icon} {capacity}%",
-    "format-charging": " {capacity}%",
-    "format-plugged": " {capacity}%",
+    "format-charging": "󰂄 {capacity}%",
+    "format-plugged": "󰚥 {capacity}%",
+    "format-full": "󰁹 {capacity}%",
     "format-alt": "{time} {icon}",
-    "format-icons": ["", "", "", "", "", "", "", "", "", "", ""],
+    "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
     "min-length": 5
-  },
+},
 
   "clock": {
     "tooltip-format": "<tt><small>{calendar}</small></tt>",
