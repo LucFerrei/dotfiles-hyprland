@@ -35,10 +35,30 @@ output VGA-1 scale 1
 
 ### Input configuration
 #
-input "type:keyboard" {
+
+# 1. Teclado embutido do ThinkPad (Dvorak + Modificadores)
+input "1:1:AT_Translated_Set_2_keyboard" {
+    xkb_layout us
+    xkb_variant dvorak
+    xkb_options ctrl:nocaps,altwin:swap_alt_win,compose:rctrl
+}
+
+# 2. Teclado Split Silakka54 (US International)
+input "65261:4626:Squalius-cephalus_silakka54" {
     xkb_layout br
     xkb_variant abnt2
 }
+
+input "65261:4626:Squalius-cephalus_silakka54_Keyboard" {
+    xkb_layout us
+    xkb_variant intl
+}
+
+# input "AT Translated Set 2 keyboard" {
+#     xkb_layout us
+#     xkb_variant dvorak
+#     xkb_options ctrl:nocaps,altwin:swap_alt_win,compose:rctrl
+# }
 
 # Mouse and Touchpad
 input "type:pointer" {
