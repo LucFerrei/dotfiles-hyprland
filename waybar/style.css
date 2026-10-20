@@ -1,146 +1,239 @@
-/* -- Kanagawa Dragon Palette --
-   Background: #181616 (Sumibi)
-   Foreground: #c5c9c5 (Fuji)
-   Red:        #c4746e (Sokuhi)
-   Green:      #8a9a7b (Spring Green)
-   Yellow:     #c4b28a (Carp Yellow)
-   Blue:       #8ba4b0 (Dragon Blue)
-   Magenta:    #a292a3 (Violet)
-   Cyan:       #8ea4a2 (Wave Aqua)
--------------------------------- */
-
-/* -- Global rules -- */
 * {
   border: none;
-  font-family: "VictorMono Nerd Font", "Noto Color Emoji", sans-serif; 
-  font-weight: 800;
-  font-style: italic;
+  border-radius: 0;
+  font-family: JetBrainsMono;
+  font-weight: bold;
   font-size: 15px;
-  min-height: 0px;
+  min-height: 0;
 }
 
 window#waybar {
-  /* Using Dragon Sumibi (Darker background) */
-  background: rgba(24, 22, 22, 0.6); 
-  border-bottom: 1px solid #282727;
+  background: rgba(21, 18, 27, 0);
+  color: #cdd6f4;
 }
 
-window#waybar.hidden {
-  opacity: 0.2;
+tooltip {
+  background: #1e1e2e;
+  border-radius: 10px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #11111b;
 }
 
-/* - General rules for visible modules -- */
-/* Update general module names if they differ */
-#custom-archicon,
-#clock,
-#cpu,
-#memory,
-#disk,
-#battery,
-#temperature,
-#window,
-#pulseaudio,
-#network,
-#bluetooth,
-#language {
-  color: #c5c9c5;
-  margin-top: 6px;
-  margin-bottom: 6px;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-/* Separation to the left */
-#custom-archicon,
-#cpu,
-#pulseaudio,
-#idle_inhibitor {
-  margin-left: 5px;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-}
-
-/* Separation to the right */
-#clock,
-#temperature,
-#language {
-  margin-right: 5px;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-}
-
-/* Modules center */
-#workspaces {
-  background: transparent;
-  margin: 6px 5px;
-}
 
 #workspaces button {
-  color: #727169;
-  background: transparent;
-  padding: 4px 4px;
+  padding: 4px 10px;
+  border-radius: 10px;
 }
 
-/* Changed .active to .focused for Sway */
-#workspaces button.focused {
+#workspaces button.active {
+  background: linear-gradient(45deg, rgba(191, 97, 106, 1) 0%, rgba(245,194,231,0.8) 64%, rgba(202,158,230,0.8) 100%);
+  background-size: 300% 300%;
+  color: rgba(21, 18, 27, .6);
   border-radius: 10px;
-  background: #16161D;
-  color: #c4746e; 
-  text-shadow: 0 0 3px rgba(196, 116, 110, 0.5);
+}
+
+#workspaces button.focused {
+  background: linear-gradient(45deg, rgba(191, 97, 106, 1) 0%, rgba(245,194,231,0.8) 64%, rgba(202,158,230,0.8) 100%);
+  background-size: 300% 300%;
+  color: rgba(21, 18, 27, .6);
+  border-radius: 10px;
 }
 
 #workspaces button.urgent {
-  color: #E46876;
-}
-/* Modules right */
-#taskbar {
-  background: transparent;
+  background: #a6e3a1;
   border-radius: 10px;
+}
+
+#workspaces button:hover {
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 10px;
+}
+
+
+#window,
+#cpu,
+#temperature,
+#memory,
+#tray,
+#pulseaudio,
+#network,
+#bluetooth,
+#backlight,
+#battery,
+#clock,
+#custom-powermenu {
+  box-shadow: rgba(0, 0, 0, 0.288) 2px 1px 2px 0px;
+  text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.377);
+  background: rgba(21, 18, 27, .6);
+  animation: gradient 10s ease infinite;
+  color: #fff;
   padding: 0px 5px;
-  margin: 6px 5px;
+  margin: 0px 0px;
+  margin-top: 5px;
+  border: 1px rgba(21, 18, 27, .6);
 }
 
-#taskbar button {
+
+#workspaces {
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.377);
+  background: rgba(21, 18, 27, .6);
+  animation: gradient 10s ease infinite;
+  color: #fff;
   padding: 0px 5px;
-  margin: 0px 3px;
-  border-radius: 6px;
-  color: #c5c9c5;
-  transition: background 0.3s ease;
+  margin: 0px 0px;
+  margin-left: 5px;
+  margin-top: 5px;
+  border: 1px rgba(21, 18, 27, .6);
+  border-radius: 10px;
+  padding-right: 0px;
+  padding-left: 0px;
 }
 
-#taskbar button.active {
-  background: #282727; /* Lighter Dragon black */
-  border-bottom: 1px solid #c4b28a;
+#window {
+  background: rgb(245,194,231);
+  background: linear-gradient(45deg, rgba(245,194,231,1) 0%, rgba(203,166,247,1) 0%, rgba(243,139,168,1) 13%, rgba(235,160,172,1) 26%, rgba(250,179,135,1) 34%, rgba(249,226,175,1) 49%, rgba(166,227,161,1) 65%, rgba(148,226,213,1) 77%, rgba(137,220,235,1) 82%, rgba(116,199,236,1) 88%, rgba(137,180,250,1) 95%);
+  color: #fff;
+  background-size: 500% 500%;
+  color: rgba(21, 18, 27, .6);
+  border-radius: 10px;
+  margin-left: 60px;
+  margin-right: 60px;
 }
 
-#taskbar button:hover {
-  background: #282727;
+#cpu {
+  border-radius: 0;
+  border-left: 0px;
+  border-right: 0px;
 }
 
-#idle_inhibitor {
-  padding-right: 15px;
-  color: #8ea4a2; /* Wave Aqua */
+#temperature.critical {
+  background: rgb(243,139,168);
+  background: linear-gradient(45deg, rgba(243,139,168,1) 0%, rgba(255,16,16,.6) 100%);
+  color: #fff;
+}
+
+#memory {
+  border-radius: 0;
+  border-left: 0px;
+  border-right: 0px;
+}
+
+#tray {
+  border-radius: 10px 10px 10px 10px;
+  border-left: 0px;
+  border-right: 0px;
+  margin-right: 4px;
 }
 
 #pulseaudio {
-  min-width: 55px;
-  color: #c4b28a; /* Yellow */
+  border-radius: 10px 0px 0px 10px;
+  border-left: 0px;
+  border-right: 0px;
+  margin-right: 0px;
+}
+
+#bluetooth {
+  border-radius: 0px 10px 10px 0px;
+  border-left: 0px;
+  border-right: 0px;
+  margin-right: 4px;
 }
 
 #network {
-  padding-right: 13px;
-  color: #8a9a7b; /* Green */
+  border-radius: 0px 10px 10px 0px;
+  border-left: 0px;
+  border-right: 0px;
+  margin-right: 4px;
 }
 
-#language {
-  padding-right: 15px;
-  color: #a292a3; /* Violet */
+
+#pulseaudio.muted {
+  padding-left: 10px;
+  padding-right: 10px;
+  background: rgb(243,139,168);
+  background: linear-gradient(45deg, rgba(243,139,168,1) 0%, rgba(250,179,135,1) 100%);
+  color: rgba(21, 18, 27, .6);
 }
 
-/* === Optional animation === */
-@keyframes blink {
-  to {
-    background-color: #c4746e;
-    color: #181616;
-  }
+#pulseaudio.microphone {
+  border-radius: 0px 10px 10px 0px;
+  border-left: 0px;
+  border-right: 0px;
+  margin-right: 4px;
+}
+
+#pulseaudio.microphone.muted {
+  background: rgb(243,139,168);
+  background: linear-gradient(45deg, rgba(243,139,168,1) 0%, rgba(250,179,135,1) 100%);
+  color: rgba(21, 18, 27, .6);
+}
+
+#backlight {
+  border-radius: 10px;
+  border-left: 0px;
+  border-right: 0px;
+}
+
+#battery {
+  border-radius: 10px 0px 0px 10px;
+  border-left: 0px;
+  border-right: 0px;
+}
+
+#temperature {
+  border-radius: 0px 10px 10px 0px;
+  border-left: 0px;
+  border-right: 0px;
+  margin-right: 4px;
+}
+
+#battery.plugged {
+  background: rgb(137,180,250);
+  background: linear-gradient(45deg, rgba(137,180,250,1) 0%, rgba(245,194,231,0.8) 64%, rgba(202,158,230,0.8) 100%);
+  background-size: 300% 300%;
+  color: rgba(21, 18, 27, .6);
+}
+
+#battery.charging {
+  background: rgb(18,200,71);
+  background: linear-gradient(45deg, rgba(18, 200, 71,1) 0%, rgba(245,194,231,0.8) 64%, rgba(202,158,230,0.8) 100%);
+  background-size: 300% 300%;
+  color: rgba(21, 18, 27, .6);
+}
+
+#battery.warning:not(.charging) {
+  background: rgb(243,139,168);
+  background: linear-gradient(45deg, rgba(243,139,168,1) 0%, rgba(213,142,29,.6) 100%);
+  color: #fff;
+}
+
+#battery.critical:not(.charging) {
+  background: rgb(243,139,168);
+  background: linear-gradient(45deg, rgba(243,139,168,1) 0%, rgba(255,16,16,.6) 100%);
+  color: #fff;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#clock {
+  background: rgb(148,226,213);
+  background: linear-gradient(52deg, rgba(148,226,213,1) 0%, rgba(137,220,235,1) 19%, rgba(116,199,236,1) 43%, rgba(137,180,250,1) 56%, rgba(180,190,254,1) 80%, rgba(186,187,241,1) 100%);
+  background-size: 300% 300%;
+  color: rgba(21, 18, 27, .6);
+  border-radius: 10px;
+  border-right: 0px;
+  margin-right: 4px;
+}
+
+#custom-powermenu {
+  background: linear-gradient(45deg, rgba(191, 97, 106, 1) 0%, rgba(222,128,130,1) 43%, rgba(245,194,231,1) 80%, rgba(180,190,254,1) 100%);
+  background-size: 300% 300%;
+  border-radius: 10px;
+  border-left: 0px;
+  border-right: 0px;
+  margin-right: 6px;
 }

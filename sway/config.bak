@@ -1,0 +1,181 @@
+# output HDMI-A-1 enable
+output HDMI-A-1 disable
+output VGA-1 scale 1
+# Set your modifier key (Mod4 is usually the Windows/Logo key)
+set $mod Mod4
+include /home/lucas/personal/dotfiles-hyprland/sway/effects
+
+# font pango:VictorMono Nerd Font Bold Italic 11, Font Awesome 6 Free 10
+# font pango:JetBrainsMono Nerd Font Bold 10, Font Awesome 7 Free 10
+font pango:JetBrainsMono Nerd Font, Font Awesome 7 Free Bold 10
+
+
+set $bg_oled       #000000
+set $fg_oled       #f2f4f8
+set $gray_alt      #1a1b1e
+set $selection     #282a2e
+set $accent_blue   #78a9ff
+set $accent_purple #be95ff
+set $accent_red    #ff7eb6
+# Definições de Cores (Referência Oldworld)
+set $fujiWhite     #f2f4f8
+set $oldWhite      #a8a8a8
+set $sumiInk0      #000000
+set $sumiInk1      #0a0a0a
+set $sumiInk2      #161617
+set $sumiInk3      #1a1b1e
+set $waveBlue1     #1e2030
+set $waveBlue2     #282a2e
+set $crystalBlue   #78a9ff
+set $oniViolet     #be95ff
+set $autumnRed     #ff7eb6
+set $autumnYellow  #ebcb8b
+
+# Workspace names
+# set $ws1 "1:  Web"
+# set $ws2 "2: 󰣇 Code"
+# set $ws3 "3:  Books"
+# set $ws4 "4:  Btop"
+# set $ws5 "5:  Misc"
+
+# Set direction keys (Vim-style)
+set $left h
+set $down j
+set $up k
+set $right l
+# Move focus
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+
+# Move the actual window
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+
+# Your preferred terminal and launcher
+set $term GTK_IM_MODULE=simple ghostty
+# set $menu dmenu_path | wmenu | dmenu | bemenu-run | wofi --show run
+set $menu wofi
+set $explorer nautilus
+
+### Output Configuration
+# Default wallpaper (if swaybg is installed)
+# output * bg /home/lucas/personal/wallpapers/option1-anders-jilden-cYrMQA7a3Wc-unsplash.jpg fill
+output * bg /home/lucas/personal/wallpapers/amazônia_igaratipo.png fill
+
+### Input Configuration
+# You can get input names via 'swaymsg -t get_inputs'
+input "type:keyboard" {
+    xkb_layout br
+    xkb_variant abnt2
+    # xkb_options ctrl:nocaps,altwin:swap_alt_win,compose:rctrl
+    # xkb_layout br
+    # xkb_variant abnt2
+    # xkb_options ctrl:nocaps,altwin:swap_alt_win,compose:rctrl
+}
+
+# Mouse and Touchpad
+input "type:pointer" {
+    pointer_accel 0.5
+    accel_profile "flat"
+}
+input "type:touchpad" {
+    tap enabled
+    natural_scroll enabled
+}
+
+### Keybindings
+bindsym $mod+t exec $term
+bindsym $mod+q kill
+bindsym $mod+r exec $menu
+bindsym $mod+c exec cliphist list | wofi --dmenu | cliphist decode | wl-copy
+bindsym $mod+w exec cliphist wipe
+bindsym $mod+Shift+x exec swaylock
+bindsym $mod+Shift+backspace exec swaymsg exit
+bindsym $mod+m layout toggle tabbed split
+bindsym $mod+Shift+e exec swaymsg exit
+bindsym $mod+Print exec hyprshot -m region -o /home/lucas/scheenshots/
+bindsym $mod+e exec $explorer
+bindsym $mod+f fullscreen toggle
+
+# Switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+# bindsym $mod+parenleft workspace $ws1
+# bindsym $mod+parenright workspace $ws2
+# bindsym $mod+braceright workspace $ws3
+# bindsym $mod+plus workspace $ws4
+# bindsym $mod+braceleft workspace $ws5
+
+# Move focused container to workspace
+bindsym $mod+Shift+parenleft move container to workspace $ws1
+bindsym $mod+Shift+parenright move container to workspace $ws2
+bindsym $mod+Shift+plus move container to workspace $ws3
+bindsym $mod+Shift+braceleft move container to workspace $ws4
+# ... (up to 10)
+bindsym $mod+Shift+c reload
+
+# Resize
+mode "resize" {
+    # Teclas Vim
+    bindsym $left  resize grow width 10px
+    bindsym $down  resize shrink height 10px
+    bindsym $up    resize grow height 10px
+    bindsym $right resize shrink width 10px
+
+    # Teclas de Seta (Geralmente mais intuitivas para resize)
+    bindsym Left   resize shrink width 10px
+    bindsym Down   resize shrink height 10px
+    bindsym Up     resize grow height 10px
+    bindsym Right  resize grow width 10px
+
+    # Voltar ao normal
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+# Bind the mode to a key (Physical Alt + R)
+bindsym $mod+Shift+r mode "resize"
+
+
+# # Target           border        bg           text        indicator    child_border
+# client.focused     $crystalBlue  $waveBlue2   $fujiWhite  $oniViolet   $crystalBlue
+# client.unfocused   $sumiInk3     $sumiInk1    $oldWhite   $sumiInk3    $sumiInk3
+# client.focused_inactive $sumiInk3 $sumiInk2   $oldWhite   $sumiInk3    $sumiInk3
+# client.urgent      $autumnRed    $autumnRed   $fujiWhite  $autumnRed   $autumnRed
+# Target                 border          bg              text           indicator       child_border
+client.focused           $accent_blue    $selection      $fg_oled       $accent_purple  $accent_blue
+client.unfocused         $gray_alt       $bg_oled        #a8a8a8        $gray_alt       $gray_alt
+client.focused_inactive  $gray_alt       $bg_oled        #a8a8a8        $gray_alt       $gray_alt
+client.urgent            $accent_red     $accent_red     $bg_oled       $accent_red     $accent_red
+
+
+# Start Waybar
+bar {
+    swaybar_command waybar
+}
+
+exec otd-daemon
+
+# exec swayidle -w \
+#      timeout 300 'hyprlock' \
+#      timeout 600 'swaymsg "output * power off"' \
+#      resume 'swaymsg "output * power on"' \
+#      before-sleep 'swaylock'
+
+exec swayidle -w \
+  timeout 300 'swaylock' \
+  before-sleep 'swaylock'
+
+exec wl-paste --type text --watch cliphist store
+exec wl-paste --type image --watch cliphist store
+
+exec dbus-update-activation-environment --all
+
+exec_always export GTK_IM_MODULE=xim
+exec_always export XMODIFIERS=@im=none

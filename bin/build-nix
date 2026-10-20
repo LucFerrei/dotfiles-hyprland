@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+config_dir="${XDG_CONFIG_HOME:-$HOME/.config}/nixos"
+config_file="$config_dir/configuration.nix"
+
+if [[ ! -f "$config_file" ]]; then
+    echo "Erro: o arquivo de configuração não existe: $config_file" >&2
+    exit 1
+fi
+
+sudo nixos-rebuild switch -I "nixos-config=$config_file"

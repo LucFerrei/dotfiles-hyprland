@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# zmx em modo compact: mesmo sessionizer, mas os layouts gerados não trazem
+# tab-bar nem status-bar — a tela inteira é pane.
+#
+# Wrapper em vez de cópia do zmx: as duas versões só divergem na montagem do
+# KDL, e o resto (varredura de paths, nomes de sessão, fzf, kill) é idêntico.
+
+set -euo pipefail
+
+export ZMX_COMPACT=1
+exec "$(dirname -- "$(readlink -f -- "$0")")/zmx" "$@"

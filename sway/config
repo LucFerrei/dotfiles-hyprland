@@ -1,87 +1,64 @@
-# output HDMI-A-1 enable
-output HDMI-A-1 disable
-# Set your modifier key (Mod4 is usually the Windows/Logo key)
-set $mod Mod4
+# Default config for sway
+#
+# Copy this to ~/.config/sway/config and edit it to your liking.
+#
+# Read `man 5 sway` for a complete reference.
 
-# font pango:VictorMono Nerd Font Bold Italic 11, Font Awesome 6 Free 10
-font pango:VictorMono Nerd Font Bold Italic 10
+include ~/.config/sway/*.swayconf
+include ~/.config/sway/effects
 
-set $bg_oled       #000000
-set $fg_oled       #f2f4f8
-set $gray_alt      #1a1b1e
-set $selection     #282a2e
-set $accent_blue   #78a9ff
-set $accent_purple #be95ff
-set $accent_red    #ff7eb6
-# Definições de Cores (Referência Oldworld)
-set $fujiWhite     #f2f4f8
-set $oldWhite      #a8a8a8
-set $sumiInk0      #000000
-set $sumiInk1      #0a0a0a
-set $sumiInk2      #161617
-set $sumiInk3      #1a1b1e
-set $waveBlue1     #1e2030
-set $waveBlue2     #282a2e
-set $crystalBlue   #78a9ff
-set $oniViolet     #be95ff
-set $autumnRed     #ff7eb6
-set $autumnYellow  #ebcb8b
+### Output configuration
+#
+# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+output * bg ~/personal/wallpapers/amazônia_igaratipo.png fill
 
-# Workspace names
-set $ws1 "1:  Web"
-set $ws2 "2: 󰣇 Code"
-set $ws3 "3:  Books"
-set $ws4 "4:  Btop"
-set $ws5 "5:  Misc"
+#
+# Example configuration:
+#
+#   output HDMI-A-1 resolution 1920x1080 position 1920,0
+#
+# You can get the names of your outputs by running: swaymsg -t get_outputs
+output VGA-1 scale 1
 
-# Set direction keys (Vim-style)
-set $left h
-set $down j
-set $up k
-set $right l
-# Move focus
-bindsym $mod+$left focus left
-bindsym $mod+$down focus down
-bindsym $mod+$up focus up
-bindsym $mod+$right focus right
+### Idle configuration
+#
+# Example configuration:
+#
+# exec swayidle -w \
+#          timeout 300 'swaylock -f -c 000000' \
+#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+#          before-sleep 'swaylock -f -c 000000'
+#
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays after another 300 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.
 
-# Move the actual window
-bindsym $mod+Shift+$left move left
-bindsym $mod+Shift+$down move down
-bindsym $mod+Shift+$up move up
-bindsym $mod+Shift+$right move right
+### Input configuration
+#
 
-# Your preferred terminal and launcher
-set $term alacritty
-# set $menu dmenu_path | wmenu | dmenu | bemenu-run | wofi --show run
-set $menu wofi 
-
-### Output Configuration
-# Default wallpaper (if swaybg is installed)
-# output * bg /home/lucas/personal/wallpapers/option1-anders-jilden-cYrMQA7a3Wc-unsplash.jpg fill
-output * bg /home/lucas/personal/wallpapers/arch_fill.png fill
-
-### Input Configuration
-# You can get input names via 'swaymsg -t get_inputs'
-input "type:keyboard" {
-    xkb_layout br
-    xkb_variant abnt2
-    xkb_options ctrl:nocaps,altwin:swap_alt_win
-}
-
+# 1. Teclado embutido do ThinkPad (Dvorak + Modificadores)
 input "1:1:AT_Translated_Set_2_keyboard" {
-    xkb_layout br
-    xkb_variant abnt2
-    xkb_model thinkpad
-    xkb_options ctrl:nocaps,altwin:swap_alt_win
+    xkb_layout us
+    xkb_variant dvorak
+    xkb_options ctrl:nocaps,altwin:swap_alt_win,compose:rctrl
 }
 
-input "6058:20564:ThinkPad_Extra_Buttons" {
+# 2. Teclado Split Silakka54 (US International)
+input "65261:4626:Squalius-cephalus_silakka54" {
     xkb_layout br
     xkb_variant abnt2
-    xkb_model thinkpad
-    xkb_options ctrl:nocaps,altwin:swap_alt_win
 }
+
+input "65261:4626:Squalius-cephalus_silakka54_Keyboard" {
+    xkb_layout us
+    xkb_variant intl
+}
+
+# input "AT Translated Set 2 keyboard" {
+#     xkb_layout us
+#     xkb_variant dvorak
+#     xkb_options ctrl:nocaps,altwin:swap_alt_win,compose:rctrl
+# }
 
 # Mouse and Touchpad
 input "type:pointer" {
@@ -93,110 +70,111 @@ input "type:touchpad" {
     natural_scroll enabled
 }
 
-### Keybindings
-bindsym $mod+t exec $term
-bindsym $mod+q kill
-bindsym $mod+r exec $menu
-bindsym $mod+backspace exec swaylock
-bindsym $mod+Shift+backspace exec swaymsg exit
-bindsym $mod+m layout toggle tabbed split
-bindsym $mod+Shift+e exec swaymsg exit
-bindsym $mod+Print exec hyprshot -m region -o /home/lucas/scheenshots/
-bindsym $mod+e exec dolphin
-bindsym $mod+f fullscreen toggle
-
-# Switch to workspace
-bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace $ws2
-bindsym $mod+3 workspace $ws3
-bindsym $mod+4 workspace $ws4
-bindsym $mod+5 workspace $ws5
-
-# Move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2
-bindsym $mod+Shift+3 move container to workspace $ws3
-bindsym $mod+Shift+4 move container to workspace $ws4
-# ... (up to 10)
-bindsym $mod+Shift+c reload
-
-# Resize
-mode "resize" {
-    # Teclas Vim
-    bindsym $left  resize grow width 10px
-    bindsym $down  resize shrink height 10px
-    bindsym $up    resize grow height 10px
-    bindsym $right resize shrink width 10px
-
-    # Teclas de Seta (Geralmente mais intuitivas para resize)
-    bindsym Left   resize shrink width 10px
-    bindsym Down   resize shrink height 10px
-    bindsym Up     resize grow height 10px
-    bindsym Right  resize grow width 10px
-
-    # Voltar ao normal
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-# Bind the mode to a key (Physical Alt + R)
-bindsym $mod+Shift+r mode "resize"
+# You can get the names of your inputs by running: swaymsg -t get_inputs
+# Read `man 5 sway-input` for more information about this section.
 
 
-# # Target           border        bg           text        indicator    child_border
-# client.focused     $crystalBlue  $waveBlue2   $fujiWhite  $oniViolet   $crystalBlue
-# client.unfocused   $sumiInk3     $sumiInk1    $oldWhite   $sumiInk3    $sumiInk3
-# client.focused_inactive $sumiInk3 $sumiInk2   $oldWhite   $sumiInk3    $sumiInk3
-# client.urgent      $autumnRed    $autumnRed   $fujiWhite  $autumnRed   $autumnRed
-# Target                 border          bg              text           indicator       child_border
-client.focused           $accent_blue    $selection      $fg_oled       $accent_purple  $accent_blue
-client.unfocused         $gray_alt       $bg_oled        #a8a8a8        $gray_alt       $gray_alt
-client.focused_inactive  $gray_alt       $bg_oled        #a8a8a8        $gray_alt       $gray_alt
-client.urgent            $accent_red     $accent_red     $bg_oled       $accent_red     $accent_red
-
-# Bar config
-# bar {
-#     position top
-#     status_command i3status
+# set inner and outer gaps
+#gaps inner 28
+#gaps outer -8
+#default_border none
 #
-#     colors {
-#         background $sumiInk1
-#         statusline $fujiWhite
-#         separator  $sumiInk3
+#border_images.focused ~/.config/sway/borders/focused.png
+#border_images.focused_inactive ~/.config/sway/borders/focused_inactive.png
+#border_images.unfocused ~/.config/sway/borders/unfocused.png
+#border_images.urgent ~/.config/sway/borders/urgent.png
+
+gaps outer 1
+gaps inner 5
+default_border pixel 3
+
+titlebar_separator enable
+
+### Window rules configuration
 #
-#         #                      border        bg           text
-#         focused_workspace     $crystalBlue  $waveBlue2   $fujiWhite
-#         active_workspace      $sumiInk3     $sumiInk2    $fujiWhite
-#         inactive_workspace    $sumiInk1     $sumiInk1    $oldWhite
-#         urgent_workspace      $autumnRed    $autumnRed   $fujiWhite
-#         binding_mode          $autumnYellow $autumnYellow $sumiInk0
-#     }
+# for_window [class=".*"] split toggle
+# for_window [class=".*"] opacity 0.9
+
+
+# for_window [app_id="firefox"] {
+#   border pixel 3
+#   opacity 0.75
+#   dim_inactive 0.25
 # }
 
-bar {
-    position top
-    status_command i3status-rs ~/.config/i3status-rust/config.toml
-    
-    colors {
-        statusline #ffffff
-        background #181616
-        focused_workspace $crystalBlue  $waveBlue2   $fujiWhite
-
-    }
+for_window [app_id="chromium"] {
+  border pixel 3
 }
 
-# Faster and cleaner syntax
-# exec swaymsg "workspace $ws1; exec chromium"
-exec swaymsg "workspace $ws2; exec ~/personal/dotfiles-hyprland/bin/workspace2.sh"
-exec swaymsg "workspace $ws3; exec ~/personal/dotfiles-hyprland/bin/workspace3.sh"
-exec swaymsg "workspace $ws4; exec ~/personal/dotfiles-hyprland/bin/workspace4.sh"
+for_window [app_id="org.gnome.Nautilus"] {
+  floating enable
+  border pixel 3
+}
 
-exec otd-daemon
+for_window [app_id="org.gnome.FileRoller"] {
+  floating enable
+  border pixel 3
+}
 
-exec swayidle -w \
-     timeout 300 'swaylock' \
-     timeout 600 'swaymsg "output * power off"' \
-     resume 'swaymsg "output * power on"' \
-     before-sleep 'swaylock'
+for_window [app_id="mpv"] {
+  floating enable
+}
 
-exec dbus-update-activation-environment --all
+for_window [app_id="nwg-look"] {
+  floating enable
+}
 
+for_window [app_id="nm-connection-editor"] {
+  floating enable
+}
+
+for_window [app_id="pavucontrol"] {
+  floating enable
+}
+
+for_window [app_id="blueman-manager"] {
+  floating enable
+}
+
+
+# for_window [app_id="firefox"] [title="Library"] {
+#   floating enable
+# }
+#
+# for_window [app_id="firefox"] [title="File Upload"] {
+#   floating enable
+# }
+
+
+for_window [class="GStreamer"] {
+  floating enable
+}
+
+for_window [class="floating"] {
+  floating enable
+  sticky enable
+  border enable
+}
+
+#
+# Status Bar:
+#
+# define status bar
+bar {
+  swaybar_command waybar
+}
+
+set $bg             #a48abfcc
+set $bg-inactive    #120e12b3
+set $bg-urgent      #d9236588
+set $text-light     #f2d8e988
+set $text-dark      #0b0b0b88
+set $text-inactive  #594850b3
+
+# set color theme
+# class                 border        bground       text            indicator     child_border
+client.focused          $bg           $bg           $text-dark      $bg           $bg
+client.focused_inactive $bg-inactive  $bg-inactive  $text-inactive  $bg-inactive  $bg-inactive
+client.unfocused        $bg-inactive  $bg-inactive  $text-inactive  $bg-inactive  $bg-inactive
+client.urgent           $bg-urgent    $bg-urgent    $text-light     $bg-urgent    $bg-urgent
+client.placeholder      $bg-inactive  $bg-inactive  $text-inactive  $bg-inactive  $bg-inactive

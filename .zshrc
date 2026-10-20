@@ -3,6 +3,7 @@
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_CUSTOM="$HOME/personal/dotfiles-hyprland/custom_omz"
 export EDITOR=nvim
+export GTK_IM_MODULE=simple
 
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="robbyrussell"
@@ -23,7 +24,7 @@ source $ZSH/oh-my-zsh.sh
 # tmux-sessionizer
 export PATH="$PATH:$HOME/personal/dotfiles-hyprland/bin"
 TMX_DIR="$HOME/work/tmx"
-bindkey -s ^f '^u"tmx"\n'
+bindkey -s ^f '^u"zmxc"\n'
 
 # add some bin
 export PATH="$HOME/bin:$PATH"
@@ -107,3 +108,19 @@ export PHP_INI_SCAN_DIR="/home/lucas/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
 [[ -f ~/.secrets ]] && source ~/.secrets
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.npm-global/bin:$PATH"
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/lucas/.local/bin:$PATH"
+
+gtt() {
+    # Executa o script e salva a saída na variável
+    local target_path=$(/home/lucas/personal/dotfiles-hyprland/bin/gtt_path.sh "$@")
+    
+    # Se o caminho não for vazio e for um diretório válido, faz o cd
+    if [[ -n "$target_path" && -d "$target_path" ]]; then
+        builtin cd -- "$target_path"
+    else
+        echo "Caminho inválido ou não encontrado." >&2
+    fi
+}

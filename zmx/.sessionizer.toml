@@ -1,0 +1,7 @@
+[[tabs]]
+name = "dev"
+command = "nvim"
+
+[[tabs]]
+name = "term"
+command = "zsh"
