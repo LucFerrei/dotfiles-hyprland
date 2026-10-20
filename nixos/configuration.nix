@@ -135,7 +135,6 @@
   chromium
 
   ghostty
-  cool-retro-term
   tmux
   bluez
   bluetui
@@ -167,6 +166,7 @@
   nautilus
   libreoffice-fresh
   codex
+  opencode
   
   waybar
   wofi
