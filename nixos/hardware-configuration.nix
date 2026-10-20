@@ -8,36 +8,36 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "ums_realtek" "sd_mod" "sr_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/c770143e-197d-47d8-9aba-d628d97cbe81";
+    { device = "/dev/disk/by-uuid/b6befd31-72f0-49d2-90f8-81bb0f0b9e90";
       fsType = "btrfs";
     };
 
   fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/c770143e-197d-47d8-9aba-d628d97cbe81";
+    { device = "/dev/disk/by-uuid/b6befd31-72f0-49d2-90f8-81bb0f0b9e90";
       fsType = "btrfs";
       options = [ "subvol=home" ];
     };
 
   fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/c770143e-197d-47d8-9aba-d628d97cbe81";
+    { device = "/dev/disk/by-uuid/b6befd31-72f0-49d2-90f8-81bb0f0b9e90";
       fsType = "btrfs";
       options = [ "subvol=nix" ];
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/A232-C4B1";
+    { device = "/dev/disk/by-uuid/CAC9-717D";
       fsType = "vfat";
       options = [ "fmask=0077" "dmask=0077" ];
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/241c1502-1b85-4971-b7c6-0840877b84a6"; }
+    [ { device = "/dev/disk/by-uuid/7db6a3a9-5af8-4b27-9b61-ea67b1cdb219"; }
     ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
