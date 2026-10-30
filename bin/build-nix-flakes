@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+config_dir="${XDG_CONFIG_HOME:-$HOME/.config}/nixos"
+flake_file="$config_dir/flake.nix"
+
+if [[ ! -f "$flake_file" ]]; then
+    echo "Erro: o ficheiro flake.nix não existe em: $config_dir" >&2
+    exit 1
+fi
+
+# Se a diretoria for um repositório Git, o Nix Flakes só lê ficheiros rastreados pelo Git
+if [[ -d "$config_dir/.git" ]]; then
+    git -C "$config_dir" add -N . 2>/dev/null || true
+fi
+
+sudo nixos-rebuild switch --flake "$config_dir#nixos"
