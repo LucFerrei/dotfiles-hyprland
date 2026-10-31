@@ -85,9 +85,10 @@ input "type:touchpad" {
 #border_images.unfocused ~/.config/sway/borders/unfocused.png
 #border_images.urgent ~/.config/sway/borders/urgent.png
 
-gaps outer 1
-gaps inner 5
-default_border pixel 3
+gaps outer 4
+gaps inner 8
+default_border pixel 2
+hide_edge_borders smart
 
 titlebar_separator enable
 
@@ -165,17 +166,19 @@ bar {
   swaybar_command waybar
 }
 
-set $bg             #a48abfcc
-set $bg-inactive    #120e12b3
-set $bg-urgent      #d9236588
-set $text-light     #f2d8e988
-set $text-dark      #0b0b0b88
-set $text-inactive  #594850b3
+set $border-focused  #ffffff33
+set $bg-focused      #1c1c1ecc
+set $text-focused    #ffffffff
+set $accent          #0A84FFff
+set $bg-inactive     #00000000
+set $text-inactive   #ffffff66
+set $bg-urgent       #ff453a99
+set $text-urgent     #ffffffff
 
 # set color theme
-# class                 border        bground       text            indicator     child_border
-client.focused          $bg           $bg           $text-dark      $bg           $bg
-client.focused_inactive $bg-inactive  $bg-inactive  $text-inactive  $bg-inactive  $bg-inactive
-client.unfocused        $bg-inactive  $bg-inactive  $text-inactive  $bg-inactive  $bg-inactive
-client.urgent           $bg-urgent    $bg-urgent    $text-light     $bg-urgent    $bg-urgent
-client.placeholder      $bg-inactive  $bg-inactive  $text-inactive  $bg-inactive  $bg-inactive
+# class                 border         bground       text            indicator     child_border
+client.focused          $border-focused $bg-focused  $text-focused   $accent       $border-focused
+client.focused_inactive $bg-inactive   $bg-inactive  $text-inactive  $bg-inactive  $bg-inactive
+client.unfocused        $bg-inactive   $bg-inactive  $text-inactive  $bg-inactive  $bg-inactive
+client.urgent           $bg-urgent     $bg-urgent    $text-urgent    $bg-urgent    $bg-urgent
+client.placeholder      $bg-inactive   $bg-inactive  $text-inactive  $bg-inactive  $bg-inactive

@@ -2,8 +2,8 @@
 mode=drun
 show=drun
 prompt=  Buscar
-width=520
-height=420
+width=620
+height=460
 location=center
 allow_markup=true
 allow_images=true

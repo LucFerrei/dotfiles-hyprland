@@ -1,93 +1,88 @@
-/* ~/.config/wofi/style.css — combina com waybar (Catppuccin Mocha + gradientes) */
-
 * {
   border: none;
   border-radius: 0;
-  font-family: JetBrainsMono;
-  font-weight: bold;
+  font-family: "TeX Gyre Heros", "JetBrainsMono Nerd Font";
+  font-weight: 500;
   font-size: 15px;
   min-height: 0;
 }
 
 window {
   background: transparent;
-  color: #cdd6f4;
+  color: #f5f5f7;
 }
 
 #outer-box {
-  margin: 0px;
-  padding: 10px;
-  background: rgba(21, 18, 27, .85);
-  border: 2px solid #11111b;
-  border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.288) 2px 1px 2px 0px;
+  margin: 0;
+  padding: 14px;
+  background: rgba(28, 28, 30, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
 }
 
-/* barra de busca — mesmo gradiente do #clock */
 #input {
-  margin: 0px 0px 10px 0px;
-  padding: 6px 12px;
-  background: linear-gradient(52deg, rgba(148,226,213,1) 0%, rgba(137,220,235,1) 19%, rgba(116,199,236,1) 43%, rgba(137,180,250,1) 56%, rgba(180,190,254,1) 80%, rgba(186,187,241,1) 100%);
-  color: rgba(21, 18, 27, .6);
+  margin: 0 0 10px 0;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #f5f5f7;
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 10px;
   box-shadow: none;
   text-shadow: none;
 }
 
 #input:focus {
-  box-shadow: none;
+  border-color: rgba(10, 132, 255, 0.65);
   outline: none;
 }
 
 #input image {
-  color: rgba(21, 18, 27, .6);
+  color: rgba(245, 245, 247, 0.6);
 }
 
 #scroll {
-  margin: 0px;
+  margin: 0;
   background: transparent;
 }
 
 #inner-box {
-  margin: 0px;
+  margin: 0;
   background: transparent;
 }
 
 #entry {
-  padding: 6px 10px;
-  margin: 2px 0px;
-  background: rgba(21, 18, 27, .6);
-  color: #cdd6f4;
-  border-radius: 10px;
-  text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.377);
-}
-
-#entry:hover {
-  background: rgba(255, 255, 255, 0.35);
-}
-
-/* item selecionado — mesmo gradiente do workspace ativo */
-#entry:selected {
-  background: linear-gradient(45deg, rgba(191, 97, 106, 1) 0%, rgba(245,194,231,0.8) 64%, rgba(202,158,230,0.8) 100%);
-  color: rgba(21, 18, 27, .6);
+  padding: 8px 10px;
+  margin: 1px 0;
+  background: transparent;
+  color: #f5f5f7;
+  border-radius: 8px;
   text-shadow: none;
 }
 
+#entry:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+#entry:selected {
+  background: #0a84ff;
+  color: #ffffff;
+}
+
 #entry:selected #text {
-  color: rgba(21, 18, 27, .6);
+  color: #ffffff;
 }
 
 #text {
-  margin-left: 8px;
+  margin-left: 10px;
   color: inherit;
 }
 
 #img {
-  margin-right: 6px;
+  margin-right: 8px;
   background: transparent;
 }
 
-/* linha de "não encontrado" / urgente */
 #unselected {
   background: transparent;
 }
