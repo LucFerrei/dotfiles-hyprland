@@ -1,0 +1,102 @@
+name: Config validation
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  swayfx:
+    name: swayfx config
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Validate swayfx config
+        run: nix shell nixpkgs#swayfx -c bash .github/scripts/validate-swayfx.sh
+
+  neovim:
+    name: Neovim config
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Validate Neovim config
+        run: nix shell nixpkgs#neovim -c bash .github/scripts/validate-nvim.sh
+
+  applications:
+    name: Application configs
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Validate Ghostty, Zellij and Kitty configs
+        run: >-
+          nix shell nixpkgs#ghostty nixpkgs#zellij nixpkgs#kitty
+          -c bash .github/scripts/validate-apps.sh
+
+  structured:
+    name: Structured configs
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install parsers
+        run: python -m pip install --quiet json5 PyYAML tinycss2
+
+      - name: Validate TOML, JSONC, YAML, CSS and XML
+        run: python .github/scripts/validate_structured.py
+
+  shell-and-nix:
+    name: Shell and Nix configs
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Validate shell, zsh and tmux
+        run: >-
+          nix shell nixpkgs#shellcheck nixpkgs#zsh nixpkgs#tmux
+          -c bash .github/scripts/validate-shell.sh
+
+      - name: Validate Nix files
+        run: |
+          for file in nixos/*.nix; do
+            nix-instantiate --parse "$file" >/dev/null
+          done
+          echo "nix: NixOS files parse"

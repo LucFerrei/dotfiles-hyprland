@@ -64,6 +64,7 @@ split-preserve-zoom = true
 
 # Entry point
 keybind = alt+v=activate_key_table:vim
+keybind = ctrl+backspace=text:\x17
 
 # Key table definition
 keybind = vim/

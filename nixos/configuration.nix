@@ -76,6 +76,11 @@
 
   programs.neovim.defaultEditor = true;
 
+  environment.variables = {
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+  };
+
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
@@ -92,12 +97,21 @@
     ohMyZsh = {
       enable = true;
       plugins = [ "git" ];
-      theme = "robbyrussell";
+      # theme = "amuse";
     };
 
     shellAliases = {
       tms = "tmux-sessionizer";
     };
+
+  };
+
+  programs.starship = {
+    enable = true;
+    # enableZshIntregation = true;
+    # presets = [ "nerd-font-symbols" ];
+    presets = [ "no-empty-icons" ];
+
   };
 
   environment.variables.RUST_SRC_PATH = "${pkgs.rustPlatform.rustLibSrc}";
@@ -135,6 +149,7 @@
   chromium
 
   ghostty
+  bruno
   tmux
   bluez
   bluetui

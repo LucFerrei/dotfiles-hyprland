@@ -89,7 +89,7 @@ session="personal/dotfiles-hyprland"
 # get_attribute "windows" $path
 get_attribute "commands" $path
 # echo "Window ${WINDOWS[$i]}" 
-echo "Elementos ${COMMANDS[@]}"
+echo "Elementos ${COMMANDS[*]}"
 
 if [ ${#COMMANDS[@]} -eq 0 ]; then
     echo "O array está vazio."
