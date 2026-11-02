@@ -91,26 +91,20 @@
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-    autosuggestions.enable = true;
+    autosuggestions.enable = false;
     syntaxHighlighting.enable = true;
 
-    ohMyZsh = {
-      enable = true;
-      plugins = [ "git" ];
-      # theme = "amuse";
-    };
+    # ohMyZsh = {
+    #   enable = true;
+    #   plugins = [ "git" ];
+    #   theme = "robbyrussel";
+    # };
 
-    shellAliases = {
-      tms = "tmux-sessionizer";
-    };
-
-  };
-
-  programs.starship = {
-    enable = true;
-    # enableZshIntregation = true;
-    # presets = [ "nerd-font-symbols" ];
-    presets = [ "no-empty-icons" ];
+    promptInit = ''
+      fpath+=("${pkgs.pure-prompt}/share/zsh/site-functions")
+      autoload -U promptinit; promptinit
+      prompt pure
+    '';
 
   };
 
@@ -145,7 +139,6 @@
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget,
   firefox
-  vivaldi
   chromium
 
   ghostty
@@ -155,11 +148,11 @@
   bluetui
   btop
   pavucontrol
-  kdePackages.dolphin
   zathura
   cliphist
   wl-clipboard
   hyprshot
+  autotiling-rs
   
   neovim
   vim-full
@@ -187,7 +180,6 @@
   wofi
   swaybg
   swaylock-effects
-  spotify
   xournalpp
   sqlite
   
@@ -196,8 +188,6 @@
   rust-analyzer
   rustfmt
   clippy
-  stylua
-  lua-language-server
   nil
   pyright
   tinymist

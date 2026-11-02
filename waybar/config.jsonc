@@ -1,12 +1,12 @@
 {
   // General config
-  "layer": "bottom",
+  "layer": "top",
   "position": "top",
   "mod": "dock",
   "exclusive": true,
   "passthrough": false,
   "gtk-layer-shell": true,
-  "height": 0,
+  "height": 34,
 
   // Module order
   "modules-left": [
@@ -31,8 +31,8 @@
     "disable-scroll": true,
     "all-outputs": true,
     "on-click": "activate",
-    "format": "{name}",
-    "persintent-workspaces": {
+    "format": "●",
+    "persistent-workspaces": {
       "1": [],
       "2": [],
       "3": [],
@@ -75,7 +75,7 @@
   },
 
   "tray": {
-    "icon-size": 13,
+    "icon-size": 14,
     "spacing": 10,
     "show-passive-items": true
   },
