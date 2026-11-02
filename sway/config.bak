@@ -176,6 +176,7 @@ exec wl-paste --type text --watch cliphist store
 exec wl-paste --type image --watch cliphist store
 
 exec dbus-update-activation-environment --all
+exec autotiling-rs
 
 exec_always export GTK_IM_MODULE=xim
 exec_always export XMODIFIERS=@im=none

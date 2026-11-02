@@ -10,7 +10,7 @@ include ~/.config/sway/effects
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg ~/personal/wallpapers/amazônia_igaratipo.png fill
+output * bg ~/personal/wallpapers/10-14-Day-6k.jpg fill
 
 #
 # Example configuration:
@@ -19,7 +19,7 @@ output * bg ~/personal/wallpapers/amazônia_igaratipo.png fill
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 # output VGA-1 scale 1
-output HDMI-A-1 resolution 1920x1080@60Hz
+output HDMI-A-1 resolution 1920x1080@100Hz
 
 ### Idle configuration
 #

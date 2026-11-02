@@ -18,7 +18,8 @@ bindsym $mod+Shift+$up move up
 bindsym $mod+Shift+$right move right
 
 # Your preferred terminal and launcher
-set $term GTK_IM_MODULE=simple ghostty
+# set $term GTK_IM_MODULE=simple ghostty
+set $term foot
 # set $menu dmenu_path | wmenu | dmenu | bemenu-run | wofi --show run
 set $menu wofi
 set $explorer nautilus
