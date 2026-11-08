@@ -106,6 +106,10 @@
       prompt pure
     '';
 
+    shellAliases = {
+      books = "cd $HOME/personal/books && yazi";
+    };
+
   };
 
   environment.variables.RUST_SRC_PATH = "${pkgs.rustPlatform.rustLibSrc}";

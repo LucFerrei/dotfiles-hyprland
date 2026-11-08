@@ -90,7 +90,7 @@ gaps inner 8
 default_border pixel 2
 hide_edge_borders smart
 
-titlebar_separator enable
+# titlebar_separator enable
 
 ### Window rules configuration
 #

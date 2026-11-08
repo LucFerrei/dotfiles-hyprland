@@ -1,5 +1,9 @@
 exec otd-daemon
 
+seat * xcursor_theme BreezeX-RosePine-Linux 24
+# gsettings set org.gnome.desktop.interface cursor-theme 'BreezeX-RosePine-Linux'
+# gsettings set org.gnome.desktop.interface cursor-size 24
+
 # exec swayidle -w \
 #      timeout 300 'hyprlock' \
 #      timeout 600 'swaymsg "output * power off"' \
