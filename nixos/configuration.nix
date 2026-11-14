@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs-unstable, ... }:
 
 {
   imports =
@@ -180,7 +180,7 @@
   nautilus
   libreoffice-fresh
   codex
-  opencode
+  pkgs-unstable.opencode
   
   waybar
   wofi
