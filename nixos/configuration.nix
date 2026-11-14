@@ -85,7 +85,7 @@
     enable = true;
     wrapperFeatures.gtk = true;
     package = pkgs.swayfx;
-    extraOptions = [ "--unsupported-gpu" ];
+    # extraOptions = [ "--unsupported-gpu" ];
   };
 
   programs.zsh = {
@@ -137,6 +137,8 @@
 
   security.polkit.enable = true;
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -156,7 +158,7 @@
   cliphist
   wl-clipboard
   hyprshot
-  autotiling-rs
+  bun
   
   neovim
   vim-full
@@ -204,6 +206,7 @@
   python3
   texliveFull
   nodejs
+  typescript
   typst
   vial
   ];
@@ -221,6 +224,11 @@
 
   environment.sessionVariables = {
     PATH = [ "/home/lucas/personal/dotfiles-hyprland/bin" ];
+    # Haswell (HD 4600) usa i965; o iHD (intel-media-driver) nao cobre Gen7.5
+    LIBVA_DRIVER_NAME = "i965";
+    MOZ_ENABLE_WAYLAND = "1";
+    # Teste 2 (page-flip): descomente para desativar o caminho atomic do DRM
+    # WLR_DRM_NO_ATOMIC = "1";
   };
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -248,6 +256,25 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  # --- Otimizacoes de recursos (CPU / RAM / IO) ---
+  # zram: swap comprimida na RAM (voce tem 11 GiB e a swap em disco nunca e usada)
+  zramSwap = {
+    enable = true;
+    memoryPercent = 50;
+    priority = 100;
+  };
+
+  boot.kernel.sysctl = {
+    "vm.swappiness" = 180;          # recomendado para zram
+    "vm.vfs_cache_pressure" = 50;   # preserva caches de inode/dentry
+  };
+
+  # Limita o log do systemd (journald estava consumindo ~98 MB)
+  services.journald.extraConfig = ''
+    SystemMaxUse=200M
+    SystemMaxFileSize=50M
+  '';
+
   system.stateVersion = "26.05"; # Did you read the comment?
 
 }

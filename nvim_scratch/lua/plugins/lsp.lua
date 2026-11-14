@@ -15,6 +15,9 @@ return {
       -- List the servers you want automatically installed
       -- ensure_installed = { "lua_ls", "pyright", "ts_ls", "html", },
       ensure_installed = {  },
+      -- ts_ls (Mason) needs tsserver.js, which TypeScript 7 no longer ships.
+      -- Use nvim-lspconfig's native `tsc` server instead (see tsc LSP below).
+      automatic_enable = { exclude = { "ts_ls" } },
     },
   },
 
@@ -42,7 +45,7 @@ return {
         },
       })
 
-	vim.lsp.enable({ 'lua_ls', 'clangd', 'rust_analyzer', 'sqls' })
+	vim.lsp.enable({ 'lua_ls', 'clangd', 'rust_analyzer', 'sqls', 'tsc' })
     end,
   },
 
