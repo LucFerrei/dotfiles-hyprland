@@ -1,4 +1,5 @@
 exec otd-daemon
+exec quickshell -n
 
 # exec swayidle -w \
 #      timeout 300 'hyprlock' \

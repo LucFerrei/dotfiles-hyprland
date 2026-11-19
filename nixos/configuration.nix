@@ -1,8 +1,4 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs-unstable, ... }:
 
 {
   imports =
@@ -23,6 +19,11 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  systemd.services.NetworkManager-wait-online.enable = false;
+
+  # Enable AppImage support and register it as a binary type
+  programs.appimage.enable = true;
+  programs.appimage.binfmt = true;
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true; # Powers on the adapter at boot
@@ -34,15 +35,12 @@
     settings = {
       # Governor choices: powersave, powersave/powersave, conservative, schedutil, etc.
       CPU_SCALING_GOVERNOR_ON_AC = "performance";
-      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+      # CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+      CPU_SCALING_GOVERNOR_ON_BAT = "performance";
 
       # Energy performance preference (EPP) for Intel / modern AMD
       CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
-      CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-
-      # Optional: CPU frequency caps on battery
-      # CPU_MIN_PERF_ON_BAT = 0;
-      # CPU_MAX_PERF_ON_BAT = 50; # Limit max clock speed to 50% on battery
+      CPU_ENERGY_PERF_POLICY_ON_BAT = "performance";
     };
   };
 
@@ -66,6 +64,21 @@
 
   services.displayManager.ly.enable = true;
 
+  ## printing
+  services.printing = {
+    enable = true;
+    drivers = [ pkgs.epson-escpr ];
+  };
+
+  # 2. Habilitar o Avahi (necessário para detetar a impressora na rede/Wi-Fi)
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
+  services.xserver.enable = true; # Mantém o xserver base ativo
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
@@ -80,7 +93,6 @@
     enable = true;
     wrapperFeatures.gtk = true;
     package = pkgs.swayfx;
-    extraOptions = [ "--unsupported-gpu" ];
   };
 
   programs.zsh = {
@@ -95,6 +107,7 @@
       theme = "robbyrussell";
     };
 
+
     shellAliases = {
       tms = "tmux-sessionizer";
     };
@@ -106,7 +119,7 @@
   users.users."lucas" = {
     isNormalUser = true;
     description = "lucas";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "lp" "scanner" "docker" ]; ##remove lp and scanner
     packages = with pkgs; [];
     shell = pkgs.zsh;
   };
@@ -124,15 +137,21 @@
 };
 
   security.polkit.enable = true;
+  virtualisation.podman.enable = true;
+  virtualisation.docker.enable = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  # programs.nix-ld.enable = true;
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget,
   firefox
-  vivaldi
   chromium
+  distrobox
+  podman
+  docker
+  docker-compose
+  cloudflared
 
   ghostty
   tmux
@@ -140,7 +159,6 @@
   bluetui
   btop
   pavucontrol
-  kdePackages.dolphin
   zathura
   cliphist
   wl-clipboard
@@ -159,22 +177,26 @@
   zsh
   oh-my-zsh
   unzip
+  pnpm
   quickshell
   fd
+  jq
   ripgrep
   yazi
   nautilus
   libreoffice-fresh
   codex
-  opencode
+  pkgs-unstable.opencode
+  pkgs-unstable.claude-code
   
   waybar
   wofi
   swaybg
   swaylock-effects
-  spotify
   xournalpp
   sqlite
+  slack
+  brightnessctl
   
   cargo
   rustc
@@ -211,18 +233,8 @@
   ];
 
   environment.sessionVariables = {
-    PATH = [ "/home/lucas/personal/dotfiles-hyprland/bin" ];
+    PATH = [ "/home/lucas/personal/dotfiles-hyprland/bin" "/home/lucas/.cargo/bin" "/home/lucas/.local/bin" ];
   };
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
@@ -233,12 +245,18 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "26.05"; # Did you read the comment?
+  # --- Otimizacoes de recursos (CPU / RAM / IO) ---
+  # zram: swap comprimida na RAM (voce tem 11 GiB e a swap em disco nunca e usada)
+  zramSwap = {
+    enable = true;
+    memoryPercent = 50;
+    priority = 100;
+  };
 
+  boot.kernel.sysctl = {
+    "vm.swappiness" = 180;          # recomendado para zram
+    "vm.vfs_cache_pressure" = 50;   # preserva caches de inode/dentry
+  };
+
+  system.stateVersion = "26.05"; # Did you read the comment?
 }

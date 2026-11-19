@@ -17,6 +17,11 @@ bindsym $mod+Shift+$down move down
 bindsym $mod+Shift+$up move up
 bindsym $mod+Shift+$right move right
 
+# Manda o workspace ATUAL para a tela escolhida (funciona de qualquer tela)
+# 1 = notebook (eDP-1), 2 = monitor HDMI
+bindsym $mod+Ctrl+1 move workspace to output eDP-1
+bindsym $mod+Ctrl+2 move workspace to output HDMI-A-2
+
 # Your preferred terminal and launcher
 set $term GTK_IM_MODULE=simple ghostty
 # set $menu dmenu_path | wmenu | dmenu | bemenu-run | wofi --show run
@@ -50,6 +55,7 @@ bindsym $mod+Shift+1 move container to workspace number 1
 bindsym $mod+Shift+2 move container to workspace number 2
 bindsym $mod+Shift+3 move container to workspace number 3
 bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
 # ... (up to 10)
 bindsym $mod+Shift+c reload
 

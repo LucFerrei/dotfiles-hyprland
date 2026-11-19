@@ -23,7 +23,8 @@
     "battery",
     "cpu",
     "memory",
-    "temperature"
+    "temperature",
+    "custom/logout"
   ],
 
   // Module config
@@ -145,4 +146,11 @@
     "tooltip": false,
     "min-length": 2
   },
+
+  "custom/logout": {
+    "format": "󰗽",
+    "on-click": "swaymsg exit",
+    "tooltip": false,
+    "min-length": 2
+  }
 }
