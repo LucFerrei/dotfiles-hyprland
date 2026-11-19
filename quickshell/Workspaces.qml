@@ -27,6 +27,9 @@ Rectangle {
         function onMonitorsChanged() {
             root.rebuild();
         }
+        function onWorkspaceLayoutChanged() {
+            root.rebuild();
+        }
     }
 
     function rebuild() {
@@ -56,6 +59,7 @@ Rectangle {
                 result.push({
                     id: id,
                     name: String(id),
+                    active: false,
                     focused: false,
                     urgent: false,
                     activate: function() {
@@ -86,6 +90,12 @@ Rectangle {
 
                 required property var modelData
 
+                // `active` = workspace ativo no monitor DESTA barra (existe um
+                // por monitor). `focused` é único na sessão inteira; usá-lo
+                // sozinho deixaria a barra do monitor não focado sem destaque.
+                readonly property bool isActive: button.modelData.active === true
+                readonly property bool isFocused: button.modelData.focused === true
+
                 width: Math.max(26, label.implicitWidth + 14)
                 height: 24
                 radius: 8
@@ -94,11 +104,11 @@ Rectangle {
                     orientation: Gradient.Horizontal
                     GradientStop {
                         position: 0.0
-                        color: button.modelData.focused ? theme.pink : "transparent"
+                        color: button.isFocused ? theme.pink : (button.isActive ? Qt.rgba(theme.pink.r, theme.pink.g, theme.pink.b, 0.45) : "transparent")
                     }
                     GradientStop {
                         position: 1.0
-                        color: button.modelData.focused ? theme.mauve : "transparent"
+                        color: button.isFocused ? theme.mauve : (button.isActive ? Qt.rgba(theme.mauve.r, theme.mauve.g, theme.mauve.b, 0.45) : "transparent")
                     }
                 }
 
@@ -106,7 +116,7 @@ Rectangle {
                     id: label
                     anchors.centerIn: parent
                     text: button.modelData.name
-                    color: button.modelData.focused ? theme.crust : (button.modelData.urgent ? theme.red : theme.text)
+                    color: button.isFocused ? theme.crust : (button.modelData.urgent ? theme.red : theme.text)
                     font.family: theme.fontFamily
                     font.pixelSize: theme.fontSize
                     font.bold: true
